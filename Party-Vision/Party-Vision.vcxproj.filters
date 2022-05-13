@@ -89,5 +89,8 @@
     <ClInclude Include="VisionPipeline.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IVisionHandler.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

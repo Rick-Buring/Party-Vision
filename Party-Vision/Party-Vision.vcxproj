@@ -170,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="IVisionHandler.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
     <ClInclude Include="tigl.h" />
