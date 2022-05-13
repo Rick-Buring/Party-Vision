@@ -13,6 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{66c0f156-1257-4ada-861b-5305b9825c9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Header Files">
+      <UniqueIdentifier>{597750de-02e7-4a87-b2d9-48317b1458f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\SourceFiles">
+      <UniqueIdentifier>{d9791cc0-8941-4b6b-82c2-8310e5061952}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Minigames">
+      <UniqueIdentifier>{f75dd7ee-15f4-46ad-b4d7-5924d72f9f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Minigames\Header Files">
+      <UniqueIdentifier>{958ee0de-8708-4abd-af59-57874ffeb018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Minigames\Source Files">
+      <UniqueIdentifier>{b9ab3e70-3b9c-4d6b-8c55-72b0f33cfeaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vision">
+      <UniqueIdentifier>{ced7b6fe-cbe1-46f2-9664-a6475b4f0cd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vision\Header Files">
+      <UniqueIdentifier>{4b4e5c13-e2bb-4150-a517-764c271d05d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vision\Source Files">
+      <UniqueIdentifier>{b4893469-e9ad-4455-8861-8d2dfda7f506}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,10 +48,46 @@
     <ClCompile Include="tigl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Scene\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Scene\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Minigames\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionPipelineBuilder.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VisionPipeline.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractComponent.hpp">
+      <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.hpp">
+      <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractSceneManager.hpp">
+      <Filter>Minigames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionPipelineBuilder.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VisionPipeline.hpp">
+      <Filter>Vision\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
