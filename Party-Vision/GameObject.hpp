@@ -4,11 +4,15 @@
 
 namespace Scene {
 	class AbstractComponent;
+
 	class GameObject
 	{
 	public:
+		void addComponent(AbstractComponent* component);
+		std::list<AbstractComponent*> getComponents();
+		void update(float elapsedTime);
 
 	private:
-		std::list<std::shared_ptr<AbstractComponent>> components;
+		std::list<AbstractComponent*> components;
 	};
 }

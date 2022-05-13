@@ -1,8 +1,8 @@
 #pragma once
-#include <vector>
-#include "GameObject.hpp"
+#include <list>
 
 namespace Scene {
+	class GameObject;
 	class Scene
 	{
 	public:
@@ -10,7 +10,7 @@ namespace Scene {
 		~Scene();
 
 	private:
-		std::vector<GameObject> _gameObjects;
+		std::list<GameObject*> _gameObjects;
 
 
 	};

@@ -51,9 +51,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Scene\SourceFiles</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Scene\SourceFiles</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Scene\SourceFiles</Filter>
     </ClCompile>
