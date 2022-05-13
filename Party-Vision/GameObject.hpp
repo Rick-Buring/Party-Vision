@@ -7,12 +7,15 @@ namespace Scene {
 
 	class GameObject
 	{
+		~GameObject();
+
+		std::list<std::shared_ptr<AbstractComponent>> components;
+		
+
 	public:
-		void addComponent(AbstractComponent* component);
-		std::list<AbstractComponent*> getComponents();
+		void addComponent(std::shared_ptr<AbstractComponent> component);
+		std::list<std::shared_ptr<AbstractComponent>> getComponents();
 		void update(float elapsedTime);
 
-	private:
-		std::list<AbstractComponent*> components;
 	};
 }

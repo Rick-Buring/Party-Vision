@@ -1,13 +1,18 @@
 #include "GameObject.hpp"
+#include "AbstractComponent.hpp"
 
 namespace Scene {
-	void GameObject::addComponent(AbstractComponent* component)
+	GameObject::~GameObject()
+	{
+		components.clear();
+	}
+	void GameObject::addComponent(std::shared_ptr<AbstractComponent> component)
 	{
 		component->setGameObject(this);
 		components.push_back(component);
 	}
 
-	std::list<AbstractComponent*> GameObject::getComponents()
+	std::list<std::shared_ptr<AbstractComponent>> GameObject::getComponents()
 	{
 		return components;
 	}
