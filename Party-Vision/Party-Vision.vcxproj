@@ -158,11 +158,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="tigl.cpp" />
+    <ClCompile Include="VisionPipeline.cpp" />
+    <ClCompile Include="VisionPipelineBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractComponent.hpp" />
+    <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="Scene.hpp" />
+    <ClInclude Include="AbstractSceneManager.hpp" />
     <ClInclude Include="tigl.h" />
+    <ClInclude Include="VisionPipeline.hpp" />
+    <ClInclude Include="VisionPipelineBuilder.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

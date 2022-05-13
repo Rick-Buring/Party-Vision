@@ -3,6 +3,7 @@
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
 
+
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
