@@ -1,15 +1,17 @@
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
-#include "IVisionHandler.hpp"
 
 namespace Vision {
+
+	__interface IVisionHandler;
 	class VisionPipeline
 	{
 	public:
 		VisionPipeline();
 		~VisionPipeline();
+
 		void ProcessImage(char imageArray[]);
-		VisionPipeline addHandler(IVisionHandler& handler);
+		VisionPipeline& addHandler(IVisionHandler& handler);
 	private:
 		
 	};
