@@ -16,7 +16,7 @@ namespace Scene {
 
 
 	private:
-		GameObject* _gameObject;
+		GameObject* _gameObject = nullptr;
 		
 	};
 
