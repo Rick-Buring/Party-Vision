@@ -57,5 +57,5 @@ namespace Vision {
 		waitKey(1);
 	}
 
-	
+
 }
