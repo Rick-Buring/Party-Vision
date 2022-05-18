@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -161,6 +161,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="tigl.cpp" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
     <ClInclude Include="tigl.h" />
