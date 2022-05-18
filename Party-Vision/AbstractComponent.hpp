@@ -6,8 +6,11 @@ namespace Scene {
 	class AbstractComponent
 	{
 	public:
+
+		virtual void update(float elapsedTime) {};
+
 		inline void setGameObject(GameObject* gameObject) { this->_gameObject = gameObject; }
-		void update(float elapsedTime);
+
 
 	private:
 		GameObject* _gameObject;
