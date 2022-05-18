@@ -66,6 +66,9 @@
     <ClCompile Include="VisionPipeline.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Minigames\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="VisionPipeline.hpp">
       <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Minigames\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

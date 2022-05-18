@@ -18,10 +18,28 @@ namespace Minigames {
 
 struct menuItem {
 	std::string text;
+	std::string imageFileName;
 	void (*functionPointer)(void*);
+	
 };
 
 struct menu {
 	std::string title;
+	std::string backgroundFileName;
 	std::vector<MenuItem_t> MenuItem_t;
 };
+
+/// <summary>
+/// Executes the function pointer related to the clicked button.
+/// </summary>
+void menuOnClick();
+
+/// <summary>
+/// TODO
+/// </summary>
+void menuInit();
+
+/// <summary>
+/// draws game game object of the main menu
+/// </summary>
+void menuDraw();
