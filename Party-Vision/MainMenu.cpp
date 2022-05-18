@@ -1,17 +1,20 @@
 #include "MainMenu.hpp" 
+
 namespace Minigames {
 	
-	void menuOnClick() {
-
+	void MainMenu::menuOnClick() {
+		
 	}
 
 	
-	void menuInit() {
-
+	void MainMenu::menuInit() {
+		
 	}
 
 	
-	void menuDraw() {
+	void MainMenu::menuUpdate() {
+		AbstractSceneManager::currentScene->draw();
+		AbstractSceneManager::currentScene->update();
 
 	}
 
