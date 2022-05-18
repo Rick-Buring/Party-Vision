@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 #include "FrameCapture.hpp"
 
 
@@ -19,16 +20,12 @@ void draw();
 
 int main(void)
 {
-
-    Vision::FrameCapture cc;
-
-    cc.printje();
-    cc.printje();
-    cc.printje();
-
+    //creates frameCaptur object to call the methode to retrieve the frames
+    Vision::FrameCapture frameCapture;
+    
     if (!glfwInit())
         throw "Could not initialize glwf";
-    window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -42,6 +39,7 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
+        frameCapture.frameStartUp();
         update();
         draw();
         glfwSwapBuffers(window);

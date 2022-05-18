@@ -1,5 +1,11 @@
 #pragma once
 #include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace std;
+using namespace cv;
+using namespace cv::ml;
+
 namespace Vision {
 
 	class FrameCapture
@@ -7,10 +13,10 @@ namespace Vision {
 	public:
 		FrameCapture();
 		~FrameCapture();
-
-		void printje();
+		
+		//this methode whill be used for in the while-loop
+		void frameStartUp();
 
 	private:
-
 	};
 }
