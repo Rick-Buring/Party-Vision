@@ -57,5 +57,43 @@ namespace Vision {
 		waitKey(1);
 	}
 
+	void collectSamples(Mat thresholdImage, Mat& cameraFeed)
+	{	
+		bool objectDetected = false;
+		Mat temp;
+		thresholdImage.copyTo(temp);
+		vector<vector<Point>> contours;
+		vector<Vec4i> hierarchy;
 
+		findContours(temp, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_TC89_KCOS);
+
+		vector<Moments> contour_moments(contours.size());
+		vector<Point> mass_centers(contours.size());
+
+		//gets centroids of contours
+		for (int i = 0; i < contours.size(); i++) {
+			contour_moments[i] = moments(contours[i], false);
+			mass_centers[i] = Point(contour_moments[i].m10 / contour_moments[i].m00, contour_moments[i].m01 / contour_moments[i].m00);
+		}
+
+		if (contours.size() > 0) { 
+			objectDetected = true; 
+		}else {
+			objectDetected = false; 
+		}
+
+		//Only finds averages of centroids if contours exists
+		if (objectDetected) {
+			double xpos = 0;
+			double ypos = 0;
+			for (int i = 0; i < contours.size(); i++)
+			{
+				xpos += mass_centers[i].x;
+				ypos += mass_centers[i].y;
+			}
+		}
+
+		//draws a red line 
+		drawContours(cameraFeed, contours, -1, Scalar(0, 0, 255), 1);
+	}
 }
