@@ -66,6 +66,9 @@
     <ClCompile Include="VisionPipeline.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FrameCapture.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -87,6 +90,9 @@
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VisionPipeline.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameCapture.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

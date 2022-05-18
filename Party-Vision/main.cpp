@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "FrameCapture.hpp"
 
 
 using tigl::Vertex;
@@ -18,6 +19,13 @@ void draw();
 
 int main(void)
 {
+
+    Vision::FrameCapture cc;
+
+    cc.printje();
+    cc.printje();
+    cc.printje();
+
     if (!glfwInit())
         throw "Could not initialize glwf";
     window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
