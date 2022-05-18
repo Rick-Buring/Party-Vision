@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoaderComponent.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="AbstractComponent.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="ModelLoaderComponent.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />

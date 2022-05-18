@@ -72,6 +72,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
+    <ClCompile Include="ModelLoaderComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -102,6 +105,9 @@
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="PlaneComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoaderComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
