@@ -11,8 +11,6 @@ namespace Scene {
 
 	private:
 		std::list<GameObject*> _gameObjects;
-
-
 	};
 
 }
