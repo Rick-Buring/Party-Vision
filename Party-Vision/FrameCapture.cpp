@@ -2,6 +2,8 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+#define DEBUGGING true
+
 using namespace std;
 using namespace cv;
 using namespace cv::ml;
@@ -20,8 +22,8 @@ namespace Vision {
 	Mat frame1, frame2;
 	Mat grayFrame1, grayFrame2;
 	Mat difference, treshholdImage;
-	
-	//this methode will reteive the newest en previous frame adn compare it with each other.
+
+	//this methode will retreive the newest and previous frame and compare it with each other.
 	void FrameCapture::frameStartUp() {
 		capture.read(frame1);
 
@@ -41,24 +43,26 @@ namespace Vision {
 		cv::threshold(difference, treshholdImage, 40, 255, THRESH_BINARY);
 
 		//Can be useful for debugging
-		//imshow("Detected", frame1);
-		//imshow("Difference image", difference);
-		//imshow("Threshold Image", treshholdImage);
+		if (DEBUGGING) {
+			imshow("Detected", frame1);
+			imshow("Difference image", difference);
+			imshow("Threshold Image", treshholdImage);
+		}
 
 		cv::blur(treshholdImage, treshholdImage, cv::Size(10, 10));
 		cv::threshold(difference, treshholdImage, 50, 255, THRESH_BINARY);
 
 		//Can be useful for debugging
-		//imshow("Finished Threshold image", treshholdImage);
-		
+		if (DEBUGGING) imshow("Finished Threshold image", treshholdImage);
+
 		collectSamples(treshholdImage, frame1);
 		imshow("TestDetection", frame1);
 
 		waitKey(1);
 	}
 
-	void collectSamples(Mat thresholdImage, Mat& cameraFeed)
-	{	
+	void collectSamples(Mat thresholdImage, Mat &cameraFeed)
+	{
 		bool objectDetected = false;
 		Mat temp;
 		thresholdImage.copyTo(temp);
@@ -76,10 +80,11 @@ namespace Vision {
 			mass_centers[i] = Point(contour_moments[i].m10 / contour_moments[i].m00, contour_moments[i].m01 / contour_moments[i].m00);
 		}
 
-		if (contours.size() > 0) { 
-			objectDetected = true; 
-		}else {
-			objectDetected = false; 
+		if (contours.size() > 0) {
+			objectDetected = true;
+		}
+		else {
+			objectDetected = false;
 		}
 
 		//Only finds averages of centroids if contours exists
