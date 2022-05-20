@@ -158,12 +158,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DrawObjectComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoaderComponent.cpp" />
+    <ClCompile Include="ObjectLoader.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="VisionPipeline.cpp" />
     <ClCompile Include="VisionPipelineBuilder.cpp" />
@@ -171,11 +175,16 @@
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
+    <ClInclude Include="DrawObjectComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="ModelLoaderComponent.hpp" />
+    <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.hpp" />
     <ClInclude Include="tigl.h" />
     <ClInclude Include="TransformComponent.hpp" />
     <ClInclude Include="VisionPipeline.hpp" />
