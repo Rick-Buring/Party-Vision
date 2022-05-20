@@ -76,10 +76,9 @@ namespace Vision {
 		if (objectDetected) {
 			double xpos = 0;
 			double ypos = 0;
-			for (int i = 0; i < contours.size(); i++)
-			{
-				xpos += mass_centers[i].x;
-				ypos += mass_centers[i].y;
+			for (auto mass_center : mass_centers) {
+				xpos += mass_center.x;
+				ypos += mass_center.y;
 			}
 		}
 
