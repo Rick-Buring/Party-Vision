@@ -1,6 +1,7 @@
 #include "FrameCapture.hpp"
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "Math.h"
 
 #define DEBUGGING true
 #define THRESHOLD_VALUE 50
@@ -39,8 +40,13 @@ namespace Vision {
 		imshow("Threshold Image", thresholdImage);
 #endif
 
+		Mat kernel = getStructuringElement(MORPH_DILATE, Size(10, 10));
+
 		cv::blur(thresholdImage, thresholdImage, cv::Size(10, 10));
 		cv::threshold(thresholdImage, thresholdImage, THRESHOLD_VALUE, 255, THRESH_BINARY);
+
+		cv::dilate(thresholdImage, thresholdImage, kernel);
+		cv::erode(thresholdImage, thresholdImage, kernel);
 
 		//Can be useful for debugging
 #if DEBUGGING 
@@ -59,6 +65,9 @@ namespace Vision {
 		vector<Moments> contour_moments(contours.size());
 		vector<Point> mass_centers(contours.size());
 
+		double largest_area = 0;
+		int largest_contour_index = 0;
+
 		//gets centroids of contours
 		for (int i = 0; i < contours.size(); i++) {
 			contour_moments[i] = moments(contours[i], false);
@@ -72,6 +81,8 @@ namespace Vision {
 			objectDetected = false;
 		}
 
+		vector<Rect> rectangles;
+
 		//Only finds averages of centroids if contours exists
 		if (objectDetected) {
 			double xpos = 0;
@@ -79,13 +90,44 @@ namespace Vision {
 			for (auto mass_center : mass_centers) {
 				xpos += mass_center.x;
 				ypos += mass_center.y;
+				if (rectangles.empty()) { 
+					rectangles.push_back(Rect(mass_center.x - 25, mass_center.y - 25, 50, 50)); 
+					continue;
+				}
+				bool isRecognized = false;
+
+				for (auto r : rectangles) {
+					//TODO Rectengles moeten bij elkaar toegevoegd worden. Als ze elkaar overlappen. Momenteel gebeurt dit alleen als het midden in het vierkant valt.
+					if (r.contains(Point2i(mass_center.x , mass_center.y))) {
+						int dX = r.x + mass_center.x;
+						int dY = r.y + mass_center.y;
+
+						int difference = (dY * dY) + (dX * dX);
+						difference = sqrt(difference);
+
+						r.height += difference;
+						r.width += difference;
+
+						r.x = dX / 2 - difference / 2;
+						r.y = dY / 2 - difference / 2;
+
+						isRecognized = true;
+					}
+				}
+
+				if (!isRecognized) rectangles.push_back(Rect(mass_center.x - 15, mass_center.y - 15, 30, 30));
+			}
+
+			for (auto r : rectangles) {
+				cv::rectangle(cameraFeed, r, Scalar(0, 255, 0));
 			}
 		}
 
 		//draws a red line 
-		drawContours(cameraFeed, contours, -1, Scalar(0, 0, 255), 1);
+		drawContours(cameraFeed, contours, -1, Scalar(0, 0, 255), 2, 1, hierarchy);
 
 #if DEBUGGING 
+		flip(cameraFeed, cameraFeed, 1);
 		imshow("Finished frame", cameraFeed);
 #endif
 	}

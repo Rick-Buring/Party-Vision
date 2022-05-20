@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClCompile Include="FrameCapture.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HandDetection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="FrameCapture.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="HandDetection.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="IVisionHandler.hpp" />
     <ClInclude Include="Scene.hpp" />

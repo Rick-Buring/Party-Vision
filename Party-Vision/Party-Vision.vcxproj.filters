@@ -75,6 +75,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
+    <ClCompile Include="HandDetection.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -111,6 +114,9 @@
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FrameCapture.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HandDetection.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
