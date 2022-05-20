@@ -2,6 +2,6 @@
 namespace Vision {
 	 __interface IVisionHandler {
 
-		void process(char imageArray[]);
+		virtual void process(char imageArray[]);
 	};
 }

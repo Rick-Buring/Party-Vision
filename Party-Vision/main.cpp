@@ -19,13 +19,15 @@ GLFWwindow* window;
 #include "PlaneComponent.hpp"
 #include <memory>
 
+struct test {
+    void(*test)(Mat& first, Mat &second);
+};
+std::vector<test> t;
+
 void init();
 
 int main(void)
-{
-    //creates frameCaptur object to call the methode to retrieve the frames
-    Vision::FrameCapture frameCapture;
-    
+{   
     if (!glfwInit())
         throw "Could not initialize glwf";
     window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
@@ -50,13 +52,28 @@ int main(void)
     scene->addGameObject(object);
     scene->setRunning(true);
 
+    Mat frame, thresholdImage;
+    test t3 = {
+       Vision::detectGrayMotion
+    };
+    test t2 = {
+    Vision::collectSamples
+    };
+    t.push_back(t3);
+    t.push_back(t2);
+
     while (!glfwWindowShouldClose(window))
     {
-        frameCapture.frameStartUp();
+        for (auto p : t) {
+            p.test(thresholdImage, frame);
+        }
+
         scene->update();
         scene->draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        waitKey(1);
     }
 
     glfwTerminate();

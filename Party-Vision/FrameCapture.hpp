@@ -7,16 +7,6 @@ using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-
-	class FrameCapture
-	{
-	public:
-		FrameCapture();
-		~FrameCapture();
-		
-		//this methode will be used for in the while-loop
-		void frameStartUp();
-
-	private:
-	};
+	void detectGrayMotion(Mat& thresholdImage, Mat& frame);
+	void collectSamples(Mat& thresholdImage, Mat& cameraFeed);
 }

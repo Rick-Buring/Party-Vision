@@ -3,73 +3,58 @@
 #include <opencv2/opencv.hpp>
 
 #define DEBUGGING true
+#define THRESHOLD_VALUE 50
 
 using namespace std;
 using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-	void collectSamples(Mat thresholdImage, Mat& cameraFeed);
-
-	FrameCapture::FrameCapture()
-	{
-	}
-	FrameCapture::~FrameCapture()
-	{
-	}
-
 	VideoCapture capture(0);
-	Mat frame1, frame2;
-	Mat grayFrame1, grayFrame2;
-	Mat difference, treshholdImage;
 
 	//this methode will retreive the newest and previous frame and compare it with each other.
-	void FrameCapture::frameStartUp() {
-		capture.read(frame1);
+	void detectGrayMotion(Mat& thresholdImage, Mat& frame) {
+		Mat grayFrame1, grayFrame2, difference;
+		capture.read(frame);
 
 		//Convert frame1 to grayFrame1
-		cv::cvtColor(frame1, grayFrame1, COLOR_BGR2GRAY);
+		cv::cvtColor(frame, grayFrame1, COLOR_BGR2GRAY);
 
 		//capture second frame
-		capture.read(frame2);
+		capture.read(frame);
 
 		//Convert frame2 to grayFrame2
-		cv::cvtColor(frame2, grayFrame2, COLOR_BGR2GRAY);
+		cv::cvtColor(frame, grayFrame2, COLOR_BGR2GRAY);
 
 		//Get differency between grayFrame1 and grayFrame2
 		cv::absdiff(grayFrame1, grayFrame2, difference);
 
 		//sets the threshold values and puts the result in the thresholdImage matrix
-		cv::threshold(difference, treshholdImage, 40, 255, THRESH_BINARY);
+		cv::threshold(difference, thresholdImage, THRESHOLD_VALUE, 255, THRESH_BINARY);
 
 		//Can be useful for debugging
-		if (DEBUGGING) {
-			imshow("Detected", frame1);
-			imshow("Difference image", difference);
-			imshow("Threshold Image", treshholdImage);
-		}
+#if DEBUGGING
+		imshow("Detected", frame);
+		imshow("Difference image", difference);
+		imshow("Threshold Image", thresholdImage);
+#endif
 
-		cv::blur(treshholdImage, treshholdImage, cv::Size(10, 10));
-		cv::threshold(difference, treshholdImage, 50, 255, THRESH_BINARY);
+		cv::blur(thresholdImage, thresholdImage, cv::Size(10, 10));
+		cv::threshold(thresholdImage, thresholdImage, THRESHOLD_VALUE, 255, THRESH_BINARY);
 
 		//Can be useful for debugging
-		if (DEBUGGING) imshow("Finished Threshold image", treshholdImage);
-
-		collectSamples(treshholdImage, frame1);
-		imshow("TestDetection", frame1);
-
-		waitKey(1);
+#if DEBUGGING 
+		imshow("Finished Threshold image", thresholdImage);
+#endif
 	}
 
-	void collectSamples(Mat thresholdImage, Mat &cameraFeed)
+	void collectSamples(Mat& thresholdImage, Mat& cameraFeed)
 	{
 		bool objectDetected = false;
-		Mat temp;
-		thresholdImage.copyTo(temp);
 		vector<vector<Point>> contours;
 		vector<Vec4i> hierarchy;
 
-		findContours(temp, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_TC89_KCOS);
+		findContours(thresholdImage, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_TC89_KCOS);
 
 		vector<Moments> contour_moments(contours.size());
 		vector<Point> mass_centers(contours.size());
@@ -100,5 +85,9 @@ namespace Vision {
 
 		//draws a red line 
 		drawContours(cameraFeed, contours, -1, Scalar(0, 0, 255), 1);
+
+#if DEBUGGING 
+		imshow("Finished frame", cameraFeed);
+#endif
 	}
 }
