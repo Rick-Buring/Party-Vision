@@ -40,6 +40,12 @@
     <Filter Include="Vision\Source Files">
       <UniqueIdentifier>{b4893469-e9ad-4455-8861-8d2dfda7f506}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\SourceFiles\Component">
+      <UniqueIdentifier>{5cfc1cc0-4aaf-4a73-a4df-884064028ec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Header Files\Component">
+      <UniqueIdentifier>{b7030a14-f748-4651-951b-649c8554e241}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,12 +57,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Scene\SourceFiles</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Scene\SourceFiles</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Scene\SourceFiles</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Minigames\Source Files</Filter>
     </ClCompile>
@@ -66,13 +66,16 @@
     <ClCompile Include="VisionPipeline.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PlaneComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AbstractComponent.hpp">
-      <Filter>Scene\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.hpp">
       <Filter>Scene\Header Files</Filter>
@@ -88,6 +91,18 @@
     </ClInclude>
     <ClInclude Include="VisionPipeline.hpp">
       <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractDrawcomponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="IVisionHandler.hpp">
       <Filter>Vision\Header Files</Filter>

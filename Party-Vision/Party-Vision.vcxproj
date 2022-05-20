@@ -158,9 +158,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="tigl.cpp" />
@@ -169,11 +169,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
+    <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="IVisionHandler.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
     <ClInclude Include="tigl.h" />
+    <ClInclude Include="TransformComponent.hpp" />
     <ClInclude Include="VisionPipeline.hpp" />
     <ClInclude Include="VisionPipelineBuilder.hpp" />
   </ItemGroup>
