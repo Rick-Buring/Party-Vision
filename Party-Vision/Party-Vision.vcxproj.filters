@@ -75,9 +75,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
