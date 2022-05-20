@@ -4,8 +4,10 @@
 #include "TransformComponent.hpp"
 namespace Minigames {
 
-	float screenWidth = 1920;
-	float screenHeight = 1080;
+	float backgroundWidth = 1920;
+	float backgroundHeight = 1080;
+	float backgroundx = 1920;
+	float backgroundy = 1080;
 
 	void MainMenu::menuOnClick() {
 		MainMenu::functionPointerCurrentMenuItem;
@@ -14,9 +16,13 @@ namespace Minigames {
 	
 	void MainMenu::menuInit() {
 		Scene::GameObject background;
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(screenWidth, screenHeight);
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight);
 		backgroundPlane->setGameObject(&background);
 		background.addComponent(backgroundPlane);
+
+		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 0));
+		backgroundTransform->setGameObject(&background);
+		background.addComponent(backgroundTransform);
 
 		for (MenuItem_t menuItem : MainMenu::currentMenu.menuItems) {
 			Scene::GameObject button;
