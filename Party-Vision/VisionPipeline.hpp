@@ -18,8 +18,8 @@ namespace Vision {
 
 	typedef union
 	{
-		char imageArray[];
 		glm::vec3 position;
+		char *imageArray; //Pointer is to be used as an array
 	}ImageInfo;
 
 	
