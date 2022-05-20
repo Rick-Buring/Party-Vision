@@ -18,6 +18,7 @@ GLFWwindow* window;
 #include "PlaneComponent.hpp"
 #include <memory>
 #include "ObjectLoader.hpp"
+#include "GravityComponent.hpp"
 
 void init();
 
@@ -41,8 +42,8 @@ int main(void)
 
     object = std::make_shared<Scene::GameObject>();
     std::vector<Scene::VBO_Textures_t> t = Scene::loadObject("models/car/honda_jazz.obj");
-    std::shared_ptr<Scene::AbstractComponent> ptr = std::make_shared<Scene::DrawObjectComponent>(t);
-    object->addComponent(ptr);
+    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(t));
+    object->addComponent(std::make_shared<Scene::GravityComponent>());
     std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
     object->addComponent(transform);
     

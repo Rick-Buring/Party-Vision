@@ -2,7 +2,7 @@
 #include "AbstractComponent.hpp"
 
 namespace Scene {
-	class GravityComponent : AbstractComponent
+	class GravityComponent : public AbstractComponent
 	{
 	public:
 		inline GravityComponent(float gravity = 9.8f) :_gravity(gravity) {}
