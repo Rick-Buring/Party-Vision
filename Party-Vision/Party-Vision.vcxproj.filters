@@ -66,11 +66,17 @@
     <ClCompile Include="VisionPipeline.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FrameCapture.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +111,9 @@
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="IVisionHandler.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameCapture.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

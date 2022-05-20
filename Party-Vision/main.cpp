@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+#include "FrameCapture.hpp"
 #include "Scene.hpp"
 
 using tigl::Vertex;
@@ -21,9 +23,12 @@ void init();
 
 int main(void)
 {
+    //creates frameCaptur object to call the methode to retrieve the frames
+    Vision::FrameCapture frameCapture;
+    
     if (!glfwInit())
         throw "Could not initialize glwf";
-    window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -47,6 +52,7 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
+        frameCapture.frameStartUp();
         scene->update();
         scene->draw();
         glfwSwapBuffers(window);
