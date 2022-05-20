@@ -9,6 +9,7 @@ namespace Minigames {
 	{
 	public:
 		Menu_t currentMenu;
+		void (*functionPointerCurrentMenuItem)(void*);
 		/// <summary>
 		/// Executes the function pointer related to the clicked button.
 		/// </summary>
