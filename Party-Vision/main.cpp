@@ -25,7 +25,7 @@ GLFWwindow* window;
 struct test {
     void(*test)(Mat& first, Mat &second);
 };
-std::vector<test> t;
+std::vector<test> frameF;
 
 void init();
 
@@ -66,12 +66,12 @@ int main(void)
     test t2 = {
     Vision::collectSamples
     };
-    t.push_back(t3);
-    t.push_back(t2);
+    frameF.push_back(t3);
+    frameF.push_back(t2);
 
     while (!glfwWindowShouldClose(window))
     {
-        for (auto p : t) {
+        for (auto p : frameF) {
             p.test(thresholdImage, frame);
         }
 
