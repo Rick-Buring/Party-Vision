@@ -49,4 +49,8 @@ namespace Scene {
 		tigl::shader->setModelMatrix(modelMatrix);
 		_drawComponent->draw();
 	}
+	GameObject* GameObject::getGameObject()
+	{
+		return this;
+	}
 }

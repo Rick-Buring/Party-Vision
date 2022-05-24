@@ -90,6 +90,9 @@
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
+    <ClCompile Include="replaceComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -138,6 +141,12 @@
       <Filter>Scene\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DrawObjectComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IOnDeath.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="replaceComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>

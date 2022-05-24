@@ -9,9 +9,14 @@
 #include "Texture.hpp"
 
 namespace Scene {
+	Scene::Scene()
+	{
+		Scene::_gameObjects = new std::list<std::shared_ptr<GameObject>>();
+	}
+
 	void Scene::addGameObject(std::shared_ptr<GameObject> gameObject)
 	{
-		Scene::_gameObjects.push_back(gameObject);
+		Scene::_gameObjects->push_back(gameObject);
 	}
 
 	void Scene::update()
@@ -22,7 +27,7 @@ namespace Scene {
 		double deltaTime = currentFrameTime - Scene::_lastFrameTime;
 		Scene::_lastFrameTime = currentFrameTime;
 
-		for (auto gameObject : Scene::_gameObjects) {
+		for (auto gameObject : (*Scene::_gameObjects)) {
 			gameObject->update((float) deltaTime);
 		}
 
@@ -48,7 +53,7 @@ namespace Scene {
 		tigl::shader->setModelMatrix(glm::mat4(1.0f));
 
 
-		for (auto gameObject : Scene::_gameObjects) {
+		for (auto gameObject : (*Scene::_gameObjects)) {
 			gameObject->draw();
 		}
 	}
@@ -59,6 +64,11 @@ namespace Scene {
 		if (status) {
 			Scene::_lastFrameTime = glfwGetTime();
 		}
+	}
+
+	std::list<std::shared_ptr<GameObject>>* Scene::getGameobjects()
+	{
+		return _gameObjects;
 	}
 
 }

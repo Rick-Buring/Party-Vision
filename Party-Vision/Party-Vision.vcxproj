@@ -165,6 +165,7 @@
     <ClCompile Include="ModelLoaderComponent.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
+    <ClCompile Include="replaceComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -179,9 +180,11 @@
     <ClInclude Include="DrawObjectComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GravityComponent.hpp" />
+    <ClInclude Include="IOnDeath.hpp" />
     <ClInclude Include="ModelLoaderComponent.hpp" />
     <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
+    <ClInclude Include="replaceComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
     <ClInclude Include="stb_image.h" />

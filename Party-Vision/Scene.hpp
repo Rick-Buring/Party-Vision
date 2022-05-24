@@ -7,6 +7,7 @@ namespace Scene {
 	class Scene
 	{
 	public:
+		Scene();
 		/// <summary>
 		/// adds a gameObject to the scene
 		/// </summary>
@@ -28,8 +29,11 @@ namespace Scene {
 		/// </summary>
 		/// <param name="status"></param>
 		void setRunning(bool status);
+
+		std::list<std::shared_ptr<GameObject>>* getGameobjects();
+
 	private:
-		std::list<std::shared_ptr<GameObject>> _gameObjects;
+		std::list<std::shared_ptr<GameObject>>* _gameObjects;
 		double _lastFrameTime = 0;
 		bool _status = false;
 	};
