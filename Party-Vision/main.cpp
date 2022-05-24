@@ -52,7 +52,7 @@ int main(void)
     scene->addGameObject(object);
     scene->setRunning(true);
 
-    Mat frame, thresholdImage;
+    Mat frame, thresholdImage, blurImage;
     test t3 = {
        Vision::detectGrayMotion
     };
@@ -62,11 +62,19 @@ int main(void)
     t.push_back(t3);
     t.push_back(t2);
 
+    VideoCapture capture(0);
+
     while (!glfwWindowShouldClose(window))
     {
-        for (auto p : t) {
+        /*for (auto p : t) {
             p.test(thresholdImage, frame);
-        }
+        }*/
+
+        capture.read(frame);
+
+        GaussianBlur(frame, blurImage, Size(5,5), 0, 500);
+
+        imshow("blurFrame", blurImage);
 
         scene->update();
         scene->draw();

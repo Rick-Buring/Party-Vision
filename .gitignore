@@ -10,6 +10,8 @@
 *.userosscache
 *.sln.docstates
 
+!Party-Vision\lib\opencv\build\x64
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
