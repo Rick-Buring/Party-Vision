@@ -2,6 +2,10 @@
 #include "Texture.hpp"
 
 namespace Scene {
+	DrawObjectComponent::DrawObjectComponent(std::vector<VBO_Textures_t> object):_object(object) 
+	{
+
+	}
 	void DrawObjectComponent::draw()
 	{
 		for (auto d : _object) {

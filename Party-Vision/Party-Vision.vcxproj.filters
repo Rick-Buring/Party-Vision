@@ -69,9 +69,6 @@
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
-    <ClCompile Include="ModelLoaderComponent.cpp">
-      <Filter>Scene\SourceFiles\Component</Filter>
-    </ClCompile>
     <ClCompile Include="GravityComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -95,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="HandDetection.cpp">
       <Filter>Vision\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ReplaceComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +128,6 @@
     <ClInclude Include="PlaneComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ModelLoaderComponent.hpp">
-      <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
     <ClInclude Include="GravityComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
@@ -154,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="HandDetection.hpp">
       <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IOnDeath.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="replaceComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
