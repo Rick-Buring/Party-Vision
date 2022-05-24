@@ -43,28 +43,38 @@ int main(void)
     Scene::Scene* scene = new Scene::Scene();
     
     std::vector<Scene::VBO_Textures_t> t2 = Scene::loadObject("models/car/honda_jazz.obj");
-    std::vector<Scene::VBO_Textures_t> t = Scene::loadObject("models/steve/Steve.obj");
+    std::vector<Scene::VBO_Textures_t> t = Scene::loadObject("models/ship/shipA_OBJ.obj");
+    std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
 
     std::shared_ptr<Scene::GameObject> replacingObject = std::make_shared<Scene::GameObject>();
-    replacingObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(t2));
-    replacingObject->addComponent(std::make_shared<Scene::GravityComponent>());
-    replacingObject->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100)));
+    replacingObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(t));
+    replacingObject->addComponent(transform);
+    transform->angularMomentum = glm::vec3(1, 1, 1);
+
+    std::shared_ptr<Scene::GameObject> replacingObject2 = std::make_shared<Scene::GameObject>();
+    replacingObject2->addComponent(std::make_shared<Scene::DrawObjectComponent>(t2));
+    replacingObject2->addComponent(std::make_shared<Scene::GravityComponent>());
+    transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
+    replacingObject2->addComponent(transform);
 
     std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
     object->addComponent(std::make_shared<Scene::DrawObjectComponent>(t));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, -150, -100)));
+    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
+    object->addComponent(std::make_shared<Scene::GravityComponent>());
     object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
+    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));
     
 
     scene->addGameObject(object);
-    //scene->addGameObject(replacingObject);
     scene->setRunning(true);
 
 
-    std::shared_ptr<Scene::ReplaceComponent> com = object->getComponent<Scene::ReplaceComponent>();
+    std::vector<std::shared_ptr<Scene::ReplaceComponent>> com = object->getComponents<Scene::ReplaceComponent>();
 
-    com->OnDeath();
-
+    for (auto c : com)
+    {
+        c->OnDeath();
+    }
     while (!glfwWindowShouldClose(window))
     {
         scene->update();
