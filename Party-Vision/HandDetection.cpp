@@ -15,14 +15,23 @@ namespace Vision {
 		//Stuk rectangle uit het frame halen
 		Mat imgCrop = frame(faces[0]);
 
-		imshow("Image", frame);
-
 		//Huidskleur bepalen
-		vector<Point> locations;
-		if (!locations.empty()) locations.clear();
-		Vec3b color = imgCrop.at<Vec3b>(Point(imgCrop.size().width / 2, imgCrop.size().height / 2));
+		int width = imgCrop.size().width;
+		int height = imgCrop.size().height;
+		vector<Point> locations = { Point(width/2, height/2), 
+			Point(width * 0.25, height * 0.75), 
+			Point(width * 0.75, height * 0.75), 
+			Point(width * 0.75, height * 0.25), 
+			Point(width * 0.25, height * 0.25)};
+
+		//Vec3b color = imgCrop.at<Vec3b>(Point(imgCrop.size().width / 2, imgCrop.size().height / 2));
+
+		for (auto l : locations) {
+			rectangle(imgCrop, Rect(l.x - 13, l.y - 13, 26, 26), Scalar(0, 255, 0));
+		}
 
 		imshow("Source image", imgCrop);
+		imshow("Image", frame);
 		waitKey();
 	}
 }
