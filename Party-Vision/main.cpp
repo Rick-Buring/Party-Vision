@@ -28,13 +28,18 @@ struct test {
 };
 std::vector<test> frameF;
 
+
+double xposition;
+double yposition;
+
+
 void init();
 
 int main(void)
 {   
     if (!glfwInit())
         throw "Could not initialize glwf";
-    window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
+    window = glfwCreateWindow(1600, 1600, "hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -52,18 +57,17 @@ int main(void)
     std::vector<Scene::VBO_Textures_t> t = Scene::loadObject("models/car/honda_jazz.obj");
     object->addComponent(std::make_shared<Scene::DrawObjectComponent>(t));
     object->addComponent(std::make_shared<Scene::GravityComponent>());
-    std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -0, -0));
+    std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
     object->addComponent(transform);
     
     std::shared_ptr<Scene::GameObject> handCursor;
     handCursor = std::make_shared<Scene::GameObject>();
     std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/Steve.obj");
-    handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>(t));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(glm::vec3(0,-100,-100));
-    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
+    handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>(steve));
+    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, glm::vec3(xposition / 160, yposition / 160, 0));
+    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -30, -30));
     handCursor->addComponent(moveTo);
     handCursor->addComponent(transform2);
-    
 
     Scene::Scene* scene = new Scene::Scene();
     scene->addGameObject(object);
@@ -97,7 +101,6 @@ int main(void)
 
     glfwTerminate();
 
-
     return 0;
 }
 
@@ -110,5 +113,4 @@ void init()
             if (key == GLFW_KEY_ESCAPE)
                 glfwSetWindowShouldClose(window, true);
         });
-
 }
