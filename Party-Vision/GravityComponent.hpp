@@ -5,7 +5,7 @@ namespace Scene {
 	class GravityComponent : public AbstractComponent
 	{
 	public:
-		inline GravityComponent(float gravity = 9.8f) :_gravity(gravity) {}
+		inline GravityComponent(float gravity = 80) :_gravity(gravity) {}
 		
 		virtual void update(float) override;
 

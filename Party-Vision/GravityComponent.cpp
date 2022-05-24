@@ -7,6 +7,6 @@ namespace Scene {
 	{
 		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();
 
-		comp->position.y -= GravityComponent::_gravity * deltaTime;
+		comp->velocity.y -= GravityComponent::_gravity * deltaTime;
 	}
 }

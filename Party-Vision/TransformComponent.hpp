@@ -12,5 +12,13 @@ namespace Scene {
 		glm::vec3 rotation = glm::vec3(0, 0, 0);
 		glm::vec3 scale = glm::vec3(1, 1, 1);
 
+		glm::vec3 velocity = glm::vec3(0, 0, 0);
+		glm::vec3 angularMomentum = glm::vec3(0, 0, 0);
+
+		float drag = 2.0f;
+		float angularDrag = 2.0f;
+
+		void update(float deltaTime) override;
+
 	};
 }
