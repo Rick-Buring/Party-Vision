@@ -5,6 +5,8 @@
 #include <iostream>
 #include "FrameCapture.hpp"
 #include "Scene.hpp"
+#include "FaceRecognition.hpp"
+#include "HandDetection.hpp"
 
 using tigl::Vertex;
 
@@ -20,82 +22,85 @@ GLFWwindow* window;
 #include <memory>
 
 struct test {
-    void(*test)(Mat& first, Mat &second);
+	void(*test)(Mat& first, Mat& second);
 };
 std::vector<test> t;
 
 void init();
 
 int main(void)
-{   
-    if (!glfwInit())
-        throw "Could not initialize glwf";
-    window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        throw "Could not initialize glwf";
-    }
-    glfwMakeContextCurrent(window);
+{
+	if (!glfwInit())
+		throw "Could not initialize glwf";
+	window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		throw "Could not initialize glwf";
+	}
+	glfwMakeContextCurrent(window);
 
-    tigl::init();
+	tigl::init();
 
-    init();
-    
-    std::shared_ptr<Scene::GameObject> object;
+	init();
 
-    object = std::make_shared<Scene::GameObject>();
-    object->addComponent(std::make_shared<Scene::PlaneComponent>(1, 1));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -1)));
+	std::shared_ptr<Scene::GameObject> object;
 
-    Scene::Scene* scene = new Scene::Scene();
-    scene->addGameObject(object);
-    scene->setRunning(true);
+	object = std::make_shared<Scene::GameObject>();
+	object->addComponent(std::make_shared<Scene::PlaneComponent>(1, 1));
+	object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -1)));
 
-    Mat frame, thresholdImage, blurImage;
-    test t3 = {
-       Vision::detectGrayMotion
-    };
-    test t2 = {
-    Vision::collectSamples
-    };
-    t.push_back(t3);
-    t.push_back(t2);
+	Scene::Scene* scene = new Scene::Scene();
+	scene->addGameObject(object);
+	scene->setRunning(true);
 
-    VideoCapture capture(0);
+	Mat frame, thresholdImage, blurImage, grayImage;
+	test t3 = {
+	   Vision::detectGrayMotion
+	};
+	test t2 = {
+	Vision::collectSamples
+	};
+	t.push_back(t3);
+	t.push_back(t2);
 
-    while (!glfwWindowShouldClose(window))
-    {
-        /*for (auto p : t) {
-            p.test(thresholdImage, frame);
-        }*/
+	//VideoCapture capture(0);
 
-        capture.read(frame);
+	vector<Rect> faces = Vision::FaceRecognition_run(frame);
 
-        GaussianBlur(frame, blurImage, Size(5,5), 0, 500);
+	Vision::HandDetection_init(frame, faces);
 
-        imshow("blurFrame", blurImage);
+	//while (!glfwWindowShouldClose(window))
+	//{
+	//    /*for (auto p : t) {
+	//        p.test(thresholdImage, frame);
+	//    }*/
 
-        scene->update();
-        scene->draw();
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+	//    capture.read(frame);
+	//    cvtColor(frame, grayImage, COLOR_BGR2GRAY);
+	//    
+	//    Vision::FaceRecognition_run(grayImage, frame);
 
-        waitKey(1);
-    }
+	//    scene->update();
+	//    scene->draw();
+	//    glfwSwapBuffers(window);
+	//    glfwPollEvents();
 
-    glfwTerminate();
+	//    waitKey(1);
+	//}
+
+	glfwTerminate();
 
 
-    return 0;
+	return 0;
 }
 
 void init()
 {
-    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-        {
-            if (key == GLFW_KEY_ESCAPE)
-                glfwSetWindowShouldClose(window, true);
-        });
+	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			if (key == GLFW_KEY_ESCAPE)
+				glfwSetWindowShouldClose(window, true);
+		});
 
 }

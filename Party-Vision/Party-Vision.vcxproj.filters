@@ -78,6 +78,9 @@
     <ClCompile Include="HandDetection.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FaceRecognition.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -117,6 +120,9 @@
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HandDetection.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceRecognition.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

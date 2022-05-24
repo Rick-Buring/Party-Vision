@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
@@ -8,5 +7,5 @@ using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-	void HandDetection_init(Mat frame, vector<Rect>);
+	vector<Rect> FaceRecognition_run(Mat& frame);
 }
