@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+#include "FrameCapture.hpp"
 #include "Scene.hpp"
 #include "MainMenu.hpp"
 #include "AbstractSceneManager.hpp"
@@ -20,13 +22,23 @@ double ypos_t;
 
 #include "GameObject.hpp"
 #include "TransformComponent.hpp"
+#include "DrawObjectComponent.hpp"
 #include "PlaneComponent.hpp"
 #include <memory>
+#include "ObjectLoader.hpp"
+#include "GravityComponent.hpp"
+#include "ReplaceComponent.hpp"
+#include "IOnDeath.hpp"
+
+struct test {
+    void(*test)(Mat& first, Mat &second);
+};
+std::vector<test> t1;
 
 void init();
 
 int main(void)
-{
+{   
     if (!glfwInit())
         throw "Could not initialize glwf";
     window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
@@ -40,6 +52,8 @@ int main(void)
     tigl::init();
 
     init();
+
+    Scene::Scene* scene = new Scene::Scene();
     
     //std::shared_ptr<Scene::GameObject> object;
 
@@ -108,6 +122,8 @@ int main(void)
         schoolNinja->sceneUpdate();
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        waitKey(1);
     }
 
     
@@ -123,6 +139,8 @@ int main(void)
 
 void init()
 {
+    tigl::shader->enableTexture(true);
+  
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
         {
             if (key == GLFW_KEY_ESCAPE)
