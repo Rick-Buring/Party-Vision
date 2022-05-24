@@ -66,9 +66,6 @@
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
-    <ClCompile Include="ModelLoaderComponent.cpp">
-      <Filter>Scene\SourceFiles\Component</Filter>
-    </ClCompile>
     <ClCompile Include="GravityComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -90,7 +87,7 @@
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
-    <ClCompile Include="replaceComponent.cpp">
+    <ClCompile Include="ReplaceComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,9 +120,6 @@
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="PlaneComponent.hpp">
-      <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelLoaderComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="GravityComponent.hpp">

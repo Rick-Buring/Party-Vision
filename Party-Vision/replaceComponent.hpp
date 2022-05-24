@@ -3,18 +3,19 @@
 #include "IOnDeath.hpp"
 #include "glm/glm.hpp"
 #include "ObjectLoader.hpp"
+#include "Scene.hpp"
 //#include <memory>
 
 namespace Scene {
 	class GameObject;
-	class onReplace : public IOnDeath, public AbstractComponent {
+	class ReplaceComponent : public IOnDeath, public AbstractComponent {
 	public:
-		onReplace(std::shared_ptr<GameObject> obj, void (*addGameObject)(std::shared_ptr<GameObject> gameObject));
+		ReplaceComponent(std::shared_ptr<GameObject> obj, Scene* scene);
 
 		void OnDeath() override;
 
 	private:
-		void (*_addGameObject)(std::shared_ptr<GameObject> gameObject);
+		Scene* _scene;
 		std::shared_ptr<GameObject> _obj;
 	};
 }

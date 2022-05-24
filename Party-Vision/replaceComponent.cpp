@@ -1,15 +1,24 @@
 #include "replaceComponent.hpp"
 #include "GameObject.hpp"
+#include "TransformComponent.hpp"
 
 namespace Scene {
-	onReplace::onReplace(std::shared_ptr<GameObject> obj, void (*addGameObject)(std::shared_ptr<GameObject> gameObject)) : 
-		_obj(obj), _addGameObject(addGameObject)
+	ReplaceComponent::ReplaceComponent(std::shared_ptr<GameObject> obj, Scene* scene) :
+		_obj(obj), _scene(scene)
 	{
 
 	}
 
-	void onReplace::OnDeath()
+	void ReplaceComponent::OnDeath()
 	{
-		onReplace::_addGameObject(onReplace::_obj);
+		std::shared_ptr<TransformComponent> transform = ReplaceComponent::_obj->getComponent<TransformComponent>();
+		std::shared_ptr<TransformComponent> transformGameObject = ReplaceComponent::_gameObject->getComponent<TransformComponent>();
+
+		transform->position += transformGameObject->position;
+		transform->rotation += transformGameObject->rotation;
+		transform->velocity += transformGameObject->velocity;
+		transform->angularMomentum += transformGameObject->angularMomentum;
+
+		ReplaceComponent::_scene->addGameObject(ReplaceComponent::_obj);
 	}
 }

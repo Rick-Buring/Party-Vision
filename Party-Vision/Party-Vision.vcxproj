@@ -162,10 +162,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelLoaderComponent.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
-    <ClCompile Include="replaceComponent.cpp" />
+    <ClCompile Include="ReplaceComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -181,7 +180,6 @@
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="IOnDeath.hpp" />
-    <ClInclude Include="ModelLoaderComponent.hpp" />
     <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="replaceComponent.hpp" />

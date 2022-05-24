@@ -6,7 +6,7 @@
 namespace Scene {
 	class DrawObjectComponent : public AbstractDrawComponent {
 	public:
-		inline DrawObjectComponent(std::vector<VBO_Textures_t> object):_object(object) {}
+		DrawObjectComponent(std::vector<VBO_Textures_t> object);
 
 		void draw() override;
 	private:

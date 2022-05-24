@@ -1,8 +1,8 @@
 #pragma once
+#include "AbstractComponent.hpp"
 
 namespace Scene {
-	__interface IOnDeath
-	{
+	__interface IOnDeath {
 		virtual void OnDeath();
 	};
 }
