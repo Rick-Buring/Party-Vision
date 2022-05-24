@@ -2,47 +2,64 @@
 #include "PlaneComponent.hpp"
 #include "AbstractComponent.hpp"
 #include "TransformComponent.hpp"
+#include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
+#include <GLFW/glfw3.h>
+
+#include "tigl.h"
+
+
 namespace Minigames {
-
-	float backgroundWidth = 1920;
-	float backgroundHeight = 1080;
-	float backgroundx = 1920;
-	float backgroundy = 1080;
-
+	Menu_t currentMenu;
+	int viewport[4];
+	
+	MainMenu::MainMenu() {
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		backgroundWidth = viewport[2];
+		backgroundHeight = viewport[3];
+		backgroundx = 0;
+		backgroundy = 0;
+		scene = std::make_shared<Scene::Scene>();
+	}
+	
 	void MainMenu::menuOnClick() {
 		MainMenu::functionPointerCurrentMenuItem;
 	}
 
 	
 	void MainMenu::menuInit() {
-		Scene::GameObject background;
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight);
-		backgroundPlane->setGameObject(&background);
-		background.addComponent(backgroundPlane);
+		
+		glm::mat4 projection = glm::ortho(0.0f, (float)viewport[2], 0.0f, (float)viewport[3], -1.0f, 5.0f);
+		tigl::shader->setProjectionMatrix(projection);
+		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(1, 1);
+
+		background->addComponent(backgroundPlane);
 
 		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 0));
-		backgroundTransform->setGameObject(&background);
-		background.addComponent(backgroundTransform);
 
-		for (MenuItem_t menuItem : MainMenu::currentMenu.menuItems) {
-			Scene::GameObject button;
+		background->addComponent(backgroundTransform);
+		AbstractSceneManager::scene->addGameObject(background);
+		for (MenuItem_t menuItem : currentMenu.menuItems) {
+			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
 			
 			std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(menuItem.sizeWidth, menuItem.sizeHeight);
-			buttonPlane->setGameObject(&button);
-			button.addComponent(buttonPlane);
 
+			button->addComponent(buttonPlane);
+			
+			
 			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx,menuItem.positiony,0));
-			buttonTransform->setGameObject(&button);
-			button.addComponent(buttonTransform);
+			button->addComponent(buttonTransform);
+			AbstractSceneManager::scene->addGameObject(button);
+
+			
+			projection = glm::perspective(glm::radians(75.0f), viewport[2] / (float)viewport[3], 0.01f, 1000.0f);
+			tigl::shader->setProjectionMatrix(projection);
+			
 		}
 	}
 
 	
-	void MainMenu::menuUpdate() {
-		AbstractSceneManager::currentScene->draw();
-		AbstractSceneManager::currentScene->update();
-
-	}
 
 
 

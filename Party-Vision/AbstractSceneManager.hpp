@@ -7,10 +7,14 @@ namespace Minigames {
 	class AbstractSceneManager
 	{
 	public:
-		std::shared_ptr<Scene::Scene> currentScene;
+		std::shared_ptr<Scene::Scene> scene;
+		/// <summary>
+		/// updates the current scene
+		/// </summary>
+		void sceneUpdate();
 	private:
 		
 		
 	};
-
+	
 }
