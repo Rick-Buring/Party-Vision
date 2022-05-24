@@ -21,6 +21,7 @@ GLFWwindow* window;
 #include <memory>
 #include "ObjectLoader.hpp"
 #include "GravityComponent.hpp"
+#include "MoveToComponent.hpp"
 
 struct test {
     void(*test)(Mat& first, Mat &second);
@@ -54,6 +55,11 @@ int main(void)
     std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
     object->addComponent(transform);
     
+    std::shared_ptr<Scene::GameObject> handCursor;
+    handCursor = std::make_shared<Scene::GameObject>();
+    std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/steve.obj");
+    handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>(steve));
+    handCursor->addComponent(std::make_shared<Scene::MoveToComponent>());
 
     Scene::Scene* scene = new Scene::Scene();
     scene->addGameObject(object);
