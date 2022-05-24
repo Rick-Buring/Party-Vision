@@ -172,6 +172,7 @@
     <ClCompile Include="ReplaceComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SchoolNinja.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="replaceComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
+    <ClInclude Include="SchoolNinja.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="tigl.h" />

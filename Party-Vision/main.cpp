@@ -22,6 +22,7 @@ GLFWwindow* window;
 #include "ObjectLoader.hpp"
 #include "GravityComponent.hpp"
 #include "ReplaceComponent.hpp"
+#include "SchoolNinja.hpp"
 #include "IOnDeath.hpp"
 
 struct test {
@@ -49,28 +50,30 @@ int main(void)
 
     Scene::Scene* scene = new Scene::Scene();
     
-    std::vector<Scene::VBO_Textures_t> honda = Scene::loadObject("models/car/honda_jazz.obj");
-    std::vector<Scene::VBO_Textures_t> ship = Scene::loadObject("models/ship/shipA_OBJ.obj");
-    std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
+    //std::vector<Scene::VBO_Textures_t> honda = Scene::loadObject("models/car/honda_jazz.obj");
+    //std::vector<Scene::VBO_Textures_t> ship = Scene::loadObject("models/ship/shipA_OBJ.obj");
+    //std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
 
-    std::shared_ptr<Scene::GameObject> replacingObject = std::make_shared<Scene::GameObject>();
-    replacingObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
-    replacingObject->addComponent(transform);
-    transform->angularMomentum = glm::vec3(1, 1, 1);
+    //std::shared_ptr<Scene::GameObject> replacingObject = std::make_shared<Scene::GameObject>();
+    //replacingObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    //replacingObject->addComponent(transform);
+    //transform->angularMomentum = glm::vec3(1, 1, 1);
 
-    std::shared_ptr<Scene::GameObject> replacingObject2 = std::make_shared<Scene::GameObject>();
-    replacingObject2->addComponent(std::make_shared<Scene::DrawObjectComponent>(honda));
-    replacingObject2->addComponent(std::make_shared<Scene::GravityComponent>());
-    transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
-    replacingObject2->addComponent(transform);
+    //std::shared_ptr<Scene::GameObject> replacingObject2 = std::make_shared<Scene::GameObject>();
+    //replacingObject2->addComponent(std::make_shared<Scene::DrawObjectComponent>(honda));
+    //replacingObject2->addComponent(std::make_shared<Scene::GravityComponent>());
+    //transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
+    //replacingObject2->addComponent(transform);
 
-    std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
-    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
-    object->addComponent(std::make_shared<Scene::GravityComponent>());
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));
+    //std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
+    //object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    //object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
+    //object->addComponent(std::make_shared<Scene::GravityComponent>());
+    //object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
+    //object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));
     
+    std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
+    object->addComponent(std::make_shared<Scene::SchoolNinja>(scene));
 
     scene->addGameObject(object);
     scene->setRunning(true);
