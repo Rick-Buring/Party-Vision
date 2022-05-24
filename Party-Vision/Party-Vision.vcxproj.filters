@@ -63,6 +63,9 @@
     <ClCompile Include="VisionPipeline.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FrameCapture.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -86,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="TransformComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="HandDetection.cpp">
+      <Filter>Vision\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ReplaceComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
@@ -136,6 +142,15 @@
     </ClInclude>
     <ClInclude Include="DrawObjectComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="IVisionHandler.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameCapture.hpp">
+      <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HandDetection.hpp">
+      <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IOnDeath.hpp">
       <Filter>Scene\Header Files\Component</Filter>

@@ -76,6 +76,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)Party-Vision\lib\opencv\build\include;C:\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Party-Vision\lib\opencv\build\x64\vc15\lib;C:\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -115,6 +117,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)Party-Vision\lib\glfw-3.3.2\$(PlatformTarget);$(SolutionDir)Party-Vision\lib\glew-2.1.0\lib\Release\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world455d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -158,8 +161,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FrameCapture.cpp" />
     <ClCompile Include="DrawObjectComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HandDetection.cpp" />
     <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
@@ -175,13 +180,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
+    <ClInclude Include="FrameCapture.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="DrawObjectComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="HandDetection.hpp" />
     <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="IOnDeath.hpp" />
     <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
+    <ClInclude Include="IVisionHandler.hpp" />
     <ClInclude Include="replaceComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
