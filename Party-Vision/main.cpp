@@ -91,11 +91,18 @@ int main(void)
         "C:/",
         menuItems
     };
-    
+    std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
+
+    std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(5,5);
+
+    button->addComponent(buttonPlane);
+    schoolNinja->scene->addGameObject(button);
 
     Minigames::currentMenu = schoolNinjaMenu;
     schoolNinja->menuInit();
     schoolNinja->scene->setRunning(true);
+
+   
     while (!glfwWindowShouldClose(window))
     {
         schoolNinja->sceneUpdate();
