@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
+#include "FrameCapture.hpp"
 #include "Scene.hpp"
 
 using tigl::Vertex;
@@ -20,13 +22,18 @@ GLFWwindow* window;
 #include "ObjectLoader.hpp"
 #include "GravityComponent.hpp"
 
+struct test {
+    void(*test)(Mat& first, Mat &second);
+};
+std::vector<test> t;
+
 void init();
 
 int main(void)
-{
+{   
     if (!glfwInit())
         throw "Could not initialize glwf";
-    window = glfwCreateWindow(1400, 800, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -52,15 +59,29 @@ int main(void)
     scene->addGameObject(object);
     scene->setRunning(true);
 
-    
+    Mat frame, thresholdImage;
+    test t3 = {
+       Vision::detectGrayMotion
+    };
+    test t2 = {
+    Vision::collectSamples
+    };
+    t.push_back(t3);
+    t.push_back(t2);
 
     while (!glfwWindowShouldClose(window))
     {
+        for (auto p : t) {
+            p.test(thresholdImage, frame);
+        }
+
         transform->rotation.y = transform->rotation.y + 0.002 ;
         scene->update();
         scene->draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        waitKey(1);
     }
 
     glfwTerminate();
