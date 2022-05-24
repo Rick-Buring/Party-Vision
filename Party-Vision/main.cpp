@@ -14,8 +14,11 @@ GLFWwindow* window;
 
 #include "GameObject.hpp"
 #include "TransformComponent.hpp"
+#include "DrawObjectComponent.hpp"
 #include "PlaneComponent.hpp"
 #include <memory>
+#include "ObjectLoader.hpp"
+#include "GravityComponent.hpp"
 
 void init();
 
@@ -38,15 +41,22 @@ int main(void)
     std::shared_ptr<Scene::GameObject> object;
 
     object = std::make_shared<Scene::GameObject>();
-    object->addComponent(std::make_shared<Scene::PlaneComponent>(1, 1));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -1)));
+    std::vector<Scene::VBO_Textures_t> t = Scene::loadObject("models/car/honda_jazz.obj");
+    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(t));
+    object->addComponent(std::make_shared<Scene::GravityComponent>());
+    std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
+    object->addComponent(transform);
+    
 
     Scene::Scene* scene = new Scene::Scene();
     scene->addGameObject(object);
     scene->setRunning(true);
 
+    
+
     while (!glfwWindowShouldClose(window))
     {
+        transform->rotation.y = transform->rotation.y + 0.002 ;
         scene->update();
         scene->draw();
         glfwSwapBuffers(window);
@@ -61,6 +71,8 @@ int main(void)
 
 void init()
 {
+    tigl::shader->enableTexture(true);
+  
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
         {
             if (key == GLFW_KEY_ESCAPE)

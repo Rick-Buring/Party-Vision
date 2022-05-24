@@ -48,9 +48,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="tigl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -69,7 +66,28 @@
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
+    <ClCompile Include="ModelLoaderComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Scene\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectLoader.cpp">
+      <Filter>Scene\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawObjectComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
     <ClCompile Include="GameObject.cpp">
+      <Filter>Scene\SourceFiles</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,6 +120,24 @@
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="PlaneComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoaderComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectLoader.hpp">
+      <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.hpp">
+      <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawObjectComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
