@@ -8,5 +8,5 @@ using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-	void HandDetection_init(Mat frame, vector<Rect>);
+	Vec3b HandDetection_init(Mat frame, vector<Rect>);
 }
