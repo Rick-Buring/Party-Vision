@@ -20,6 +20,8 @@ namespace Vision {
 		while (faces.empty()) {
 			cap.read(frame);
 			cvtColor(frame, grayframe, COLOR_BGR2GRAY);
+			//we kunnen ook de afbeelding in een keer cvt naar HSV
+			//cvtColor(frame, grayframe, COLOR_BGR2HSV);
 			faceCascade.detectMultiScale(grayframe, faces);
 		}
 

@@ -21,6 +21,8 @@ typedef struct {
 	double v;       // a fraction between 0 and 1
 } hsv;
 
+
+//TODO Redouan: check dit https://tousu.in/qa/?qa=1123894/ staat 3x in de file ..1
 namespace Vision {
 	hsv rgb2hsv(rgb in)
 	{
@@ -67,25 +69,30 @@ namespace Vision {
 		return out;
 	}
 
+	//TODO Redouan: check dit https://tousu.in/qa/?qa=1123894/ staat 3x in de file ..2
 	void HandDetection_init(Mat frame, vector<Rect> faces)
 	{
 		//Stuk rectangle uit het frame halen
 		Mat imgCrop = frame(faces[0]);
 
 		//Huidskleur bepalen
-
 		int width = imgCrop.size().width;
 		int height = imgCrop.size().height;
-		vector<Point> locations = { Point(width/2, height/2), 
+
+		//vijf locatie som kleur op te halen opgeslagen.
+		vector<Point> locations = {
+			Point(width/2, height/2), 
 			Point(width * 0.25, height * 0.75), 
 			Point(width * 0.75, height * 0.75), 
 			Point(width * 0.75, height * 0.25), 
-			Point(width * 0.25, height * 0.25)};
+			Point(width * 0.25, height * 0.25)
+		};
 
 		int b = 0;
 		int g = 0;
 		int r = 0;
 
+		//loopt door de 5 opegehaalde locaties en telt ze op bij B, G, R
 		for (auto l : locations) {
 			rectangle(imgCrop, Rect(l.x - 13, l.y - 13, 26, 26), Scalar(0, 255, 0));
 			Vec3b color = imgCrop.at<Vec3b>(l);
@@ -94,10 +101,14 @@ namespace Vision {
 			g += color[1];
 			r += color[2];
 		}
+
+		//Aantal locaties
 		int points = locations.size();
 
+		//struct om de R G B op te slaan
 		rgb skinColor = {r / points, g / points, b / points};
 	
+		//methode om de rbg te converten naat een hsv color en op te slaan in de skinCOlorHSV var.
 		hsv skinColorHSV = rgb2hsv(skinColor);
 
 		cout << "hue: " << skinColorHSV.h << "\n";
@@ -107,7 +118,7 @@ namespace Vision {
 		imshow("Source image", imgCrop);
 		imshow("Image", frame);
 		waitKey();
-
+		//TODO Redouan: check dit https://tousu.in/qa/?qa=1123894/ staat 3x in de file ..3
 		//return skinColor;
 	}
 }
