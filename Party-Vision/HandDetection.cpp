@@ -117,11 +117,11 @@ namespace Vision {
 		//methode om de rbg te converten naat een hsv color en op te slaan in de skinCOlorHSV var.
 		
 		//dit haalt de hsv waarde op van het gezicht uiteindelijk dit gaan uncommentent
-		hsv skinColorHSV = rgb2hsv(skinColor);
+		//hsv skinColorHSV = rgb2hsv(skinColor);
 
-		cout << "hue: " << round(skinColorHSV.h) << "\n";
-		cout << "sat: " << round(skinColorHSV.s * 100) << "\n";
-		cout << "val: " << round(skinColorHSV.v /2.55) << "\n";
+		cout << "hue: " << round(color2.h) << "\n";
+		cout << "sat: " << round(color2.s * 100) << "\n";
+		cout << "val: " << round(color2.v /2.55) << "\n";
 
 		imshow("Source image", imgCrop);
 		imshow("Image", frame);
