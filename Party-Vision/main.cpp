@@ -61,14 +61,16 @@ int main(void)
 	test t2 = {
 	Vision::collectSamples
 	};
+
 	t.push_back(t3);
 	t.push_back(t2);
 
 	//VideoCapture capture(0);
-	Mat t = imread("molorcolor.png");
-	vector<Rect> faces = Vision::FaceRecognition_run(t);
 
-	Vision::HandDetection_init(t, faces);
+	 //capture.read(frame);
+	vector<Rect> faces = Vision::FaceRecognition_run(frame);
+
+	Vision::HandDetection_init(frame, faces);
 
 	//while (!glfwWindowShouldClose(window))
 	//{
