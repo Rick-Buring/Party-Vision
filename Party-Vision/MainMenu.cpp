@@ -28,15 +28,13 @@ namespace Minigames {
 
 	
 	void MainMenu::menuInit() {
-		
-		glm::mat4 projection = glm::ortho(0.0f, (float)viewport[2], 0.0f, (float)viewport[3], -1.0f, 5.0f);
-		tigl::shader->setProjectionMatrix(projection);
+	
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
 		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(1, 1);
 
 		background->addComponent(backgroundPlane);
 
-		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 0));
+		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 1));
 
 		background->addComponent(backgroundTransform);
 		AbstractSceneManager::scene->addGameObject(background);
@@ -48,15 +46,15 @@ namespace Minigames {
 			button->addComponent(buttonPlane);
 			
 			
-			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx,menuItem.positiony,0));
+			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx,menuItem.positiony,1));
 			button->addComponent(buttonTransform);
 			AbstractSceneManager::scene->addGameObject(button);
 
 			
-			projection = glm::perspective(glm::radians(75.0f), viewport[2] / (float)viewport[3], 0.01f, 1000.0f);
-			tigl::shader->setProjectionMatrix(projection);
+
 			
 		}
+
 	}
 
 	
