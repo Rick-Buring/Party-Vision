@@ -27,13 +27,8 @@ namespace Scene {
 		float mag = sqrt(move.x * move.x + move.y * move.y) / 2;
 		if (mag > 0) {
 			move = glm::normalize(move);
-		}
-		if (move.x <0 || move.y < 0 ) {
-			std::cout << "Kut error";
-		}
-		
+		}	
 
 		comp->position += move * 40.0f * deltaTime * mag;
-		//cursorPosition = targetPosition;
 	};
 }
