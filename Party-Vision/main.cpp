@@ -70,7 +70,35 @@ int main(void)
 	 //capture.read(frame);
 	vector<Rect> faces = Vision::FaceRecognition_run(frame);
 
-	Vision::HandDetection_init(frame, faces);
+
+	Vision::hsv test = Vision::HandDetection_init(frame, faces);
+
+	
+	cout << "hue: main " << round(test.h) << "\n";
+	cout << "sat: main " << round(test.s) << "\n";
+	cout << "val: main" << round(test.v) << "\n";
+
+
+		/*
+		Mat imgHSV, mask;
+
+
+		//cvtColor(img, imgHSV, COLOR_BGR2HSV);
+
+		//Scalar lower(hmin, smin, vmin); 
+		//Scalar upper(hmax, smax, vmax);
+
+		Scalar lower(0, 64, 135);
+		Scalar upper(17, 255, 255);
+		inRange(imgHSV, lower, upper, mask);
+
+		imshow("Image HSV", imgHSV);
+		imshow("Image Mask", mask);
+		
+		*/
+
+
+
 
 	//while (!glfwWindowShouldClose(window))
 	//{

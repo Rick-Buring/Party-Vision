@@ -69,7 +69,7 @@ namespace Vision {
 		return out;
 	}
 
-	void HandDetection_init(Mat frame, vector<Rect> faces)
+	hsv HandDetection_init(Mat frame, vector<Rect> faces)
 	{
 		//Stuk rectangle uit het frame halen
 		Mat imgCrop = frame(faces[0]);
@@ -109,22 +109,24 @@ namespace Vision {
 		
 		//Test rgb waarde om te converten naar hsv 
 		// {
-			rgb color = { 0,255,255};		
-			hsv color2 = rgb2hsv(color); 
+			//rgb color = { 0,255,255};		
+			//hsv color2 = rgb2hsv(color); 
 		//}
 	
 		//methode om de rbg te converten naat een hsv color en op te slaan in de skinCOlorHSV var.
 		
 		//dit haalt de hsv waarde op van het gezicht uiteindelijk dit gaan uncommentent
-		//hsv skinColorHSV = rgb2hsv(skinColor);
+		hsv skinColorHSV = rgb2hsv(skinColor);
 
-		cout << "hue: " << round(color2.h) << "\n";
-		cout << "sat: " << round(color2.s) << "\n";
-		cout << "val: " << round(color2.v) << "\n";
-
+		cout << "hue: handetetcion " << round(skinColorHSV.h) << "\n";
+		cout << "sat: handetetcion " << round(skinColorHSV.s) << "\n";
+		cout << "val: handetetcion " << round(skinColorHSV.v) << "\n";
+		
+	
 		imshow("Source image", imgCrop);
 		imshow("Image", frame);
+
 		waitKey();
-		//return skinColor;
+		return skinColorHSV;
 	}
 }
