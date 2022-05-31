@@ -73,39 +73,48 @@ int main(void)
     Minigames::MainMenu* schoolNinja = new Minigames::MainMenu();
     std::vector<Minigames::MenuItem_t> menuItems;
 
-    std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
+    /*std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
     object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
     object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
     object->addComponent(std::make_shared<Scene::GravityComponent>());
     object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));
+    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));*/
     
     std::shared_ptr<Scene::GameObject> handCursor;
     handCursor = std::make_shared<Scene::GameObject>();
-    std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/Steve.obj");
-    handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>(steve));
+    //std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/Steve.obj");
+    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(20,20));
+    //handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>());
     std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, glm::vec3(xposition, yposition, 0));
-    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -30, -30));
+    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
     handCursor->addComponent(transform2);
     handCursor->addComponent(moveTo);
     
 
-    scene->addGameObject(object);
+    //scene->addGameObject(object);
     scene->addGameObject(handCursor);
     scene->setRunning(true);
-    Minigames::MenuItem_t startMenuItem{
-       "Start",
-       "C:/",
-       //&Minigames::MainMenu::menuOnClick,
-       (schoolNinja->backgroundWidth / 2) - ((200 * (schoolNinja->backgroundWidth / 640)) / 2),
-       (schoolNinja->backgroundHeight / 7) * 5,
-       200 * (schoolNinja->backgroundWidth / 640),
-       50 * (schoolNinja->backgroundHeight / 360)
-
+    
     Mat frame, thresholdImage;
     /*test t3 = {
        vision::detectgraymotion
     };
+    test t2 = {
+    vision::collectsamples
+    };
+    framef.push_back(t3);
+    framef.push_back(t2);*/
+
+    Minigames::MenuItem_t startMenuItem{
+           "Start",
+           "C:/",
+           //&Minigames::MainMenu::menuOnClick,
+           (schoolNinja->backgroundWidth / 2) - ((200 * (schoolNinja->backgroundWidth / 640)) / 2),
+           (schoolNinja->backgroundHeight / 7) * 5,
+           200 * (schoolNinja->backgroundWidth / 640),
+           50 * (schoolNinja->backgroundHeight / 360)
+        };
+
     Minigames::MenuItem_t howToPlayMenuItem{
        "How to Play",
        "C:/",
@@ -114,10 +123,8 @@ int main(void)
        (schoolNinja->backgroundHeight / 7) * 3,
        200 * (schoolNinja->backgroundWidth / 640),
        50 * (schoolNinja->backgroundHeight / 360)
-
-    test t2 = {
-    vision::collectsamples
     };
+ 
     Minigames::MenuItem_t HelpMenuItem{
       "Help",
       "C:/",
@@ -127,6 +134,7 @@ int main(void)
       200 * (schoolNinja->backgroundWidth / 640),
       50 * (schoolNinja->backgroundHeight / 360)
     };
+
     menuItems.push_back(startMenuItem);
     menuItems.push_back(howToPlayMenuItem);
     menuItems.push_back(HelpMenuItem);
@@ -135,14 +143,12 @@ int main(void)
         "C:/",
         menuItems
     };
- /*   std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
-    framef.push_back(t3);
-    framef.push_back(t2);*/
 
+    std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
     std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(5,5);
 
     button->addComponent(buttonPlane);
-    schoolNinja->scene->addGameObject(button);*/
+    schoolNinja->scene->addGameObject(button);
 
     Minigames::currentMenu = schoolNinjaMenu;
     schoolNinja->menuInit();
@@ -159,7 +165,7 @@ int main(void)
 
         moveTo->targetPosition.x = xposition;
         moveTo->targetPosition.y = yposition;
-        transform->rotation.y = transform->rotation.y + 0.002 ;
+        //transform->rotation.y = transform->rotation.y + 0.002 ;
         scene->update();
         scene->draw();
         glfwSwapBuffers(window);
@@ -167,11 +173,6 @@ int main(void)
     
         waitKey(1);
     }
-
-    
-    
-
-        
 
     glfwTerminate();
 
