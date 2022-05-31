@@ -29,17 +29,11 @@ double ypos_t;
 #include "GravityComponent.hpp"
 #include "ReplaceComponent.hpp"
 #include "IOnDeath.hpp"
-#include "MoveToComponent.hpp"
 
 struct test {
     void(*test)(Mat& first, Mat &second);
 };
-std::vector<test> frameF;
-
-
-double xposition;
-double yposition;
-
+std::vector<test> t1;
 
 void init();
 
@@ -73,26 +67,7 @@ int main(void)
     Minigames::MainMenu* schoolNinja = new Minigames::MainMenu();
     std::vector<Minigames::MenuItem_t> menuItems;
 
-    std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
-    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
-    object->addComponent(std::make_shared<Scene::GravityComponent>());
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));
-    
-    std::shared_ptr<Scene::GameObject> handCursor;
-    handCursor = std::make_shared<Scene::GameObject>();
-    std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/Steve.obj");
-    handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>(steve));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, glm::vec3(xposition, yposition, 0));
-    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -30, -30));
-    handCursor->addComponent(transform2);
-    handCursor->addComponent(moveTo);
-    
 
-    scene->addGameObject(object);
-    scene->addGameObject(handCursor);
-    scene->setRunning(true);
     Minigames::MenuItem_t startMenuItem{
        "Start",
        "C:/",
@@ -102,9 +77,6 @@ int main(void)
        200 * (schoolNinja->backgroundWidth / 640),
        50 * (schoolNinja->backgroundHeight / 360)
 
-    Mat frame, thresholdImage;
-    /*test t3 = {
-       vision::detectgraymotion
     };
     Minigames::MenuItem_t howToPlayMenuItem{
        "How to Play",
@@ -115,8 +87,6 @@ int main(void)
        200 * (schoolNinja->backgroundWidth / 640),
        50 * (schoolNinja->backgroundHeight / 360)
 
-    test t2 = {
-    vision::collectsamples
     };
     Minigames::MenuItem_t HelpMenuItem{
       "Help",
@@ -136,8 +106,6 @@ int main(void)
         menuItems
     };
  /*   std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
-    framef.push_back(t3);
-    framef.push_back(t2);*/
 
     std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(5,5);
 
@@ -153,18 +121,9 @@ int main(void)
     {
   
         schoolNinja->sceneUpdate();
-        //for (auto p : t1) {
-        //    p.test(thresholdImage, frame);
-        //}
-
-        moveTo->targetPosition.x = xposition;
-        moveTo->targetPosition.y = yposition;
-        transform->rotation.y = transform->rotation.y + 0.002 ;
-        scene->update();
-        scene->draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
-    
+
         waitKey(1);
     }
 
@@ -174,6 +133,7 @@ int main(void)
         
 
     glfwTerminate();
+
 
     return 0;
 }
