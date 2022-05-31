@@ -3,6 +3,7 @@
 #include <list>
 #include <glm/glm.hpp>
 #include "AbstractDrawComponent.hpp"
+#include <vector>
 
 namespace Scene {
 
@@ -44,6 +45,8 @@ namespace Scene {
 		/// <param name=""></param>
 		void draw(const glm::mat4 & = glm::mat4(1.0f));
 
+		GameObject* getGameObject();
+
 		/// <summary>
 		/// get a specific component
 		/// </summary>
@@ -59,6 +62,24 @@ namespace Scene {
 					return t;
 			}
 			return nullptr;
+		}
+
+		/// <summary>
+		/// get a specific component
+		/// </summary>
+		/// <typeparam name="T">the type of the component</typeparam>
+		/// <returns></returns>
+		template<class T>
+		std::vector<std::shared_ptr<T>> getComponents()
+		{
+			std::vector<std::shared_ptr<T>> foundComponents;
+			for (auto c : components)
+			{
+				std::shared_ptr<T> t = std::dynamic_pointer_cast<T>(c);
+				if (t)
+					foundComponents.push_back(t);
+			}
+			return foundComponents;
 		}
 
 		/// <summary>

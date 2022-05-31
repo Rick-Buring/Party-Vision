@@ -135,6 +135,7 @@ namespace Scene {
 			temp.texture = t;
 			temp.vbo = vbo;
 			returnValue.push_back(temp);
+			
 		}
 		return returnValue;
 	}
@@ -144,6 +145,12 @@ namespace Scene {
 	*/
 	std::vector<VBO_Textures_t> loadObject(const std::string& fileName)
 	{
+		vertices = std::vector<glm::vec3>();
+		normals = std::vector<glm::vec3>();
+		texcoords = std::vector<glm::vec2>();
+		groups = std::vector<ObjGroup*>();
+		materials = std::vector<MaterialInfo*>();
+
 		std::vector<VBO_Textures_t> returnValue;
 		std::cout << "Loading " << fileName << std::endl;
 		std::string dirName = fileName;
