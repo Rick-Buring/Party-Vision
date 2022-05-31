@@ -93,6 +93,9 @@
     <ClCompile Include="HandDetection.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MoveToComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
     <ClCompile Include="ReplaceComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -162,6 +165,9 @@
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="replaceComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveToComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
