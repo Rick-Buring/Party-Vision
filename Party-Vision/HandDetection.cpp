@@ -21,8 +21,6 @@ typedef struct {
 	double v;       // a fraction between 0 and 1
 } hsv;
 
-
-//TODO Redouan: check dit https://tousu.in/qa/?qa=1123894/ staat 3x in de file ..1
 namespace Vision {
 	hsv rgb2hsv(rgb in)
 	{
@@ -66,10 +64,11 @@ namespace Vision {
 		if (out.h < 0.0)
 			out.h += 360.0;
 
+		out.s = out.s * 100;
+		out.v = out.v / 2.55;
 		return out;
 	}
 
-	//TODO Redouan: check dit https://tousu.in/qa/?qa=1123894/ staat 3x in de file ..2
 	void HandDetection_init(Mat frame, vector<Rect> faces)
 	{
 		//Stuk rectangle uit het frame halen
@@ -110,7 +109,7 @@ namespace Vision {
 		
 		//Test rgb waarde om te converten naar hsv 
 		// {
-			rgb color = { 61,52,52};		
+			rgb color = { 0,255,255};		
 			hsv color2 = rgb2hsv(color); 
 		//}
 	
@@ -120,13 +119,12 @@ namespace Vision {
 		//hsv skinColorHSV = rgb2hsv(skinColor);
 
 		cout << "hue: " << round(color2.h) << "\n";
-		cout << "sat: " << round(color2.s * 100) << "\n";
-		cout << "val: " << round(color2.v /2.55) << "\n";
+		cout << "sat: " << round(color2.s) << "\n";
+		cout << "val: " << round(color2.v) << "\n";
 
 		imshow("Source image", imgCrop);
 		imshow("Image", frame);
 		waitKey();
-		//TODO Redouan: check dit https://tousu.in/qa/?qa=1123894/ staat 3x in de file ..3
 		//return skinColor;
 	}
 }
