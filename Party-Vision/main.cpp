@@ -64,10 +64,11 @@ int main(void)
     handCursor = std::make_shared<Scene::GameObject>();
     std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/Steve.obj");
     handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>(steve));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, glm::vec3(xposition / 160, yposition / 160, 0));
+    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, glm::vec3(xposition, yposition, 0));
     std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -30, -30));
-    handCursor->addComponent(moveTo);
     handCursor->addComponent(transform2);
+    handCursor->addComponent(moveTo);
+    
 
     Scene::Scene* scene = new Scene::Scene();
     scene->addGameObject(object);
@@ -75,14 +76,14 @@ int main(void)
     scene->setRunning(true);
 
     Mat frame, thresholdImage;
-    test t3 = {
-       Vision::detectGrayMotion
+    /*test t3 = {
+       vision::detectgraymotion
     };
     test t2 = {
-    Vision::collectSamples
+    vision::collectsamples
     };
-    frameF.push_back(t3);
-    frameF.push_back(t2);
+    framef.push_back(t3);
+    framef.push_back(t2);*/
 
     while (!glfwWindowShouldClose(window))
     {
@@ -90,6 +91,8 @@ int main(void)
             p.test(thresholdImage, frame);
         }
 
+        moveTo->targetPosition.x = xposition;
+        moveTo->targetPosition.y = yposition;
         transform->rotation.y = transform->rotation.y + 0.002 ;
         scene->update();
         scene->draw();
