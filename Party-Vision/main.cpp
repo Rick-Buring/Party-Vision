@@ -68,9 +68,19 @@ int main(void)
 	//VideoCapture capture(0);
 
 	 //capture.read(frame);
-	vector<Rect> faces = Vision::FaceRecognition_run(frame);
+	while (true) {
+		vector<Rect> faces = Vision::FaceRecognition_run(frame);
 
-	Vision::HandDetection_init(frame, faces);
+		for (auto r : faces) {
+			rectangle(frame, r, Scalar(0, 255, 0));
+		}
+
+		imshow("detected face", frame);
+
+		waitKey(1);
+	}
+
+	//Vision::HandDetection_init(frame, faces);
 
 	//while (!glfwWindowShouldClose(window))
 	//{
