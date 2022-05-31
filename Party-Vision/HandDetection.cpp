@@ -125,8 +125,7 @@ namespace Vision {
 	
 		imshow("Source image", imgCrop);
 		imshow("Image", frame);
-
-		waitKey();
+		
 		return skinColorHSV;
 	}
 }

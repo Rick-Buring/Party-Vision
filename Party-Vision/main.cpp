@@ -65,64 +65,54 @@ int main(void)
 	t.push_back(t3);
 	t.push_back(t2);
 
-	//VideoCapture capture(0);
+	while (true) {
+		vector<Rect> faces = Vision::FaceRecognition_run(frame);
 
-	 //capture.read(frame);
-	vector<Rect> faces = Vision::FaceRecognition_run(frame);
+		Vision::hsv testtt = Vision::HandDetection_init(frame, faces);
 
-
-	Vision::hsv test = Vision::HandDetection_init(frame, faces);
-
-	
-	cout << "hue: main " << round(test.h) << "\n";
-	cout << "sat: main " << round(test.s) << "\n";
-	cout << "val: main" << round(test.v) << "\n";
-
-
-		/*
+		cout << "hue: main " << round(testtt.h) << "\n";
+		cout << "sat: main " << round(testtt.s) << "\n";
+		cout << "val: main" << round(testtt.v) << "\n";
+		
 		Mat imgHSV, mask;
 
+		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
-		//cvtColor(img, imgHSV, COLOR_BGR2HSV);
-
-		//Scalar lower(hmin, smin, vmin); 
+		//Scalar lower(hmin, smin, vmin);
 		//Scalar upper(hmax, smax, vmax);
 
-		Scalar lower(0, 64, 135);
+		Scalar lower(testtt.h, testtt.s, testtt.v);
 		Scalar upper(17, 255, 255);
 		inRange(imgHSV, lower, upper, mask);
 
 		imshow("Image HSV", imgHSV);
 		imshow("Image Mask", mask);
-		
-		*/
+	
+		//while (!glfwWindowShouldClose(window))
+		//{
+		//    /*for (auto p : t) {
+		//        p.test(thresholdImage, frame);
+		//    }*/
 
+		//    capture.read(frame);
+		//    cvtColor(frame, grayImage, COLOR_BGR2GRAY);
+		//    
+		//    Vision::FaceRecognition_run(grayImage, frame);
 
+		//    scene->update();
+		//    scene->draw();
+		//    glfwSwapBuffers(window);
+		//    glfwPollEvents();
 
+		    waitKey(1);
+		//}
 
-	//while (!glfwWindowShouldClose(window))
-	//{
-	//    /*for (auto p : t) {
-	//        p.test(thresholdImage, frame);
-	//    }*/
+	}
+		glfwTerminate();
 
-	//    capture.read(frame);
-	//    cvtColor(frame, grayImage, COLOR_BGR2GRAY);
-	//    
-	//    Vision::FaceRecognition_run(grayImage, frame);
-
-	//    scene->update();
-	//    scene->draw();
-	//    glfwSwapBuffers(window);
-	//    glfwPollEvents();
-
-	//    waitKey(1);
-	//}
-
-	glfwTerminate();
-
-
-	return 0;
+	
+		return 0;
+	
 }
 
 void init()
