@@ -105,6 +105,9 @@
     <ClCompile Include="SchoolNinja.cpp">
       <Filter>Minigames\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ModelLoaderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="MoveToComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoaderComponent.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

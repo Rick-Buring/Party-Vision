@@ -91,8 +91,7 @@ int main(void)
     handCursor->addComponent(moveTo);
     
 
-    scene->addGameObject(handCursor);
-    scene->setRunning(true);
+    
     Mat frame, thresholdImage;
     /*test t3 = {
        vision::detectgraymotion
@@ -146,10 +145,13 @@ int main(void)
 	mainMenu->menuInit(schoolNinjaMenu);
 	mainMenu->scene->setRunning(true);
 	sceneManager = mainMenu;
+	sceneManager->scene->addGameObject(handCursor);
 
 	while (!glfwWindowShouldClose(window))
 	{
+		
         sceneManager->sceneUpdate();
+		
         moveTo->targetPosition.x = xposition;
         moveTo->targetPosition.y = yposition;
         glfwSwapBuffers(window);
