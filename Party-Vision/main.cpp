@@ -82,10 +82,9 @@ int main(void)
     
     std::shared_ptr<Scene::GameObject> handCursor;
     handCursor = std::make_shared<Scene::GameObject>();
-    //std::vector<Scene::VBO_Textures_t> steve = Scene::loadObject("models/steve/Steve.obj");
-    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(20,20));
-    //handCursor->addComponent(std::make_shared<Scene::DrawObjectComponent>());
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, glm::vec3(xposition, yposition, 0));
+    int width = 20, height = 20;
+    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
+    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
     std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
     handCursor->addComponent(transform2);
     handCursor->addComponent(moveTo);

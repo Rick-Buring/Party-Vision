@@ -7,7 +7,7 @@ namespace Scene {
 	class MoveToComponent : public AbstractComponent
 	{
 	public:
-		MoveToComponent(GLFWwindow* window ,glm::vec3 targetPosition = glm::vec3());
+		MoveToComponent(GLFWwindow* window , int width, int height, glm::vec3 targetPosition = glm::vec3());
 
 		glm::vec3 targetPosition;
 
