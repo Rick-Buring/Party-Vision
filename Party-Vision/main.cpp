@@ -108,7 +108,7 @@ int main(void)
 	   "C:/",
 	   new testClas,
 	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	   (mainMenu->backgroundHeight / 7) * 5,
+	   (mainMenu->backgroundHeight / 7) * 1,
 	   200 * (mainMenu->backgroundWidth / 640),
 	   50 * (mainMenu->backgroundHeight / 360)
 
@@ -128,7 +128,7 @@ int main(void)
 	  "C:/",
 	  new testClas,
 	  (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	  (mainMenu->backgroundHeight / 7) * 1,
+	  (mainMenu->backgroundHeight / 7) * 5,
 	  200 * (mainMenu->backgroundWidth / 640),
 	  50 * (mainMenu->backgroundHeight / 360)
 	};
