@@ -20,7 +20,6 @@ namespace Scene {
 	}
 
 	void PlaneComponent::draw() {
-		
 		glm::mat4 projectionMatrix = tigl::shader->getProjectionMatrix();
 		tigl::shader->setProjectionMatrix(PlaneComponent::projectionOrtho);
 		tigl::drawVertices(GL_QUADS, verts);

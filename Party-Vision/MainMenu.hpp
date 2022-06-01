@@ -4,21 +4,27 @@
 #include <string>
 
 namespace Minigames {
+	class IPointerExecuter {
+	public:
+		virtual void execute() = 0;
+	};
 	typedef struct menuItem {
 		std::string text;
 		std::string imageFileName;
-		//void (* functionPointer)(void*);
+		IPointerExecuter* func;
 		float positionx;
 		float positiony;
 		float sizeWidth;
 		float sizeHeight;
 	}MenuItem_t;
 
-	typedef struct menu  {
+	typedef struct menu {
 		std::string title;
 		std::string backgroundFileName;
 		std::vector<MenuItem_t> menuItems;
 	}Menu_t;
+	
+
 	class MainMenu : public AbstractSceneManager
 	{
 	public:
@@ -26,20 +32,12 @@ namespace Minigames {
 		float backgroundHeight;
 		float backgroundx;
 		float backgroundy;
-
-		
-		
-		void (MainMenu::*functionPointerCurrentMenuItem)(void*);
-		
-		/// <summary>
-		/// Executes the function pointer related to the clicked button.
-		/// </summary>
-		void menuOnClick();
+		Menu_t currentMenu;
 
 		/// <summary>
 		/// creates and add game object of the main menu to the scene.
 		/// </summary>
-		void menuInit();
+		void menuInit(Menu_t);
 
 		/// <summary>
 		/// Constructor for MainMenu which initilizes the scene.
@@ -51,7 +49,8 @@ namespace Minigames {
 		
 	};
 
-	extern Menu_t currentMenu;
+
+
 	
 }
 

@@ -21,14 +21,10 @@ namespace Minigames {
 		backgroundy = 0;
 		scene = std::make_shared<Scene::Scene>();
 	}
-	
-	void MainMenu::menuOnClick() {
-		MainMenu::functionPointerCurrentMenuItem;
-	}
 
 	
-	void MainMenu::menuInit() {
-	
+	void MainMenu::menuInit(Menu_t current) {
+		currentMenu = current;
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
 		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(1, 1);
 

@@ -99,6 +99,9 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Minigames\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SchoolNinja.cpp">
+      <Filter>Minigames\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -163,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="replaceComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolNinja.hpp">
+      <Filter>Minigames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointerExecuter.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
