@@ -54,7 +54,7 @@ int main(void)
 	scene->addGameObject(object);
 	scene->setRunning(true);
 
-	Mat frame, thresholdImage, blurImage, grayImage;
+	Mat frame, thresholdImage, blurImage, grayImage, countours;
 	test t3 = {
 	   Vision::detectGrayMotion
 	};
@@ -72,7 +72,7 @@ int main(void)
 
 	vector<Rect> faces = Vision::FaceRecognition_run(frame);
 	Vision::hsv skinColorHSV = Vision::HandDetection_init(frame, faces);
-	Mat imgHSV, mask;
+	Mat imgHSV, mask, maskDil;
 
 	while (true) {
 
@@ -80,15 +80,25 @@ int main(void)
 
 		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
-		Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
-		//Scalar lower(0, 38, 87);
+		//Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
+		Scalar lower(0, 38, 87);
 		Scalar upper(11, 255, 255);
 
 		inRange(imgHSV, lower, upper, mask);
 
+		Mat kernel = getStructuringElement(MORPH_RECT, Size(10,10));
+		dilate(mask, maskDil, kernel);
+		
+		//vector<vector<Point>> contours;
+		//vector<Vec4i> hierarchy;
 
-		imshow("Image HSV", imgHSV);
+		//findContours(mask, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_TC89_KCOS);
+		//drawContours(frame, contours, -1, Scalar(0, 0, 255), 2, 1, hierarchy);
+
+		
+		imshow("frame", frame);		
 		imshow("Image Mask", mask);
+		imshow("Mask DILATE", maskDil);
 		waitKey(1);
 	}
 
