@@ -6,13 +6,15 @@
 #include "GravityComponent.hpp"
 #include "DrawObjectComponent.hpp"
 #include "replaceComponent.hpp"
+#include "OutofBoundsComponent.hpp"
 
 namespace Scene {
 	std::shared_ptr<GameObject> generateGameObject(parentObject_t obj, Scene * scene) {
 		std::shared_ptr<GameObject> gameObj = std::make_shared<GameObject>();
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(0, 0, 0), glm::vec3(50, 100, 0)));
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(0, -10, 0), glm::vec3(1, 50, 0)));
 		gameObj->addComponent(std::make_shared<GravityComponent>());
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj.object));
+		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene));
 
 		std::shared_ptr<GameObject> subObj = std::make_shared<GameObject>();
 		subObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(0, 0, 0), glm::vec3(50, 100, 0)));
@@ -21,8 +23,6 @@ namespace Scene {
 		
 		gameObj->addComponent(std::make_shared<ReplaceComponent>(subObj, scene));
 
-
-		
 		subObj = std::make_shared<GameObject>();
 		subObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(0, 0, 0), glm::vec3(-50, 100, 0)));
 		subObj->addComponent(std::make_shared<GravityComponent>());
