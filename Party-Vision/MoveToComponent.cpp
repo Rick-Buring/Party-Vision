@@ -5,11 +5,14 @@
 #include <iostream>
 
 namespace Scene {
-	double xposition, yposition ;
+	double xposition, yposition;
 	glm::vec3 cursorPosition;
+	double middlePointWidth = 0, middlePointHeight = 0;
 
-	MoveToComponent::MoveToComponent(GLFWwindow* window, glm::vec3 targetPosition) : targetPosition(targetPosition)
+	MoveToComponent::MoveToComponent(GLFWwindow* window, int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
+		middlePointHeight = height / 2;
+		middlePointWidth = width / 2;
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 			{
 				xposition = xpos;
@@ -22,7 +25,9 @@ namespace Scene {
 		
 		targetPosition = glm::vec3(xposition, yposition, 0);
 		glm::vec3 move = targetPosition- comp->position;
-		move.x = move.x;
+
+		move.x -= middlePointWidth;
+		move.y -= middlePointHeight;
 		move.z = 0;
 		float mag = sqrt(move.x * move.x + move.y * move.y) / 2;
 		if (mag > 0) {
