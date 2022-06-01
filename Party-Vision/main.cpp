@@ -32,11 +32,17 @@ Minigames::AbstractSceneManager* sceneManager;
 #include "GravityComponent.hpp"
 #include "ReplaceComponent.hpp"
 #include "IOnDeath.hpp"
+#include "MoveToComponent.hpp"
 
 struct test {
 	void(*test)(Mat& first, Mat& second);
 };
-std::vector<test> t1;
+std::vector<test> frameF;
+
+
+double xposition;
+double yposition;
+
 
 void init();
 
@@ -68,7 +74,34 @@ int main(void)
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
 
+    /*std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
+    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
+    object->addComponent(std::make_shared<Scene::GravityComponent>());
+    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
+    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));*/
+    
+    std::shared_ptr<Scene::GameObject> handCursor;
+    handCursor = std::make_shared<Scene::GameObject>();
+    int width = 20, height = 20;
+    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
+    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
+    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
+    handCursor->addComponent(transform2);
+    handCursor->addComponent(moveTo);
+    
 
+    scene->addGameObject(handCursor);
+    scene->setRunning(true);
+    Mat frame, thresholdImage;
+    /*test t3 = {
+       vision::detectgraymotion
+    };
+    test t2 = {
+    vision::collectsamples
+    };
+    framef.push_back(t3);
+    framef.push_back(t2);*/
 
 
 	Minigames::MenuItem_t schoolNinjaStartMenuItem{
@@ -116,23 +149,18 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window))
 	{
+        sceneManager->sceneUpdate();
+        moveTo->targetPosition.x = xposition;
+        moveTo->targetPosition.y = yposition;
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+        waitKey(1);
+    }
+        
+		
+    glfwTerminate();
 
-		sceneManager->sceneUpdate();
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-
-		waitKey(1);
-	}
-
-
-
-
-
-
-	glfwTerminate();
-
-
-	return 0;
+    return 0;
 }
 
 void init()

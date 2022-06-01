@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -169,6 +169,8 @@
     <ClCompile Include="HandDetection.cpp" />
     <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoaderComponent.cpp" />
+    <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="ReplaceComponent.cpp" />
@@ -192,6 +194,8 @@
     <ClInclude Include="HandDetection.hpp" />
     <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="IOnDeath.hpp" />
+    <ClInclude Include="ModelLoaderComponent.hpp" />
+    <ClInclude Include="MoveToComponent.hpp" />
     <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="IVisionHandler.hpp" />
