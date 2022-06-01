@@ -53,7 +53,7 @@ int main(void)
     Scene::Scene* scene = new Scene::Scene();
     
     //std::vector<Scene::VBO_Textures_t> honda = Scene::loadObject("models/car/honda_jazz.obj");
-    std::vector<Scene::VBO_Textures_t> ship = Scene::loadObject("models/ship/shipA_OBJ.obj");
+    std::vector<Scene::VBO_Textures_t> ship = Scene::loadObject("models/paper/paper.obj");
     //std::shared_ptr<Scene::TransformComponent> transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, -100, -100));
 
     //std::shared_ptr<Scene::GameObject> replacingObject = std::make_shared<Scene::GameObject>();
