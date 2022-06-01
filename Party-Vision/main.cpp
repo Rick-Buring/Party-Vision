@@ -65,54 +65,37 @@ int main(void)
 	t.push_back(t3);
 	t.push_back(t2);
 
+	VideoCapture capture(0);
+	int hmin = 0, smin = 110, vmin = 153;
+	int hmax = 19, smax = 240, vmax = 255;
+
+
+	vector<Rect> faces = Vision::FaceRecognition_run(frame);
+	Vision::hsv skinColorHSV = Vision::HandDetection_init(frame, faces);
+	Mat imgHSV, mask;
+
 	while (true) {
-		vector<Rect> faces = Vision::FaceRecognition_run(frame);
 
-		Vision::hsv testtt = Vision::HandDetection_init(frame, faces);
-
-		cout << "hue: main " << round(testtt.h) << "\n";
-		cout << "sat: main " << round(testtt.s) << "\n";
-		cout << "val: main" << round(testtt.v) << "\n";
-		
-		Mat imgHSV, mask;
+		capture.read(frame);
 
 		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
-		//Scalar lower(hmin, smin, vmin);
-		//Scalar upper(hmax, smax, vmax);
+		Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
+		//Scalar lower(0, 38, 87);
+		Scalar upper(11, 255, 255);
 
-		Scalar lower(testtt.h, testtt.s, testtt.v);
-		Scalar upper(17, 255, 255);
 		inRange(imgHSV, lower, upper, mask);
+
 
 		imshow("Image HSV", imgHSV);
 		imshow("Image Mask", mask);
-	
-		//while (!glfwWindowShouldClose(window))
-		//{
-		//    /*for (auto p : t) {
-		//        p.test(thresholdImage, frame);
-		//    }*/
-
-		//    capture.read(frame);
-		//    cvtColor(frame, grayImage, COLOR_BGR2GRAY);
-		//    
-		//    Vision::FaceRecognition_run(grayImage, frame);
-
-		//    scene->update();
-		//    scene->draw();
-		//    glfwSwapBuffers(window);
-		//    glfwPollEvents();
-
-		    waitKey(1);
-		//}
-
+		waitKey(1);
 	}
-		glfwTerminate();
 
-	
-		return 0;
-	
+	glfwTerminate();
+
+
+	return 0;
 }
 
 void init()
