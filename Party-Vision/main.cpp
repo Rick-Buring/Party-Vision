@@ -7,6 +7,7 @@
 #include "Scene.hpp"
 #include "MainMenu.hpp"
 #include "AbstractSceneManager.hpp"
+#include "SchoolNinja.hpp" 
 #include <iostream>
 
 using tigl::Vertex;
@@ -18,6 +19,8 @@ using tigl::Vertex;
 GLFWwindow* window;
 double xpos_t;
 double ypos_t;
+
+Minigames::AbstractSceneManager* sceneManager;
 
 
 #include "GameObject.hpp"
@@ -32,7 +35,7 @@ double ypos_t;
 #include "MoveToComponent.hpp"
 
 struct test {
-    void(*test)(Mat& first, Mat &second);
+	void(*test)(Mat& first, Mat& second);
 };
 std::vector<test> frameF;
 
@@ -43,35 +46,33 @@ double yposition;
 
 void init();
 
+class testClas : public Minigames::IPointerExecuter {
+	void execute() override {
+		std::cout << "Hello ";
+	}
+};
+
 int main(void)
-{   
-    if (!glfwInit())
-        throw "Could not initialize glwf";
-    window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        throw "Could not initialize glwf";
-    }
-    glfwMakeContextCurrent(window);
+{
+	if (!glfwInit())
+		throw "Could not initialize glwf";
+	window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		throw "Could not initialize glwf";
+	}
+	glfwMakeContextCurrent(window);
 
-    tigl::init();
+	tigl::init();
 
-    init();
+	init();
 
-    Scene::Scene* scene = new Scene::Scene();
-    
-    //std::shared_ptr<Scene::GameObject> object;
+	Scene::Scene* scene = new Scene::Scene();
 
-    //object = std::make_shared<Scene::GameObject>();
-    //object->addComponent(std::make_shared<Scene::PlaneComponent>(1, 1));
-    //object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -1)));
 
-    //Scene::Scene* scene = new Scene::Scene();
-    //scene->addGameObject(object);
-    //scene->setRunning(true);
-    Minigames::MainMenu* schoolNinja = new Minigames::MainMenu();
-    std::vector<Minigames::MenuItem_t> menuItems;
+	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
+	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
 
     /*std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
     object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
@@ -90,9 +91,6 @@ int main(void)
     handCursor->addComponent(moveTo);
     
 
-    //scene->addGameObject(object);
-    scene->addGameObject(handCursor);
-    scene->setRunning(true);
     
     Mat frame, thresholdImage;
     /*test t3 = {
@@ -104,75 +102,64 @@ int main(void)
     framef.push_back(t3);
     framef.push_back(t2);*/
 
-    Minigames::MenuItem_t startMenuItem{
-           "Start",
-           "C:/",
-           //&Minigames::MainMenu::menuOnClick,
-           (schoolNinja->backgroundWidth / 2) - ((200 * (schoolNinja->backgroundWidth / 640)) / 2),
-           (schoolNinja->backgroundHeight / 7) * 5,
-           200 * (schoolNinja->backgroundWidth / 640),
-           50 * (schoolNinja->backgroundHeight / 360)
-        };
 
-    Minigames::MenuItem_t howToPlayMenuItem{
-       "How to Play",
-       "C:/",
-       //menuOnClick,
-       (schoolNinja->backgroundWidth / 2) - ((200 * (schoolNinja->backgroundWidth / 640)) / 2),
-       (schoolNinja->backgroundHeight / 7) * 3,
-       200 * (schoolNinja->backgroundWidth / 640),
-       50 * (schoolNinja->backgroundHeight / 360)
-    };
- 
-    Minigames::MenuItem_t HelpMenuItem{
-      "Help",
-      "C:/",
-      //&Minigames::MainMenu::menuOnClick,
-      (schoolNinja->backgroundWidth / 2) - ((200 * (schoolNinja->backgroundWidth / 640)) / 2),
-      (schoolNinja->backgroundHeight / 7) * 1,
-      200 * (schoolNinja->backgroundWidth / 640),
-      50 * (schoolNinja->backgroundHeight / 360)
-    };
+	Minigames::MenuItem_t schoolNinjaStartMenuItem{
+	   "Start",
+	   "C:/",
+	   new testClas,
+	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	   (mainMenu->backgroundHeight / 7) * 1,
+	   200 * (mainMenu->backgroundWidth / 640),
+	   50 * (mainMenu->backgroundHeight / 360)
 
-    menuItems.push_back(startMenuItem);
-    menuItems.push_back(howToPlayMenuItem);
-    menuItems.push_back(HelpMenuItem);
-    Minigames::Menu_t schoolNinjaMenu{
-        "School Ninja",
-        "C:/",
-        menuItems
-    };
+	};
+	Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
+	   "How to Play",
+	   "C:/",
+	   new testClas,
+	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	   (mainMenu->backgroundHeight / 7) * 3,
+	   200 * (mainMenu->backgroundWidth / 640),
+	   50 * (mainMenu->backgroundHeight / 360)
 
-    std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
-    std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(5,5);
+	};
+	Minigames::MenuItem_t schoolNinjaHelpMenuItem{
+	  "Help",
+	  "C:/",
+	  new testClas,
+	  (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	  (mainMenu->backgroundHeight / 7) * 5,
+	  200 * (mainMenu->backgroundWidth / 640),
+	  50 * (mainMenu->backgroundHeight / 360)
+	};
+	schoolNinjaMenuItems.push_back(schoolNinjaStartMenuItem);
+	schoolNinjaMenuItems.push_back(schoolNinjaHowToPlayMenuItem);
+	schoolNinjaMenuItems.push_back(schoolNinjaHelpMenuItem);
+	Minigames::Menu_t schoolNinjaMenu{
+		"School Ninja",
+		"C:/",
+		schoolNinjaMenuItems
+	};
 
-    button->addComponent(buttonPlane);
-    schoolNinja->scene->addGameObject(button);
 
-    Minigames::currentMenu = schoolNinjaMenu;
-    schoolNinja->menuInit();
-    schoolNinja->scene->setRunning(true);
+	mainMenu->menuInit(schoolNinjaMenu);
+	mainMenu->scene->setRunning(true);
+	sceneManager = mainMenu;
+	sceneManager->scene->addGameObject(handCursor);
 
-   
-    while (!glfwWindowShouldClose(window))
-    {
-  
-        schoolNinja->sceneUpdate();
-        //for (auto p : t1) {
-        //    p.test(thresholdImage, frame);
-        //}
-
+	while (!glfwWindowShouldClose(window))
+	{
+		
+        sceneManager->sceneUpdate();
+		
         moveTo->targetPosition.x = xposition;
         moveTo->targetPosition.y = yposition;
-        //transform->rotation.y = transform->rotation.y + 0.002 ;
-        scene->update();
-        scene->draw();
         glfwSwapBuffers(window);
         glfwPollEvents();
-    
         waitKey(1);
     }
-
+        
+		
     glfwTerminate();
 
     return 0;
@@ -180,28 +167,29 @@ int main(void)
 
 void init()
 {
-    tigl::shader->enableTexture(true);
+	tigl::shader->enableTexture(true);
 
-    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-        {
-            if (key == GLFW_KEY_ESCAPE)
-                glfwSetWindowShouldClose(window, true);
-        });
-    glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
-        {
-            double xpos, ypos;
-            int viewport[4];
-            glGetIntegerv(GL_VIEWPORT, viewport);
-            glfwGetCursorPos(window, &xpos, &ypos);
-            if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-          
-                for (Minigames::MenuItem_t menuItem : Minigames::currentMenu.menuItems) {
-                    if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
-                        (viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
-                        std::cout << "Hallo";
-                    }
-                }
-
-            }
-        });
+	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			if (key == GLFW_KEY_ESCAPE)
+				glfwSetWindowShouldClose(window, true);
+		});
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			double xpos, ypos;
+			int viewport[4];
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			glfwGetCursorPos(window, &xpos, &ypos);
+			if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+				Minigames::MainMenu* mainMenu = dynamic_cast<Minigames::MainMenu*>(sceneManager);
+				if (mainMenu) {
+					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
+						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
+							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
+							menuItem.func->execute();
+						}
+					}
+				}
+			}
+		});
 }

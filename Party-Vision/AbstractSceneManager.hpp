@@ -11,7 +11,7 @@ namespace Minigames {
 		/// <summary>
 		/// updates the current scene
 		/// </summary>
-		void sceneUpdate();
+		virtual void sceneUpdate();
 	private:
 		
 		
