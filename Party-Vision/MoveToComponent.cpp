@@ -11,6 +11,7 @@ namespace Scene {
 
 	MoveToComponent::MoveToComponent(GLFWwindow* window, int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
+		//Divide the height and width by 2 so the item will be spawned to the middle
 		middlePointHeight = height / 2;
 		middlePointWidth = width / 2;
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
@@ -19,6 +20,8 @@ namespace Scene {
 				yposition = ypos;
 			});
 	}
+
+	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
 	void MoveToComponent::update(float deltaTime)
 	{
 		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();\
