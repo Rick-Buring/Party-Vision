@@ -26,7 +26,34 @@ struct test {
 };
 std::vector<test> t;
 
+
+Mat maskDil, mask;
+
+
 void init();
+
+void getContours(Mat frame, Mat mask) {
+	vector<vector<Point>> contours;
+	vector<Vec4i> hierarchy;
+
+	findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+	
+
+
+	for (int i = 0; i < contours.size(); i++) {
+		int area = contourArea(contours[i]);				
+		
+		if (area > 5000) {
+			cout << "GROER DAN 10K :==>   :" << area << endl;
+			drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
+		}
+	}
+
+	cout << "EINDE NIEUWE FRAME GEDOE: "<< endl;
+
+}
+
+
 
 int main(void)
 {
@@ -54,7 +81,7 @@ int main(void)
 	scene->addGameObject(object);
 	scene->setRunning(true);
 
-	Mat frame, thresholdImage, blurImage, grayImage, countours;
+	Mat frame, thresholdImage, blurImage, grayImage, countours, maskDil;
 	test t3 = {
 	   Vision::detectGrayMotion
 	};
@@ -72,7 +99,7 @@ int main(void)
 
 	vector<Rect> faces = Vision::FaceRecognition_run(frame);
 	Vision::hsv skinColorHSV = Vision::HandDetection_init(frame, faces);
-	Mat imgHSV, mask, maskDil;
+	Mat imgHSV;
 
 	while (true) {
 
@@ -86,19 +113,14 @@ int main(void)
 
 		inRange(imgHSV, lower, upper, mask);
 
-		Mat kernel = getStructuringElement(MORPH_RECT, Size(10,10));
-		dilate(mask, maskDil, kernel);
-		
-		//vector<vector<Point>> contours;
-		//vector<Vec4i> hierarchy;
+		Mat kernel = getStructuringElement(MORPH_RECT, Size(20,20));
+		dilate(mask, mask, kernel);
+		//GaussianBlur(mask, mask, Size(5,5), 5, 0);
 
-		//findContours(mask, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_TC89_KCOS);
-		//drawContours(frame, contours, -1, Scalar(0, 0, 255), 2, 1, hierarchy);
-
+		getContours(frame, mask);
 		
 		imshow("frame", frame);		
 		imshow("Image Mask", mask);
-		imshow("Mask DILATE", maskDil);
 		waitKey(1);
 	}
 
