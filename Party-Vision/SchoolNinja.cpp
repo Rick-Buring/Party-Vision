@@ -55,10 +55,23 @@ namespace Scene {
 		_objects.push_back(obj);
 	}
 
+	void SchoolNinja::removeLife() {
+		SchoolNinja::_lifes--;
+		if (SchoolNinja::_lifes <= 0) {
+			//todo end game
+
+			//_scene->removeComponent(_gameObject);
+		}
+	}
+
+	void SchoolNinja::increaseScore(int score) {
+		SchoolNinja::_score += score;
+	}
+
 	void SchoolNinja::update(float deltaTime)
 	{
 		_durationSeconds -= deltaTime;
-		if (_durationSeconds < 0) {
+		if (_durationSeconds < 0 || SchoolNinja::_lifes <= 0) {
 			//todo end game
 			return;
 		}
@@ -66,8 +79,5 @@ namespace Scene {
 			SchoolNinja::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinja::_scene));
 		}
 		
-	}
-	void SchoolNinja::increaseScore(int score)
-	{
 	}
 }

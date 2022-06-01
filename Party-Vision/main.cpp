@@ -66,14 +66,30 @@ int main(void)
     //transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
     //replacingObject2->addComponent(transform);
 
-    std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
-    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
-    object->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene));
     
-    //std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
-    //object->addComponent(std::make_shared<Scene::SchoolNinja>(scene));
+    std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
+    std::shared_ptr<Scene::SchoolNinja> sninja = std::make_shared<Scene::SchoolNinja>(scene);
+    object->addComponent(sninja);
 
+    std::shared_ptr<Scene::GameObject> firstShip = std::make_shared<Scene::GameObject>();
+    firstShip->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    firstShip->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
+    firstShip->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene, sninja.get()));
+
+    std::shared_ptr<Scene::GameObject> secondShip = std::make_shared<Scene::GameObject>();
+    secondShip->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    secondShip->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
+    secondShip->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene, sninja.get()));
+
+    std::shared_ptr<Scene::GameObject> thirdShip = std::make_shared<Scene::GameObject>();
+    thirdShip->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    thirdShip->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
+    thirdShip->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene, sninja.get()));
+
+
+    scene->addGameObject(firstShip);
+    scene->addGameObject(secondShip);
+    scene->addGameObject(thirdShip);
     scene->addGameObject(object);
     scene->setRunning(true);
 
