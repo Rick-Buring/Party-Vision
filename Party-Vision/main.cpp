@@ -32,25 +32,42 @@ Mat maskDil, mask;
 
 void init();
 
+
 void getContours(Mat frame, Mat mask) {
 	vector<vector<Point>> contours;
+	vector<vector<Point>> contours2;
 	vector<Vec4i> hierarchy;
 
 	findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
-	
-
+	int largestArea = 0;
 
 	for (int i = 0; i < contours.size(); i++) {
-		int area = contourArea(contours[i]);				
-		
-		if (area > 5000) {
-			cout << "GROER DAN 10K :==>   :" << area << endl;
+		int area = contourArea(contours[i]);
+		int highestArea = contourArea(contours[largestArea]);
+
+		if (area > highestArea) {
+			largestArea = i;
+			cout << "largest ITEM: : " << largestArea << endl;
+
+		}
+	
+		cout << "ITEM: : " << i << "===> :    " << area << endl;
+	}
+
+	contours.erase(std::next(contours.begin(), largestArea));
+
+	for (int i = 0; i < contours.size(); i++) {
+
+		int area = contourArea(contours[i]);
+
+		cout << "ITEM: : REMOVED :  : " << i << "===> :    " << area << endl;
+	
+		if (area > 2000) {
 			drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
 		}
 	}
-
-	cout << "EINDE NIEUWE FRAME GEDOE: "<< endl;
-
+	//	cout << "de grooste waarde is : " << contourArea(contours[largestArea]) << endl;
+	//  cout << "EINDE NIEUWE FRAME GEDOE: " << endl;
 }
 
 
