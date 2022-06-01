@@ -43,7 +43,7 @@ namespace Scene {
 
 		 //Initialize textures
 		 _textureList.push_back(std::make_shared<DrawObjectComponent>(loadObject("models/book/1984_book.obj")));
-		// _textureList.push_back(std::make_shared<DrawObjectComponent>(loadObject("models/paper/Papers.obj")));
+		 //_textureList.push_back(std::make_shared<DrawObjectComponent>(loadObject("models/paper/Papers.obj")));
 		 
 		 std::shared_ptr<GameObject> book = std::make_shared<GameObject>();
 		 book->addComponent(std::make_shared<TransformComponent>(glm::vec3(0, 0, 0), glm::vec3(-50, 100, 0)));

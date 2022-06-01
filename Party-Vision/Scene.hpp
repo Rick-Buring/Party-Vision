@@ -18,7 +18,7 @@ namespace Scene {
 		/// removes component from list.
 		/// </summary>
 		/// <param name="_gameObject"></param>
-		void removeComponent(GameObject* _gameObject);
+		void removeGameObject(GameObject* _gameObject);
 
 		/// <summary>
 		/// method to update the scene

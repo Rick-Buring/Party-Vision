@@ -169,6 +169,7 @@
     <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
+    <ClCompile Include="OutofBoundsComponent.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="ReplaceComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="IOnDeath.hpp" />
     <ClInclude Include="ObjectLoader.hpp" />
+    <ClInclude Include="OutofBoundsComponent.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="IVisionHandler.hpp" />
     <ClInclude Include="replaceComponent.hpp" />

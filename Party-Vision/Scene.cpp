@@ -20,7 +20,7 @@ namespace Scene {
 		Scene::_gameObjects->push_back(gameObject);
 	}
 
-	void Scene::removeComponent(GameObject* gameObject)
+	void Scene::removeGameObject(GameObject* gameObject)
 	{
 		std::shared_ptr<GameObject> objectToRemove = nullptr;
 		for(auto gameObj : *_gameObjects)

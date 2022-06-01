@@ -25,6 +25,7 @@ GLFWwindow* window;
 #include "SchoolNinja.hpp"
 #include "IOnDeath.hpp"
 #include "DestroyObjectComponent.hpp"
+#include "OutofBoundsComponent.hpp"
 
 struct test {
     void(*test)(Mat& first, Mat &second);
@@ -66,7 +67,7 @@ int main(void)
     //transform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
     //replacingObject2->addComponent(transform);
 
-    
+   /* 
     std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
     std::shared_ptr<Scene::SchoolNinja> sninja = std::make_shared<Scene::SchoolNinja>(scene);
     object->addComponent(sninja);
@@ -79,18 +80,19 @@ int main(void)
     std::shared_ptr<Scene::GameObject> secondShip = std::make_shared<Scene::GameObject>();
     secondShip->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
     secondShip->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
-    secondShip->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene, sninja.get()));
+    secondShip->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene, sninja.get()));*/
 
     std::shared_ptr<Scene::GameObject> thirdShip = std::make_shared<Scene::GameObject>();
     thirdShip->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
+    thirdShip->addComponent(std::make_shared<Scene::GravityComponent>(1));
     thirdShip->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
-    thirdShip->addComponent(std::make_shared<Scene::DestroyObjectComponent>(scene, sninja.get()));
+    thirdShip->addComponent(std::make_shared<Scene::OutOfBoundsComponent>(scene));
 
 
-    scene->addGameObject(firstShip);
-    scene->addGameObject(secondShip);
+    //scene->addGameObject(firstShip);
+    //scene->addGameObject(secondShip);
     scene->addGameObject(thirdShip);
-    scene->addGameObject(object);
+    //scene->addGameObject(object);
     scene->setRunning(true);
 
     Mat frame, thresholdImage;

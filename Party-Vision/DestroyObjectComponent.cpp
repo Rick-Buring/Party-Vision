@@ -8,7 +8,7 @@ namespace Scene {
 		if (DestroyObjectComponent::_timeToLive <= 0) {
 
 			//remove gameobject from scene
-			DestroyObjectComponent::_scene->removeComponent(_gameObject);
+			DestroyObjectComponent::_scene->removeGameObject(_gameObject);
 			
 			if (DestroyObjectComponent::_game) {
 				//remove life
