@@ -12,11 +12,25 @@ namespace Scene {
 	Scene::Scene()
 	{
 		Scene::_gameObjects = new std::list<std::shared_ptr<GameObject>>();
+		Scene::_gameObjectsToRemove = new std::list<std::shared_ptr<GameObject>>();
 	}
 
 	void Scene::addGameObject(std::shared_ptr<GameObject> gameObject)
 	{
 		Scene::_gameObjects->push_back(gameObject);
+	}
+
+	void Scene::removeComponent(GameObject* gameObject)
+	{
+		std::shared_ptr<GameObject> objectToRemove = nullptr;
+		for(auto gameObj : *_gameObjects)
+		{
+			if (gameObj.get() == gameObject) {
+				objectToRemove = gameObj;
+				break;
+			}
+		}
+		_gameObjectsToRemove->push_back(objectToRemove);
 	}
 
 	void Scene::update()
@@ -31,6 +45,11 @@ namespace Scene {
 			gameObject->update((float) deltaTime);
 		}
 
+		for (auto gameObject : (*Scene::_gameObjectsToRemove)) {
+			Scene::_gameObjects->remove(gameObject);
+		}
+
+		Scene::_gameObjectsToRemove->clear();
 	}
 
 
