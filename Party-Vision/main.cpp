@@ -130,8 +130,8 @@ int main(void)
 		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
 		//Dynamic retrieval human skin.
-		Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
-		//Scalar lower(0, 38, 87);  //Skin color from me(REDOUAN)
+		//Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
+		Scalar lower(0, 38, 87);  //Skin color from me(REDOUAN)
 		Scalar upper(11, 255, 255);
 
 		inRange(imgHSV, lower, upper, mask);
@@ -141,9 +141,9 @@ int main(void)
 		dilate(mask, mask, kernel);
 		//GaussianBlur(mask, mask, Size(5,5), 5, 0);
 
-		//zelfde functie werkt niet als het in een klasse zit
-		//Vision::findContours(frame, mask);
-		findContours(frame, mask);
+		//Calls the methode to find all the contours in the frame
+		Vision::findContours(frame, mask);
+		//ffindContours(frame, mask);
 		
 		imshow("frame", frame);		
 		imshow("Image Mask", mask);
