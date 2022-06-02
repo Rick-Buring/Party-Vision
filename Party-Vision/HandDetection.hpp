@@ -16,4 +16,6 @@ namespace Vision {
 	} hsv;
 
 	hsv HandDetection_init(Mat frame, vector<Rect>);
+
+	void findContours(Mat frame, Mat mask);
 }

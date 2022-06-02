@@ -2,6 +2,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+
 using namespace std;
 using namespace cv;
 using namespace cv::ml;
@@ -14,12 +15,6 @@ typedef struct {
 	double g;       // a fraction between 0 and 1
 	double b;       // a fraction between 0 and 1
 } rgb;
-
-typedef struct {
-	double h;       // angle in degrees
-	double s;       // a fraction between 0 and 1
-	double v;       // a fraction between 0 and 1
-} hsv;
 
 namespace Vision {
 	hsv rgb2hsv(rgb in)
@@ -114,5 +109,49 @@ namespace Vision {
 
 		
 		return skinColorHSV;
+	}
+
+
+	//Get a single frame, filters all the legit contours and cuts the head.
+	void findContours(Mat frame, Mat mask) {
+		vector<vector<Point>> contours;
+		vector<Vec4i> hierarchy;
+
+		//Finds all the contours in the frame.
+		findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+		
+		//Saves the largest contour index.
+		int largestAreaIndex = 0;
+
+		//Loops through all the contours to check which is the largest.
+		for (int i = 0; i < contours.size(); i++) {
+			int area = contourArea(contours[i]);
+			int highestArea = contourArea(contours[largestAreaIndex]);
+
+			if (area > highestArea) {
+				largestAreaIndex = i;
+			}
+		}
+
+		//Deletes the largest contour from vector<Point> list.
+		contours.erase(std::next(contours.begin(), largestAreaIndex));
+
+		//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
+		for (int i = 0; i < contours.size(); i++) {
+			int area = contourArea(contours[i]);
+
+			//Checks if area is bigger than 2000, if that's the case it will be drawed.
+			if (area > 2000) {
+				vector<Point> f = contours[i];
+				Point ff = f[0];
+
+				//ff bekijken hoe de coordinaten sopecifidek worden meegeven BIG TODO!!!!
+				cout << "x = " << ff.x << "  y= " << ff.y << endl;
+				cout << "nieuwe regelelelele" << endl;
+				
+				//draws the specific contour.
+				drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
+			}
+		}
 	}
 }

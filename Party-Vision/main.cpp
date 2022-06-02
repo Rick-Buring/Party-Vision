@@ -32,40 +32,44 @@ Mat maskDil, mask;
 
 void init();
 
-
-void getContours(Mat frame, Mat mask) {
+//Get a single frame, filters all the legit contours and cuts the head.
+void findContours(Mat frame, Mat mask) {
 	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
 
+	//Finds all the contours in the frame.
 	findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
-	int largestArea = 0;
 
-	
+	//Saves the largest contour index.
+	int largestAreaIndex = 0;
 
+	//Loops through all the contours to check which is the largest.
 	for (int i = 0; i < contours.size(); i++) {
 		int area = contourArea(contours[i]);
-		int highestArea = contourArea(contours[largestArea]);
+		int highestArea = contourArea(contours[largestAreaIndex]);
 
 		if (area > highestArea) {
-			largestArea = i;
-		}		
+			largestAreaIndex = i;
+		}
 	}
 
-	contours.erase(std::next(contours.begin(), largestArea));
+	//Deletes the largest contour from vector<Point> list.
+	contours.erase(std::next(contours.begin(), largestAreaIndex));
 
+	//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
 	for (int i = 0; i < contours.size(); i++) {
 		int area = contourArea(contours[i]);
 
-		vector<Point> f = contours[i];
-		Point ff = f[0];
-		//for (Point ff : f) {
-			cout << "x = " << ff.x << "  y= " << ff.y << endl;
-		//}		
-
-		cout << "nieuwe regelelelele" << endl;
-
-
+		//Checks if area is bigger than 2000, if that's the case it will be drawed.
 		if (area > 2000) {
+			vector<Point> f = contours[i];
+			Point ff = f[0];
+
+			//ff bekijken hoe de coordinaten sopecifidek worden meegeven BIG TODO!!!!
+			cout << "x = " << ff.x << "  y= " << ff.y << endl;
+			cout << "nieuwe regelelelele" << endl;
+
+			//draws the specific contour.
 			drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
 		}
 	}
@@ -125,17 +129,21 @@ int main(void)
 
 		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
-		//Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
-		Scalar lower(0, 38, 87);
+		//Dynamic retrieval human skin.
+		Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
+		//Scalar lower(0, 38, 87);  //Skin color from me(REDOUAN)
 		Scalar upper(11, 255, 255);
 
 		inRange(imgHSV, lower, upper, mask);
 
 		Mat kernel = getStructuringElement(MORPH_RECT, Size(20,20));
+		//dilate the mask MATRIX to make the most objects connected with each other.
 		dilate(mask, mask, kernel);
 		//GaussianBlur(mask, mask, Size(5,5), 5, 0);
 
-		getContours(frame, mask);
+		//zelfde functie werkt niet als het in een klasse zit
+		//Vision::findContours(frame, mask);
+		findContours(frame, mask);
 		
 		imshow("frame", frame);		
 		imshow("Image Mask", mask);
