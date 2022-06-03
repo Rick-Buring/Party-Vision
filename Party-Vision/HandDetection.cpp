@@ -2,6 +2,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+
 using namespace std;
 using namespace cv;
 using namespace cv::ml;
@@ -14,12 +15,6 @@ typedef struct {
 	double g;       // a fraction between 0 and 1
 	double b;       // a fraction between 0 and 1
 } rgb;
-
-typedef struct {
-	double h;       // angle in degrees
-	double s;       // a fraction between 0 and 1
-	double v;       // a fraction between 0 and 1
-} hsv;
 
 namespace Vision {
 	hsv rgb2hsv(rgb in)
@@ -69,7 +64,7 @@ namespace Vision {
 		return out;
 	}
 
-	void HandDetection_init(Mat frame, vector<Rect> faces)
+	hsv HandDetection_init(Mat frame, vector<Rect> faces)
 	{
 		//Stuk rectangle uit het frame halen
 		Mat imgCrop = frame(faces[0]);
@@ -106,25 +101,57 @@ namespace Vision {
 
 		//struct om de R G B op te slaan
 		rgb skinColor = {r / points, g / points, b / points};
-		
-		//Test rgb waarde om te converten naar hsv 
-		// {
-			rgb color = { 0,255,255};		
-			hsv color2 = rgb2hsv(color); 
-		//}
-	
-		//methode om de rbg te converten naat een hsv color en op te slaan in de skinCOlorHSV var.
-		
-		//dit haalt de hsv waarde op van het gezicht uiteindelijk dit gaan uncommentent
-		//hsv skinColorHSV = rgb2hsv(skinColor);
+			hsv skinColorHSV = rgb2hsv(skinColor);
 
-		cout << "hue: " << round(color2.h) << "\n";
-		cout << "sat: " << round(color2.s) << "\n";
-		cout << "val: " << round(color2.v) << "\n";
+		cout << "hue: handetetcion " << round(skinColorHSV.h) << "\n";
+		cout << "sat: handetetcion " << round(skinColorHSV.s) << "\n";
+		cout << "val: handetetcion " << round(skinColorHSV.v) << "\n";
 
-		imshow("Source image", imgCrop);
-		imshow("Image", frame);
-		waitKey();
-		//return skinColor;
+		
+		return skinColorHSV;
+	}
+
+
+	//Get a single frame, filters all the legit contours and cuts the head.
+	void findContours(Mat frame, Mat mask) {
+		vector<vector<Point>> contours;
+		vector<Vec4i> hierarchy;
+
+		//Finds all the contours in the frame.
+		findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
+		
+		//Saves the largest contour index.
+		int largestAreaIndex = 0;
+
+		//Loops through all the contours to check which is the largest.
+		for (int i = 0; i < contours.size(); i++) {
+			int area = contourArea(contours[i]);
+			int highestArea = contourArea(contours[largestAreaIndex]);
+
+			if (area > highestArea) {
+				largestAreaIndex = i;
+			}
+		}
+
+		//Deletes the largest contour from vector<Point> list.
+		contours.erase(std::next(contours.begin(), largestAreaIndex));
+
+		//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
+		for (int i = 0; i < contours.size(); i++) {
+			int area = contourArea(contours[i]);
+
+			//Checks if area is bigger than 2000, if that's the case it will be drawed.
+			if (area > 2000) {
+				vector<Point> f = contours[i];
+				Point ff = f[0];
+
+				//ff bekijken hoe de coordinaten sopecifidek worden meegeven BIG TODO!!!!
+				cout << "x = " << ff.x << "  y= " << ff.y << endl;
+				cout << "nieuwe regelelelele" << endl;
+				
+				//draws the specific contour.
+				drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
+			}
+		}
 	}
 }

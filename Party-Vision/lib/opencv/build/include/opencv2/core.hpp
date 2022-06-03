@@ -1419,6 +1419,8 @@ The function checks the range as follows:
 That is, dst (I) is set to 255 (all 1 -bits) if src (I) is within the
 specified 1D, 2D, 3D, ... box and 0 otherwise.
 
+
+
 When the lower and/or upper boundary parameters are scalars, the indexes
 (I) at lowerb and upperb in the above formulas should be omitted.
 @param src first input array.
