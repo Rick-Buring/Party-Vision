@@ -12,6 +12,8 @@ namespace Minigames {
 		/// updates the current scene
 		/// </summary>
 		virtual void sceneUpdate();
+		AbstractSceneManager();
+		~AbstractSceneManager();
 	private:
 		
 		

@@ -9,7 +9,7 @@ namespace Scene {
 		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)viewport[2], (float)viewport[3], 0.0f, -1.0f, 5.0f);
 
 		glm::vec3 s(width / 2, height / 2, 0);
-		glm::vec4 color(1, 0, 1, 1);
+		glm::vec4 color(1, 1, 1, 1);
 		glm::vec3 p((width / 2), (height / 2), 0);
 
 		PlaneComponent::verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(s.x, s.y, s.z), color, glm::vec2(0, 0), glm::vec3(0, 0, 1)));
