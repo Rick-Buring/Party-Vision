@@ -64,6 +64,9 @@ namespace Vision {
 		Mat imgCrop = frame(faces[0]);
 
 		faces[0].height *= 2;
+		faces[0].y -= faces[0].height / 4;
+		faces[0].width *= 1.5;
+		faces[0].x -= faces[0].width / 5.5;
 
 		rectangle(frame, faces[0], Scalar(0, 0, 0), -1);
 
@@ -128,14 +131,15 @@ namespace Vision {
 			//Checks if area is bigger than 2000, if that's the case it will be drawed.
 			if (area > 2000) {
 				vector<Point> f = contours[i];
-				Point ff = f[0];
-
+				Moments contour_moment = moments(f, false);
+				Point mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
 				//ff bekijken hoe de coordinaten sopecifidek worden meegeven BIG TODO!!!!
-				cout << "x = " << ff.x << "  y= " << ff.y << endl;
+				cout << "x = " << mass_center.x << "  y= " << mass_center.y << endl;
 				cout << "nieuwe regelelelele" << endl;
 				
+				cv::rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
 				//draws the specific contour.
-				drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
+				//drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
 			}
 		}
 	}
