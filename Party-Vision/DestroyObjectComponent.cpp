@@ -1,5 +1,6 @@
 #include "DestroyObjectComponent.hpp"
 #include "SchoolNinjaComponent.hpp"
+#include "IOnDeath.hpp"
 
 namespace Scene {
 
@@ -7,6 +8,11 @@ namespace Scene {
 	{
 		if (DestroyObjectComponent::_timeToLive <= 0) {
 
+			std::vector<std::shared_ptr<IOnDeath>> deathobj = _gameObject->getComponents<IOnDeath>();
+			for (size_t i = 0; i < deathobj.size(); i++)
+			{
+				deathobj[i]->OnDeath();
+			}
 			//remove gameobject from scene
 			DestroyObjectComponent::_scene->removeGameObject(_gameObject);
 			

@@ -66,7 +66,7 @@ namespace Scene {
 		glm::mat4 projection = glm::perspective(glm::radians(75.0f), viewport[2] / (float)viewport[3], 0.01f, 1000.0f);
 		tigl::shader->setProjectionMatrix(projection);
 		glEnable(GL_DEPTH_TEST);
-		tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+		tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 		tigl::shader->setModelMatrix(glm::mat4(1.0f));
 
 
