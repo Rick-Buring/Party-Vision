@@ -1,5 +1,5 @@
 #include "DestroyObjectComponent.hpp"
-#include "SchoolNinja.hpp"
+#include "SchoolNinjaComponent.hpp"
 
 namespace Scene {
 
