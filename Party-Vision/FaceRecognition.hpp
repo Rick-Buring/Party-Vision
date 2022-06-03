@@ -7,5 +7,5 @@ using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-	vector<Rect> FaceRecognition_run(Mat& frame);
+	vector<Rect> FaceRecognition_run(Mat& frame, CascadeClassifier faceCascade);
 }

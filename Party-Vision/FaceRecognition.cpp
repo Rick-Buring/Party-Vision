@@ -7,13 +7,11 @@ using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-	CascadeClassifier faceCascade;
+
 	VideoCapture cap(0);
 
-	vector<Rect> FaceRecognition_run(Mat& frame)
+	vector<Rect> FaceRecognition_run(Mat& frame, CascadeClassifier faceCascade)
 	{
-		String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
-		faceCascade.load(faceCascadePath);
 		std::vector<Rect> faces;
 		Mat grayframe;
 

@@ -26,9 +26,9 @@ struct test {
 };
 std::vector<test> t;
 
-
 Mat maskDil, mask;
 
+CascadeClassifier faceCascade;
 
 void init();
 
@@ -118,14 +118,13 @@ int main(void)
 	int hmin = 0, smin = 110, vmin = 153;
 	int hmax = 19, smax = 240, vmax = 255;
 
-
-	vector<Rect> faces = Vision::FaceRecognition_run(frame);
-	Vision::hsv skinColorHSV = Vision::HandDetection_init(frame, faces);
 	Mat imgHSV;
 
 	while (true) {
-
 		capture.read(frame);
+
+		vector<Rect> faces = Vision::FaceRecognition_run(frame, faceCascade);
+		Vision::hsv skinColorHSV = Vision::HandDetection_init(frame, faces);
 
 		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
@@ -136,7 +135,7 @@ int main(void)
 
 		inRange(imgHSV, lower, upper, mask);
 
-		Mat kernel = getStructuringElement(MORPH_RECT, Size(20,20));
+		Mat kernel = getStructuringElement(MORPH_RECT, Size(20, 20));
 		//dilate the mask MATRIX to make the most objects connected with each other.
 		dilate(mask, mask, kernel);
 		//GaussianBlur(mask, mask, Size(5,5), 5, 0);
@@ -144,8 +143,8 @@ int main(void)
 		//Calls the methode to find all the contours in the frame
 		Vision::findContours(frame, mask);
 		//ffindContours(frame, mask);
-		
-		imshow("frame", frame);		
+
+		imshow("frame", frame);
 		imshow("Image Mask", mask);
 		waitKey(1);
 	}
@@ -163,5 +162,8 @@ void init()
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
 		});
+
+	String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
+	faceCascade.load(faceCascadePath);
 
 }

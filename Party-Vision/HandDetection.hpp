@@ -15,6 +15,12 @@ namespace Vision {
 		double v;       // a fraction between 0 and 1
 	} hsv;
 
+	typedef struct {
+		double r;       // a fraction between 0 and 1
+		double g;       // a fraction between 0 and 1
+		double b;       // a fraction between 0 and 1
+	} rgb;
+
 	hsv HandDetection_init(Mat frame, vector<Rect>);
 
 	void findContours(Mat frame, Mat mask);

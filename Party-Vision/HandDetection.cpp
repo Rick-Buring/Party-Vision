@@ -10,12 +10,6 @@ using namespace cv::ml;
 #define COLOR_ROWS 80
 #define COLOR_COLS 250
 
-typedef struct {
-	double r;       // a fraction between 0 and 1
-	double g;       // a fraction between 0 and 1
-	double b;       // a fraction between 0 and 1
-} rgb;
-
 namespace Vision {
 	hsv rgb2hsv(rgb in)
 	{
@@ -68,6 +62,10 @@ namespace Vision {
 	{
 		//Stuk rectangle uit het frame halen
 		Mat imgCrop = frame(faces[0]);
+
+		faces[0].height *= 2;
+
+		rectangle(frame, faces[0], Scalar(0, 0, 0), -1);
 
 		//Huidskleur bepalen
 		int width = imgCrop.size().width;
@@ -122,19 +120,6 @@ namespace Vision {
 		
 		//Saves the largest contour index.
 		int largestAreaIndex = 0;
-
-		//Loops through all the contours to check which is the largest.
-		for (int i = 0; i < contours.size(); i++) {
-			int area = contourArea(contours[i]);
-			int highestArea = contourArea(contours[largestAreaIndex]);
-
-			if (area > highestArea) {
-				largestAreaIndex = i;
-			}
-		}
-
-		//Deletes the largest contour from vector<Point> list.
-		contours.erase(std::next(contours.begin(), largestAreaIndex));
 
 		//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
 		for (int i = 0; i < contours.size(); i++) {
