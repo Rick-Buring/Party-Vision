@@ -14,6 +14,7 @@ namespace tigl
 		void use();
 
 		void setProjectionMatrix(const glm::mat4& matrix);
+		glm::mat4 getProjectionMatrix();
 		void setViewMatrix(const glm::mat4& matrix);
 		void setModelMatrix(const glm::mat4& matrix);
 
@@ -409,6 +410,10 @@ void main()
 		setUniform(Uniform::ProjectionMatrix, matrix);
 	}
 
+	glm::mat4 ShaderImpl::getProjectionMatrix() {
+		return projectionMatrix;
+	}
+
 	void ShaderImpl::setViewMatrix(const glm::mat4& matrix)
 	{
 		this->viewMatrix = matrix;
@@ -511,8 +516,7 @@ void main()
 		return position == other.position && normal == other.normal && color == other.color && texcoord == other.texcoord;
 	}
 
-
-
+	
 
 
 }

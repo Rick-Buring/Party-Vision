@@ -93,8 +93,20 @@
     <ClCompile Include="HandDetection.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MoveToComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
     <ClCompile Include="ReplaceComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Minigames\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SchoolNinja.cpp">
+      <Filter>Minigames\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoaderComponent.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SchoolNinjaComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
@@ -124,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="VisionPipeline.hpp">
       <Filter>Vision\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.hpp">
+      <Filter>Minigames\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AbstractComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
@@ -163,6 +178,18 @@
     </ClInclude>
     <ClInclude Include="replaceComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolNinja.hpp">
+      <Filter>Minigames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointerExecuter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveToComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoaderComponent.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SchoolNinjaComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>

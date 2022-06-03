@@ -17,6 +17,9 @@ namespace tigl
 			// Sets the projection matrix
 			virtual void setProjectionMatrix(const glm::mat4& matrix) = 0;
 
+			// Gets the projection matrix
+			virtual glm::mat4 getProjectionMatrix() = 0;
+
 			// Sets the view (camera) matrix
 			virtual void setViewMatrix(const glm::mat4& matrix) = 0;
 

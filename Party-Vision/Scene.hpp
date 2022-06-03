@@ -36,6 +36,11 @@ namespace Scene {
 		/// <param name="status"></param>
 		void setRunning(bool status);
 
+		/// <summary>
+		/// destroy all gameobjects
+		/// </summary>
+		void destroyGameObjects();
+
 		std::list<std::shared_ptr<GameObject>>* getGameobjects();
 
 	private:

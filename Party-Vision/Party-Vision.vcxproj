@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -112,6 +112,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Party-Vision\lib\glm;$(SolutionDir)Party-Vision\lib\glew-2.1.0\include;$(SolutionDir)Party-Vision\lib\glfw-3.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,12 +170,16 @@
     <ClCompile Include="HandDetection.cpp" />
     <ClCompile Include="GravityComponent.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoaderComponent.cpp" />
+    <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
     <ClCompile Include="OutofBoundsComponent.cpp" />
     <ClCompile Include="PlaneComponent.cpp" />
     <ClCompile Include="ReplaceComponent.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SchoolNinja.cpp" />
     <ClCompile Include="SchoolNinjaComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
@@ -188,16 +194,21 @@
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="DrawObjectComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="HandDetection.hpp" />
     <ClInclude Include="GravityComponent.hpp" />
     <ClInclude Include="IOnDeath.hpp" />
+    <ClInclude Include="ModelLoaderComponent.hpp" />
+    <ClInclude Include="MoveToComponent.hpp" />
     <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="OutofBoundsComponent.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="IVisionHandler.hpp" />
+    <ClInclude Include="PointerExecuter.hpp" />
     <ClInclude Include="replaceComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
+    <ClInclude Include="SchoolNinja.hpp" />
     <ClInclude Include="SchoolNinjaComponent.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.hpp" />
