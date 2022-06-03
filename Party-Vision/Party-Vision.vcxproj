@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="FrameCapture.cpp" />
     <ClCompile Include="DrawObjectComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -186,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
+    <ClInclude Include="CollisionComponent.hpp" />
     <ClInclude Include="FrameCapture.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="DrawObjectComponent.hpp" />

@@ -20,12 +20,12 @@ namespace Scene {
 	private:
 		std::shared_ptr<AbstractDrawComponent>_drawComponent;
 		std::list<std::shared_ptr<AbstractComponent>> components;
-		std::shared_ptr<TransformComponent> _transformComponent;
+		
 
 
 	public:
 		~GameObject();
-
+		std::shared_ptr<TransformComponent> _transformComponent;
 		/// <summary>
 		/// adds component to GameObject
 		/// </summary>

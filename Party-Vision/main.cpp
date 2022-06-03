@@ -33,6 +33,7 @@ Minigames::AbstractSceneManager* sceneManager;
 #include "ReplaceComponent.hpp"
 #include "IOnDeath.hpp"
 #include "MoveToComponent.hpp"
+#include "CollisionComponent.hpp"
 
 struct test {
 	void(*test)(Mat& first, Mat& second);
@@ -89,6 +90,16 @@ int main(void)
     std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
     handCursor->addComponent(transform2);
     handCursor->addComponent(moveTo);
+
+	std::shared_ptr<Scene::GameObject> block;
+	block = std::make_shared<Scene::GameObject>();
+	int width2 = 60, height2 = 60;
+	block->addComponent(std::make_shared<Scene::PlaneComponent>(width2, height2));
+	std::shared_ptr<Scene::TransformComponent> tf= std::make_shared<Scene::TransformComponent>(glm::vec3(100, 100, 1));
+	block->addComponent(tf);
+	std::shared_ptr<Scene::CollisionComponent> cc = std::make_shared<Scene::CollisionComponent>(handCursor);
+	block->addComponent(cc);
+	
     
 
     
@@ -141,16 +152,17 @@ int main(void)
 		schoolNinjaMenuItems
 	};
 
-
 	mainMenu->menuInit(schoolNinjaMenu);
 	mainMenu->scene->setRunning(true);
 	sceneManager = mainMenu;
 	sceneManager->scene->addGameObject(handCursor);
+	sceneManager->scene->addGameObject(block);
 
 	while (!glfwWindowShouldClose(window))
 	{
-		
         sceneManager->sceneUpdate();
+
+		//TODO check for collision with other game objects.
 		
         moveTo->targetPosition.x = xposition;
         moveTo->targetPosition.y = yposition;
@@ -159,7 +171,6 @@ int main(void)
         waitKey(1);
     }
         
-		
     glfwTerminate();
 
     return 0;

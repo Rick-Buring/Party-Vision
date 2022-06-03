@@ -24,7 +24,7 @@ namespace Scene {
 	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
 	void MoveToComponent::update(float deltaTime)
 	{
-		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();\
+		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();
 		
 		targetPosition = glm::vec3(xposition, yposition, 0);
 		glm::vec3 move = targetPosition- comp->position;
