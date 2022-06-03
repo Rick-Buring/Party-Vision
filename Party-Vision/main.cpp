@@ -54,7 +54,7 @@ int main(void)
 	scene->addGameObject(object);
 	scene->setRunning(true);
 
-	Mat frame, thresholdImage, blurImage, grayImage;
+	Mat frame, thresholdImage, blurImage, grayImage, hsvImage;
 	test t3 = {
 	   Vision::detectGrayMotion
 	};
@@ -70,12 +70,13 @@ int main(void)
 	 //capture.read(frame);
 	while (true) {
 		vector<Rect> faces = Vision::FaceRecognition_run(frame);
+		cvtColor(frame, hsvImage, COLOR_BGR2HSV);
 
 		for (auto r : faces) {
-			rectangle(frame, r, Scalar(0, 255, 0));
+			rectangle(hsvImage, r, Scalar(0, 255, 0));
 		}
 
-		imshow("detected face", frame);
+		imshow("detected face", hsvImage);
 
 		waitKey(1);
 	}
