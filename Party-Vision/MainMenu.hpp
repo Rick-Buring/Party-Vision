@@ -23,8 +23,6 @@ namespace Minigames {
 		std::string backgroundFileName;
 		std::vector<MenuItem_t> menuItems;
 	}Menu_t;
-	
-
 	class MainMenu : public AbstractSceneManager
 	{
 	public:
@@ -48,10 +46,6 @@ namespace Minigames {
 		
 		
 	};
-
-
-
-	
 }
 
 

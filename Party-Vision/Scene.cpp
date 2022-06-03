@@ -64,6 +64,11 @@ namespace Scene {
 		}
 	}
 
+	void Scene::destroyGameObjects()
+	{
+		_gameObjects->clear();
+	}
+
 	std::list<std::shared_ptr<GameObject>>* Scene::getGameobjects()
 	{
 		return _gameObjects;
