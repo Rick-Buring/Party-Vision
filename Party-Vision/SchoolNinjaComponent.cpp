@@ -1,4 +1,4 @@
-#include "SchoolNinja.hpp"
+#include "SchoolNinjaComponent.hpp"
 #include <math.h>
 #include <memory>
 

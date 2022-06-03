@@ -96,7 +96,7 @@
     <ClCompile Include="ReplaceComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
-    <ClCompile Include="SchoolNinja.cpp">
+    <ClCompile Include="SchoolNinjaComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
     <ClCompile Include="DestroyObjectComponent.cpp">
@@ -164,7 +164,7 @@
     <ClInclude Include="replaceComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="SchoolNinja.hpp">
+    <ClInclude Include="SchoolNinjaComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="DestroyObjectComponent.hpp">
