@@ -46,11 +46,20 @@ double yposition;
 
 void init();
 
-class testClas : public Minigames::IPointerExecuter {
+class StartGame : public Minigames::IPointerExecuter {
 	void execute() override {
-		std::cout << "Hello ";
+		Minigames::AbstractSceneManager* removeScene = sceneManager;
+		delete removeScene;
+
+		sceneManager = new Minigames::SchoolNinja();
 	}
 };
+
+class testClas : public Minigames::IPointerExecuter {
+	void execute() override {
+		std::cout << "Hello" << std::endl;
+	}
+}; 
 
 int main(void)
 {
@@ -106,7 +115,7 @@ int main(void)
 	Minigames::MenuItem_t schoolNinjaStartMenuItem{
 	   "Start",
 	   "C:/",
-	   new testClas,
+	  new StartGame,
 	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
 	   (mainMenu->backgroundHeight / 7) * 1,
 	   200 * (mainMenu->backgroundWidth / 640),
