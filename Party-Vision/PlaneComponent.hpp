@@ -2,6 +2,7 @@
 #include <vector>
 #include "tigl.h"
 #include "AbstractDrawcomponent.hpp"
+#include <string>
 
 namespace Scene {
 	/// <summary>
@@ -19,6 +20,7 @@ namespace Scene {
 		/// <param name="width">width of the plane</param>
 		/// <param name="height">height of the plane</param>
 		PlaneComponent(float width, float height); 
+		PlaneComponent(float width, float height, std::string textureFileName);
 		virtual void draw() override;
 	};
 };

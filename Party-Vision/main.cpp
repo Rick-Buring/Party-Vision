@@ -137,7 +137,7 @@ int main(void)
 	schoolNinjaMenuItems.push_back(schoolNinjaHelpMenuItem);
 	Minigames::Menu_t schoolNinjaMenu{
 		"School Ninja",
-		"C:/",
+		"C:/Users/imre/Pictures/one-piece-monkey-d-luffy.jpg",
 		schoolNinjaMenuItems
 	};
 

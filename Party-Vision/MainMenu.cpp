@@ -26,11 +26,11 @@ namespace Minigames {
 	void MainMenu::menuInit(Menu_t current) {
 		currentMenu = current;
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(1, 1);
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight,currentMenu.backgroundFileName);
 
 		background->addComponent(backgroundPlane);
 
-		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 1));
+		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 2));
 
 		background->addComponent(backgroundTransform);
 		AbstractSceneManager::scene->addGameObject(background);
