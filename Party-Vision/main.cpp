@@ -47,10 +47,7 @@ Mat maskDil, mask;
 
 CascadeClassifier faceCascade;
 
-
-double xposition;
-double yposition;
-
+Point position;
 
 void init();
 
@@ -91,7 +88,7 @@ int main(void)
     handCursor = std::make_shared<Scene::GameObject>();
     int width = 20, height = 20;
     handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
+    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(position.x, position.y, 0));
     std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
     handCursor->addComponent(transform2);
     handCursor->addComponent(moveTo);
@@ -145,8 +142,8 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
         sceneManager->sceneUpdate();
-        moveTo->targetPosition.x = xposition;
-        moveTo->targetPosition.y = yposition;
+        moveTo->targetPosition.x = position.x;
+        moveTo->targetPosition.y = position.y;
         glfwSwapBuffers(window);
         glfwPollEvents();
         waitKey(1);
@@ -183,4 +180,7 @@ void init()
 				}
 			}
 		});
+
+	String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
+	faceCascade.load(faceCascadePath);
 }

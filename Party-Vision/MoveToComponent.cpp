@@ -2,10 +2,13 @@
 #include "GameObject.hpp"
 #include "TransformComponent.hpp"
 #include <GLFW/glfw3.h>
+#include <opencv2/opencv.hpp>
 #include <iostream>
 
+using namespace cv;
+
 namespace Scene {
-	double xposition, yposition;
+	Point position;
 	glm::vec3 cursorPosition;
 	double middlePointWidth = 0, middlePointHeight = 0;
 
@@ -16,8 +19,7 @@ namespace Scene {
 		middlePointWidth = width / 2;
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 			{
-				xposition = xpos;
-				yposition = ypos;
+				position = Point(xpos, ypos);
 			});
 	}
 
@@ -26,7 +28,7 @@ namespace Scene {
 	{
 		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();\
 		
-		targetPosition = glm::vec3(xposition, yposition, 0);
+		targetPosition = glm::vec3(position.x, position.y, 0);
 		glm::vec3 move = targetPosition- comp->position;
 
 		move.x -= middlePointWidth;
