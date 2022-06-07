@@ -11,10 +11,9 @@ namespace Minigames {
 
 		scene->addGameObject(schoolNinja);
 
+
 		SchoolNinja::scene->setRunning(true);
 
-		const char* fontPath = "fonts/Rush of the Geisha.ttf";
 
-		LoadFont(fontPath);
 	}
 }

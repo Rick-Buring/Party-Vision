@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 
 #include "tigl.h"
+#include "TextRenderer.hpp"
 
 
 namespace Minigames {
@@ -23,6 +24,15 @@ namespace Minigames {
 
 	
 	void MainMenu::menuInit(Menu_t current) {
+
+		const char* fontPath = "fonts/Rush of the Geisha.ttf";
+
+		LoadFont(fontPath);
+		GLuint s = 0;
+		RenderText(s, "This is sample text", 25.0f, 25.0f, 1.0f, glm::vec3(0.5, 0.8f, 0.2f));
+
+		/*
+
 		currentMenu = current;
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
 		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(1, 1);
@@ -33,6 +43,8 @@ namespace Minigames {
 
 		background->addComponent(backgroundTransform);
 		AbstractSceneManager::scene->addGameObject(background);
+
+
 		for (MenuItem_t menuItem : currentMenu.menuItems) {
 			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
 			
@@ -49,6 +61,8 @@ namespace Minigames {
 
 			
 		}
+
+		*/
 
 	}
 

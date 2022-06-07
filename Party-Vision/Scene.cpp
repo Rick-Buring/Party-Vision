@@ -3,7 +3,6 @@
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
-
 #include "tigl.h"
 #include "ObjectLoader.hpp"
 #include "Texture.hpp"
@@ -60,6 +59,7 @@ namespace Scene {
 
 		glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
 		int viewport[4];
 		glGetIntegerv(GL_VIEWPORT, viewport);
