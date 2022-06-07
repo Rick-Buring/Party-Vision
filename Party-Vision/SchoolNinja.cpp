@@ -1,5 +1,7 @@
 #include "SchoolNinja.hpp"
 #include "SchoolNinjaComponent.hpp"
+#include "TextRenderer.hpp"
+
 namespace Minigames {
 	SchoolNinja::SchoolNinja()
 	{
@@ -10,5 +12,9 @@ namespace Minigames {
 		scene->addGameObject(schoolNinja);
 
 		SchoolNinja::scene->setRunning(true);
+
+		const char* fontPath = "fonts/Rush of the Geisha.ttf";
+
+		LoadFont(fontPath);
 	}
 }
