@@ -7,11 +7,18 @@ namespace Scene {
 	class Scene
 	{
 	public:
+		Scene();
 		/// <summary>
 		/// adds a gameObject to the scene
 		/// </summary>
 		/// <param name="gameObject"></param>
 		void addGameObject(std::shared_ptr<GameObject> gameObject);
+
+		/// <summary>
+		/// removes component from list.
+		/// </summary>
+		/// <param name="_gameObject"></param>
+		void removeGameObject(GameObject* _gameObject);
 
 		/// <summary>
 		/// method to update the scene
@@ -28,8 +35,19 @@ namespace Scene {
 		/// </summary>
 		/// <param name="status"></param>
 		void setRunning(bool status);
+
+		/// <summary>
+		/// destroy all gameobjects
+		/// </summary>
+		void destroyGameObjects();
+
+		std::list<std::shared_ptr<GameObject>>* getGameobjects();
+
 	private:
-		std::list<std::shared_ptr<GameObject>> _gameObjects;
+		std::list<std::shared_ptr<GameObject>>* _gameObjects;
+
+		std::list<std::shared_ptr<GameObject>>* _gameObjectsToRemove;
+
 		double _lastFrameTime = 0;
 		bool _status = false;
 	};

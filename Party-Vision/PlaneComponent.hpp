@@ -11,6 +11,7 @@ namespace Scene {
 	private:
 		//variable to store plane vertesies
 		std::vector<tigl::Vertex> verts;
+		glm::mat4 projectionOrtho;
 	public:
 		/// <summary>
 		/// Constructor used to create the plane

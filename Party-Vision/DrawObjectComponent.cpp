@@ -1,0 +1,18 @@
+#include "DrawObjectComponent.hpp"
+#include "Texture.hpp"
+
+namespace Scene {
+	DrawObjectComponent::DrawObjectComponent(std::vector<VBO_Textures_t> object):_object(object) 
+	{
+
+	}
+	void DrawObjectComponent::draw()
+	{
+		tigl::shader->enableTexture(true);
+		for (auto d : _object) {
+			d.texture->bind();
+			tigl::drawVertices(GL_TRIANGLES, d.vbo);
+		}
+		tigl::shader->enableTexture(false);
+	}
+}

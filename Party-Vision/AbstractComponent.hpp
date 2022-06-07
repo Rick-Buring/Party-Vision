@@ -1,5 +1,6 @@
 #pragma once
 
+
 namespace Scene {
 	class GameObject;
 
@@ -12,10 +13,14 @@ namespace Scene {
 		/// <param name="elapsedTime">time passsed since last frame</param>
 		virtual void update(float elapsedTime) {};
 
+		/// <summary>
+		/// set the gameObject referention to this component
+		/// </summary>
+		/// <param name="gameObject"></param>
 		inline void setGameObject(GameObject* gameObject) { this->_gameObject = gameObject; }
 
 
-	private:
+	protected:
 		GameObject* _gameObject = nullptr;
 		
 	};

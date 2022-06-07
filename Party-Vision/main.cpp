@@ -6,6 +6,10 @@
 #include "Scene.hpp"
 #include "FaceRecognition.hpp"
 #include "HandDetection.hpp"
+#include "MainMenu.hpp"
+#include "AbstractSceneManager.hpp"
+#include "SchoolNinja.hpp" 
+#include <iostream>
 
 using tigl::Vertex;
 
@@ -14,71 +18,61 @@ using tigl::Vertex;
 #pragma comment(lib, "opengl32.lib")
 
 GLFWwindow* window;
+double xpos_t;
+double ypos_t;
+
+Minigames::AbstractSceneManager* sceneManager;
+
 
 #include "GameObject.hpp"
 #include "TransformComponent.hpp"
+#include "DrawObjectComponent.hpp"
 #include "PlaneComponent.hpp"
 #include <memory>
+#include "ObjectLoader.hpp"
+#include "GravityComponent.hpp"
+#include "ReplaceComponent.hpp"
+#include "SchoolNinja.hpp"
+#include "IOnDeath.hpp"
+#include "DestroyObjectComponent.hpp"
+#include "OutofBoundsComponent.hpp"
+#include "MoveToComponent.hpp"
 
 struct test {
 	void(*test)(Mat& first, Mat& second);
 };
-std::vector<test> t;
+std::vector<test> frameF;
 
 Mat maskDil, mask;
 
 CascadeClassifier faceCascade;
 
+
+double xposition;
+double yposition;
+
+
 void init();
 
-////Get a single frame, filters all the legit contours and cuts the head.
-//void findContours(Mat frame, Mat mask) {
-//	vector<vector<Point>> contours;
-//	vector<Vec4i> hierarchy;
-//
-//	//Finds all the contours in the frame.
-//	findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
-//
-//	//Saves the largest contour index.
-//	int largestAreaIndex = 0;
-//
-//	//Loops through all the contours to check which is the largest.
-//	for (int i = 0; i < contours.size(); i++) {
-//		int area = contourArea(contours[i]);
-//		int highestArea = contourArea(contours[largestAreaIndex]);
-//
-//		if (area > highestArea) {
-//			largestAreaIndex = i;
-//		}
-//	}
-//
-//	//Deletes the largest contour from vector<Point> list.
-//	contours.erase(std::next(contours.begin(), largestAreaIndex));
-//
-//	//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
-//	for (int i = 0; i < contours.size(); i++) {
-//		int area = contourArea(contours[i]);
-//
-//		//Checks if area is bigger than 2000, if that's the case it will be drawed.
-//		if (area > 2000) {
-//			vector<Point> f = contours[i];
-//			Point ff = f[0];
-//
-//			//ff bekijken hoe de coordinaten sopecifidek worden meegeven BIG TODO!!!!
-//			cout << "x = " << ff.x << "  y= " << ff.y << endl;
-//			cout << "nieuwe regelelelele" << endl;
-//
-//			//draws the specific contour.
-//			drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
-//		}
-//	}
-//}
+class StartGame : public Minigames::IPointerExecuter {
+	void execute() override {
+		Minigames::AbstractSceneManager* removeScene = sceneManager;
+		delete removeScene;
+		sceneManager = new Minigames::SchoolNinja();
+	}
+};
+
+class testClas : public Minigames::IPointerExecuter {
+	void execute() override {
+		std::cout << "Hello" << std::endl;
+	}
+}; 
 
 int main(void)
 {
 	if (!glfwInit())
 		throw "Could not initialize glwf";
-	window = glfwCreateWindow(600, 600, "hello World", NULL, NULL);
+	window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -90,66 +84,103 @@ int main(void)
 
 	init();
 
-	std::shared_ptr<Scene::GameObject> object;
+	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
+	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
+    
+    std::shared_ptr<Scene::GameObject> handCursor;
+    handCursor = std::make_shared<Scene::GameObject>();
+    int width = 20, height = 20;
+    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
+    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
+    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
+    handCursor->addComponent(transform2);
+    handCursor->addComponent(moveTo);
 
-	object = std::make_shared<Scene::GameObject>();
-	object->addComponent(std::make_shared<Scene::PlaneComponent>(1, 1));
-	object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -1)));
+	Minigames::MenuItem_t schoolNinjaStartMenuItem{
+	   "Start",
+	   "C:/",
+	  new StartGame(),
+	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	   (mainMenu->backgroundHeight / 7) * 1,
+	   200 * (mainMenu->backgroundWidth / 640),
+	   50 * (mainMenu->backgroundHeight / 360)
 
-	Scene::Scene* scene = new Scene::Scene();
-	scene->addGameObject(object);
-	scene->setRunning(true);
+	};
+	Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
+	   "How to Play",
+	   "C:/",
+	   new testClas(),
+	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	   (mainMenu->backgroundHeight / 7) * 3,
+	   200 * (mainMenu->backgroundWidth / 640),
+	   50 * (mainMenu->backgroundHeight / 360)
 
-	Mat frame, thresholdImage, blurImage, grayImage, countours, maskDil;
+	};
+	Minigames::MenuItem_t schoolNinjaHelpMenuItem{
+	  "Help",
+	  "C:/",
+	  new testClas(),
+	  (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	  (mainMenu->backgroundHeight / 7) * 5,
+	  200 * (mainMenu->backgroundWidth / 640),
+	  50 * (mainMenu->backgroundHeight / 360)
+	};
 
-	VideoCapture capture(0);
-	int hmin = 0, smin = 110, vmin = 153;
-	int hmax = 19, smax = 240, vmax = 255;
+	schoolNinjaMenuItems.push_back(schoolNinjaStartMenuItem);
+	schoolNinjaMenuItems.push_back(schoolNinjaHowToPlayMenuItem);
+	schoolNinjaMenuItems.push_back(schoolNinjaHelpMenuItem);
 
-	Mat imgHSV;
+	Minigames::Menu_t schoolNinjaMenu{
+		"School Ninja",
+		"C:/",
+		schoolNinjaMenuItems
+	};
 
-	while (true) {
-		capture.read(frame);
+	mainMenu->menuInit(schoolNinjaMenu);
 
-		vector<Rect> faces = Vision::FaceRecognition_run(frame, faceCascade);
-		Vision::hsv skinColorHSV = Vision::HandDetection_getSkinColor(frame, faces);
+	mainMenu->scene->setRunning(true);
+	sceneManager = mainMenu;
+	sceneManager->scene->addGameObject(handCursor);
 
-		cvtColor(frame, imgHSV, COLOR_BGR2HSV);
+	while (!glfwWindowShouldClose(window))
+	{
+        sceneManager->sceneUpdate();
+        moveTo->targetPosition.x = xposition;
+        moveTo->targetPosition.y = yposition;
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+        waitKey(1);
+    }
+        
+    glfwTerminate();
 
-		//Dynamic retrieval human skin.
-		Scalar lower(skinColorHSV.h, skinColorHSV.s, skinColorHSV.v);
-		//Scalar lower(0, 38, 87);  //Skin color from me(REDOUAN)
-		Scalar upper(11, 255, 255);
-
-		inRange(imgHSV, lower, upper, mask);
-
-		Mat kernel = getStructuringElement(MORPH_RECT, Size(20, 20));
-		//dilate the mask MATRIX to make the most objects connected with each other.
-		dilate(mask, mask, kernel);
-
-		//Calls the methode to find all the contours in the frame
-		Vision::HandDetection_findHand(frame, mask);
-
-		imshow("frame", frame);
-		imshow("Image Mask", mask);
-		waitKey(1);
-	}
-
-	glfwTerminate();
-
-
-	return 0;
+    return 0;
 }
 
 void init()
 {
+	tigl::shader->enableColor(true);
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
 		});
-
-	String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
-	faceCascade.load(faceCascadePath);
-
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			double xpos, ypos;
+			int viewport[4];
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			glfwGetCursorPos(window, &xpos, &ypos);
+			if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+				Minigames::MainMenu* mainMenu = dynamic_cast<Minigames::MainMenu*>(sceneManager);
+				if (mainMenu) {
+					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
+						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
+							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
+							menuItem.func->execute();
+						}
+					}
+				}
+			}
+		});
 }
