@@ -46,11 +46,19 @@ double yposition;
 
 void init();
 
-class testClas : public Minigames::IPointerExecuter {
+class StartGame : public Minigames::IPointerExecuter {
 	void execute() override {
-		std::cout << "Hello ";
+		Minigames::AbstractSceneManager* removeScene = sceneManager;
+		delete removeScene;
+		sceneManager = new Minigames::SchoolNinja();
 	}
 };
+
+class testClas : public Minigames::IPointerExecuter {
+	void execute() override {
+		std::cout << "Hello" << std::endl;
+	}
+}; 
 
 int main(void)
 {
@@ -68,18 +76,8 @@ int main(void)
 
 	init();
 
-	Scene::Scene* scene = new Scene::Scene();
-
-
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
-
-    /*std::shared_ptr<Scene::GameObject> object = std::make_shared<Scene::GameObject>();
-    object->addComponent(std::make_shared<Scene::DrawObjectComponent>(ship));
-    object->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0)));
-    object->addComponent(std::make_shared<Scene::GravityComponent>());
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject, scene));
-    object->addComponent(std::make_shared <Scene::ReplaceComponent>(replacingObject2, scene));*/
     
     std::shared_ptr<Scene::GameObject> handCursor;
     handCursor = std::make_shared<Scene::GameObject>();
@@ -89,24 +87,11 @@ int main(void)
     std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
     handCursor->addComponent(transform2);
     handCursor->addComponent(moveTo);
-    
-
-    
-    Mat frame, thresholdImage;
-    /*test t3 = {
-       vision::detectgraymotion
-    };
-    test t2 = {
-    vision::collectsamples
-    };
-    framef.push_back(t3);
-    framef.push_back(t2);*/
-
 
 	Minigames::MenuItem_t schoolNinjaStartMenuItem{
 	   "Start",
 	   "C:/",
-	   new testClas,
+	  new StartGame(),
 	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
 	   (mainMenu->backgroundHeight / 7) * 1,
 	   200 * (mainMenu->backgroundWidth / 640),
@@ -116,7 +101,7 @@ int main(void)
 	Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
 	   "How to Play",
 	   "C:/",
-	   new testClas,
+	   new testClas(),
 	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
 	   (mainMenu->backgroundHeight / 7) * 3,
 	   200 * (mainMenu->backgroundWidth / 640),
@@ -126,32 +111,32 @@ int main(void)
 	Minigames::MenuItem_t schoolNinjaHelpMenuItem{
 	  "Help",
 	  "C:/",
-	  new testClas,
+	  new testClas(),
 	  (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
 	  (mainMenu->backgroundHeight / 7) * 5,
 	  200 * (mainMenu->backgroundWidth / 640),
 	  50 * (mainMenu->backgroundHeight / 360)
 	};
+
 	schoolNinjaMenuItems.push_back(schoolNinjaStartMenuItem);
 	schoolNinjaMenuItems.push_back(schoolNinjaHowToPlayMenuItem);
 	schoolNinjaMenuItems.push_back(schoolNinjaHelpMenuItem);
+
 	Minigames::Menu_t schoolNinjaMenu{
 		"School Ninja",
 		"C:/Users/imre/Pictures/one-piece-monkey-d-luffy.jpg",
 		schoolNinjaMenuItems
 	};
 
-
 	mainMenu->menuInit(schoolNinjaMenu);
+
 	mainMenu->scene->setRunning(true);
 	sceneManager = mainMenu;
 	sceneManager->scene->addGameObject(handCursor);
 
 	while (!glfwWindowShouldClose(window))
 	{
-		
         sceneManager->sceneUpdate();
-		
         moveTo->targetPosition.x = xposition;
         moveTo->targetPosition.y = yposition;
         glfwSwapBuffers(window);
@@ -159,7 +144,6 @@ int main(void)
         waitKey(1);
     }
         
-		
     glfwTerminate();
 
     return 0;
@@ -167,8 +151,7 @@ int main(void)
 
 void init()
 {
-	tigl::shader->enableTexture(true);
-
+	tigl::shader->enableColor(true);
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			if (key == GLFW_KEY_ESCAPE)

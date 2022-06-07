@@ -19,7 +19,6 @@ namespace Minigames {
 		backgroundHeight = viewport[3];
 		backgroundx = 0;
 		backgroundy = 0;
-		scene = std::make_shared<Scene::Scene>();
 	}
 
 	
@@ -52,9 +51,5 @@ namespace Minigames {
 		}
 
 	}
-
-	
-
-
 
 }
