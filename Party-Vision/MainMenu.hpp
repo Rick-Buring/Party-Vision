@@ -42,10 +42,14 @@ namespace Minigames {
 		/// </summary>
 		MainMenu();
 
+		void createMouse();
+
 	private:
 		
 		
 	};
+
+	Menu_t buildNinjaMenu();
 }
 
 

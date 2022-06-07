@@ -1,13 +1,17 @@
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "tigl.h"
-#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
+
+#include "WindowManager.hpp"
+
 #include "FrameCapture.hpp"
-#include "Scene.hpp"
-#include "MainMenu.hpp"
+
 #include "AbstractSceneManager.hpp"
+#include "MainMenu.hpp"
 #include "SchoolNinja.hpp" 
+
+#include "main.hpp"
+
 #include <iostream>
 
 using tigl::Vertex;
@@ -16,132 +20,30 @@ using tigl::Vertex;
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
 
-GLFWwindow* window;
-double xpos_t;
-double ypos_t;
-
 Minigames::AbstractSceneManager* sceneManager;
-
-
-#include "GameObject.hpp"
-#include "TransformComponent.hpp"
-#include "DrawObjectComponent.hpp"
-#include "PlaneComponent.hpp"
-#include <memory>
-#include "ObjectLoader.hpp"
-#include "GravityComponent.hpp"
-#include "ReplaceComponent.hpp"
-#include "SchoolNinja.hpp"
-#include "IOnDeath.hpp"
-#include "DestroyObjectComponent.hpp"
-#include "OutofBoundsComponent.hpp"
-#include "MoveToComponent.hpp"
 
 struct test {
 	void(*test)(Mat& first, Mat& second);
 };
 std::vector<test> frameF;
 
-
-double xposition;
-double yposition;
-
-
 void init();
-
-class StartGame : public Minigames::IPointerExecuter {
-	void execute() override {
-		Minigames::AbstractSceneManager* removeScene = sceneManager;
-		delete removeScene;
-		sceneManager = new Minigames::SchoolNinja();
-	}
-};
-
-class testClas : public Minigames::IPointerExecuter {
-	void execute() override {
-		std::cout << "Hello" << std::endl;
-	}
-}; 
 
 int main(void)
 {
-	if (!glfwInit())
-		throw "Could not initialize glwf";
-	window = glfwCreateWindow(1280, 720, "Hello World", NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		throw "Could not initialize glwf";
-	}
-	glfwMakeContextCurrent(window);
-
-	tigl::init();
-
+	windowManagerInit();
 	init();
 
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
-	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
-    
-    std::shared_ptr<Scene::GameObject> handCursor;
-    handCursor = std::make_shared<Scene::GameObject>();
-    int width = 20, height = 20;
-    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
-    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
-    handCursor->addComponent(transform2);
-    handCursor->addComponent(moveTo);
 
-	Minigames::MenuItem_t schoolNinjaStartMenuItem{
-	   "Start",
-	   "C:/",
-	  new StartGame(),
-	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	   (mainMenu->backgroundHeight / 7) * 1,
-	   200 * (mainMenu->backgroundWidth / 640),
-	   50 * (mainMenu->backgroundHeight / 360)
-
-	};
-	Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
-	   "How to Play",
-	   "C:/",
-	   new testClas(),
-	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	   (mainMenu->backgroundHeight / 7) * 3,
-	   200 * (mainMenu->backgroundWidth / 640),
-	   50 * (mainMenu->backgroundHeight / 360)
-
-	};
-	Minigames::MenuItem_t schoolNinjaHelpMenuItem{
-	  "Help",
-	  "C:/",
-	  new testClas(),
-	  (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	  (mainMenu->backgroundHeight / 7) * 5,
-	  200 * (mainMenu->backgroundWidth / 640),
-	  50 * (mainMenu->backgroundHeight / 360)
-	};
-
-	schoolNinjaMenuItems.push_back(schoolNinjaStartMenuItem);
-	schoolNinjaMenuItems.push_back(schoolNinjaHowToPlayMenuItem);
-	schoolNinjaMenuItems.push_back(schoolNinjaHelpMenuItem);
-
-	Minigames::Menu_t schoolNinjaMenu{
-		"School Ninja",
-		"C:/",
-		schoolNinjaMenuItems
-	};
-
-	mainMenu->menuInit(schoolNinjaMenu);
+	mainMenu->menuInit(Minigames::buildNinjaMenu());
 
 	mainMenu->scene->setRunning(true);
 	sceneManager = mainMenu;
-	sceneManager->scene->addGameObject(handCursor);
 
 	while (!glfwWindowShouldClose(window))
 	{
         sceneManager->sceneUpdate();
-        moveTo->targetPosition.x = xposition;
-        moveTo->targetPosition.y = yposition;
         glfwSwapBuffers(window);
         glfwPollEvents();
         waitKey(1);
@@ -154,12 +56,16 @@ int main(void)
 
 void init()
 {
+	tigl::init();
+
 	tigl::shader->enableColor(true);
+
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
 		});
+
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			double xpos, ypos;
