@@ -43,10 +43,6 @@ struct test {
 };
 std::vector<test> frameF;
 
-Mat maskDil, mask;
-
-CascadeClassifier faceCascade;
-
 Point position;
 
 void init();
@@ -63,7 +59,7 @@ class testClas : public Minigames::IPointerExecuter {
 	void execute() override {
 		std::cout << "Hello" << std::endl;
 	}
-}; 
+};
 
 int main(void)
 {
@@ -83,15 +79,15 @@ int main(void)
 
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
-    
-    std::shared_ptr<Scene::GameObject> handCursor;
-    handCursor = std::make_shared<Scene::GameObject>();
-    int width = 20, height = 20;
-    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(position.x, position.y, 0));
-    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
-    handCursor->addComponent(transform2);
-    handCursor->addComponent(moveTo);
+
+	std::shared_ptr<Scene::GameObject> handCursor;
+	handCursor = std::make_shared<Scene::GameObject>();
+	int width = 20, height = 20;
+	handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
+	std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(position.x, position.y, 0));
+	std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
+	handCursor->addComponent(transform2);
+	handCursor->addComponent(moveTo);
 
 	Minigames::MenuItem_t schoolNinjaStartMenuItem{
 	   "Start",
@@ -141,17 +137,18 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window))
 	{
-        sceneManager->sceneUpdate();
-        moveTo->targetPosition.x = position.x;
-        moveTo->targetPosition.y = position.y;
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-        waitKey(1);
-    }
-        
-    glfwTerminate();
+		sceneManager->sceneUpdate();
+		//Vision::HandDetection_run(position);
+		moveTo->targetPosition.x = position.x;
+		moveTo->targetPosition.y = position.y;
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+		waitKey(1);
+	}
 
-    return 0;
+	glfwTerminate();
+
+	return 0;
 }
 
 void init()
@@ -180,7 +177,4 @@ void init()
 				}
 			}
 		});
-
-	String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
-	faceCascade.load(faceCascadePath);
 }

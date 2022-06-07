@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include "HandDetection.hpp"
 
 using namespace cv;
 
@@ -19,13 +20,15 @@ namespace Scene {
 		middlePointWidth = width / 2;
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 			{
-				position = Point(xpos, ypos);
+				//position = Point(xpos, ypos);
 			});
 	}
 
 	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
 	void MoveToComponent::update(float deltaTime)
 	{
+		Vision::HandDetection_run(position);
+
 		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();\
 		
 		targetPosition = glm::vec3(position.x, position.y, 0);

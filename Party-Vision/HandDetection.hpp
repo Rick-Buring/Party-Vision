@@ -16,10 +16,12 @@ namespace Vision {
 	} hsv;
 
 	typedef struct {
-	double r;       // a fraction between 0 and 1
-	double g;       // a fraction between 0 and 1
-	double b;       // a fraction between 0 and 1
-} rgb;
+		double r;       // a fraction between 0 and 1
+		double g;       // a fraction between 0 and 1
+		double b;       // a fraction between 0 and 1
+	} rgb;
+
+	void HandDetection_run(Point& position);
 
 	hsv HandDetection_getSkinColor(Mat frame, vector<Rect>);
 
