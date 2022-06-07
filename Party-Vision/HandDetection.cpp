@@ -58,17 +58,11 @@ namespace Vision {
 		return out;
 	}
 
-	hsv HandDetection_init(Mat frame, vector<Rect> faces)
+	hsv HandDetection_getSkinColor(Mat frame, vector<Rect> faces)
 	{
 		//Stuk rectangle uit het frame halen
 		Mat imgCrop = frame(faces[0]);
 
-		faces[0].height *= 2;
-		faces[0].y -= faces[0].height / 4;
-		faces[0].width *= 1.5;
-		faces[0].x -= faces[0].width / 5.5;
-
-		rectangle(frame, faces[0], Scalar(0, 0, 0), -1);
 
 		//Huidskleur bepalen
 		int width = imgCrop.size().width;
@@ -108,13 +102,19 @@ namespace Vision {
 		cout << "sat: handetetcion " << round(skinColorHSV.s) << "\n";
 		cout << "val: handetetcion " << round(skinColorHSV.v) << "\n";
 
+		faces[0].height *= 2;
+		faces[0].y -= faces[0].height / 4;
+		faces[0].width *= 1.5;
+		faces[0].x -= faces[0].width / 5.5;
+
+		rectangle(frame, faces[0], Scalar(0, 0, 0), -1);
 		
 		return skinColorHSV;
 	}
 
 
 	//Get a single frame, filters all the legit contours and cuts the head.
-	void findContours(Mat frame, Mat mask) {
+	void HandDetection_findHand(Mat frame, Mat mask) {
 		vector<vector<Point>> contours;
 		vector<Vec4i> hierarchy;
 
@@ -133,11 +133,13 @@ namespace Vision {
 				vector<Point> f = contours[i];
 				Moments contour_moment = moments(f, false);
 				Point mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
-				//ff bekijken hoe de coordinaten sopecifidek worden meegeven BIG TODO!!!!
+				
+				// Coordinates from the mass of the contour.
 				cout << "x = " << mass_center.x << "  y= " << mass_center.y << endl;
 				cout << "nieuwe regelelelele" << endl;
 				
 				cv::rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
+				
 				//draws the specific contour.
 				//drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
 			}

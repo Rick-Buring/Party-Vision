@@ -166,7 +166,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FaceRecognition.cpp" />
-    <ClCompile Include="FrameCapture.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HandDetection.cpp" />
     <ClCompile Include="main.cpp" />
@@ -180,7 +179,6 @@
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
     <ClInclude Include="FaceRecognition.hpp" />
-    <ClInclude Include="FrameCapture.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="HandDetection.hpp" />
