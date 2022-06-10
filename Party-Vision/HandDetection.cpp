@@ -76,8 +76,6 @@ namespace Vision {
 		faceCascade.load(faceCascadePath);
 
 		capture.read(frame);
-		
-		cv:flip(frame, frame, 1);
 
 		faces = FaceRecognition_run(frame, faceCascade);
 
@@ -95,7 +93,7 @@ namespace Vision {
 
 			if (skinColor.h > maxHue) {
 				lower = Scalar(skinColor.h, skinColor.s, skinColor.v);
-				upper = Scalar(255, 255, 255);
+				upper = Scalar(180, 255, 255);
 			}
 			else {
 				lower = Scalar(skinColor.h, skinColor.s, skinColor.v);
@@ -112,7 +110,6 @@ namespace Vision {
 			dilate(mask, mask, kernel);
 			erode(mask, mask, kernel);
 
-			
 			HandDetection_findHand(frame, mask);
 
 			position = mass_center;
