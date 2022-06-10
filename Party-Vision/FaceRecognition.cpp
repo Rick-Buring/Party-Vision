@@ -16,6 +16,7 @@ namespace Vision {
 		Mat grayframe;
 
 		cap.read(frame);
+		cv::flip(frame, frame, 1);
 		cvtColor(frame, grayframe, COLOR_BGR2GRAY);
 		//we kunnen ook de afbeelding in een keer cvt naar HSV
 		//cvtColor(frame, grayframe, COLOR_BGR2HSV);

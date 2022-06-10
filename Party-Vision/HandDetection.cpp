@@ -76,10 +76,11 @@ namespace Vision {
 		faceCascade.load(faceCascadePath);
 
 		capture.read(frame);
+		
+		cv:flip(frame, frame, 1);
 
 		faces = FaceRecognition_run(frame, faceCascade);
 
-		cv:flip(frame, frame, 1);
 		
 		if (!faces.empty()) {
 			skinColor = HandDetection_getSkinColor(frame, faces);
