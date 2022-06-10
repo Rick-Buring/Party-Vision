@@ -10,5 +10,7 @@ namespace Scene {
 	public:
 		Texture(const std::string& fileName);
 		void bind();
+		
 	};
+	void textureUnbind();
 }
