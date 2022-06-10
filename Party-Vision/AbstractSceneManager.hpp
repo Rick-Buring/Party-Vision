@@ -13,7 +13,7 @@ namespace Minigames {
 		/// </summary>
 		virtual void sceneUpdate();
 		AbstractSceneManager();
-		~AbstractSceneManager();
+		virtual ~AbstractSceneManager();
 	private:
 		
 		

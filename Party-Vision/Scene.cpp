@@ -12,11 +12,25 @@ namespace Scene {
 	Scene::Scene()
 	{
 		Scene::_gameObjects = new std::list<std::shared_ptr<GameObject>>();
+		Scene::_gameObjectsToRemove = new std::list<std::shared_ptr<GameObject>>();
 	}
 
 	void Scene::addGameObject(std::shared_ptr<GameObject> gameObject)
 	{
 		Scene::_gameObjects->push_back(gameObject);
+	}
+
+	void Scene::removeGameObject(GameObject* gameObject)
+	{
+		std::shared_ptr<GameObject> objectToRemove = nullptr;
+		for(auto gameObj : *_gameObjects)
+		{
+			if (gameObj.get() == gameObject) {
+				objectToRemove = gameObj;
+				break;
+			}
+		}
+		_gameObjectsToRemove->push_back(objectToRemove);
 	}
 
 	void Scene::update()
@@ -31,6 +45,11 @@ namespace Scene {
 			gameObject->update((float)deltaTime);
 		}
 
+		for (auto gameObject : (*Scene::_gameObjectsToRemove)) {
+			Scene::_gameObjects->remove(gameObject);
+		}
+
+		Scene::_gameObjectsToRemove->clear();
 	}
 
 
@@ -47,7 +66,7 @@ namespace Scene {
 		glm::mat4 projection = glm::perspective(glm::radians(75.0f), viewport[2] / (float)viewport[3], 0.01f, 1000.0f);
 		tigl::shader->setProjectionMatrix(projection);
 		glEnable(GL_DEPTH_TEST);
-		tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
+		tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 0, 10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 		tigl::shader->setModelMatrix(glm::mat4(1.0f));
 
 

@@ -1,19 +1,23 @@
 #include "MoveToComponent.hpp"
 #include "GameObject.hpp"
 #include "TransformComponent.hpp"
-#include <GLFW/glfw3.h>
+
 #include <iostream>
+
+#include "WindowManager.hpp"
+
 
 namespace Scene {
 	double xposition, yposition;
 	glm::vec3 cursorPosition;
 	double middlePointWidth = 0, middlePointHeight = 0;
 
-	MoveToComponent::MoveToComponent(GLFWwindow* window, int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
+	MoveToComponent::MoveToComponent(int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
 		//Divide the height and width by 2 so the item will be spawned to the middle
 		middlePointHeight = height / 2;
 		middlePointWidth = width / 2;
+
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 			{
 				xposition = xpos;
@@ -24,11 +28,11 @@ namespace Scene {
 	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
 	void MoveToComponent::update(float deltaTime)
 	{
-		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();\
-		
-		targetPosition = glm::vec3(xposition, yposition, 0);
-		glm::vec3 move = targetPosition- comp->position;
+		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->Transform;
+		glfwGetCursorPos(window, &xposition, &yposition);
 
+		targetPosition = glm::vec3(xposition, yposition, 0);
+		glm::vec3 move = targetPosition- _gameObject->Transform->position;
 		move.x -= middlePointWidth;
 		move.y -= middlePointHeight;
 		move.z = 0;
