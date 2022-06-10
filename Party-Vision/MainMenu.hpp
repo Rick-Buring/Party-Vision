@@ -41,6 +41,7 @@ namespace Minigames {
 		/// Constructor for MainMenu which initilizes the scene.
 		/// </summary>
 		MainMenu();
+		~MainMenu();
 
 		void createMouse();
 

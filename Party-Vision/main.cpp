@@ -49,15 +49,6 @@ int main(void)
 
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 
-	/*std::shared_ptr<Scene::GameObject> block;
-	block = std::make_shared<Scene::GameObject>();
-	int width2 = 60, height2 = 60;
-	block->addComponent(std::make_shared<Scene::PlaneComponent>(width2, height2));
-	std::shared_ptr<Scene::TransformComponent> tf= std::make_shared<Scene::TransformComponent>(glm::vec3(100, 100, 1));
-	block->addComponent(tf);
-	std::shared_ptr<Scene::CollisionComponent> cc = std::make_shared<Scene::CollisionComponent>(handCursor);
-	block->addComponent(cc);*/
-
 	sceneManager = mainMenu;
 	sceneManager->scene->setRunning(true);
 
@@ -86,24 +77,5 @@ void init()
 		{
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
-		});
-
-	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
-		{
-			double xpos, ypos;
-			int viewport[4];
-			glGetIntegerv(GL_VIEWPORT, viewport);
-			glfwGetCursorPos(window, &xpos, &ypos);
-			if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-				Minigames::MainMenu* mainMenu = dynamic_cast<Minigames::MainMenu*>(sceneManager);
-				if (mainMenu) {
-					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
-						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
-							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
-							menuItem.func->execute();
-						}
-					}
-				}
-			}
 		});
 }

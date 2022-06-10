@@ -12,13 +12,39 @@
 
 #include "main.hpp"
 
+static void attachMouseCallback() {
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			double xpos, ypos;
+			int viewport[4];
+			glGetIntegerv(GL_VIEWPORT, viewport);
+			glfwGetCursorPos(window, &xpos, &ypos);
+			if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+				Minigames::MainMenu* mainMenu = dynamic_cast<Minigames::MainMenu*>(sceneManager);
+				if (mainMenu) {
+					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
+						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
+							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
+							menuItem.func->execute();
+						}
+					}
+				}
+			}
+		});
+}
+static void detachMouseCallback() {
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		{}
+	);
+}
+
 namespace Minigames {
 	Menu_t currentMenu;
 	int viewport[4];
-	
+
 	MainMenu::MainMenu() {
 		//create cursor
-	
+
 		glGetIntegerv(GL_VIEWPORT, viewport);
 		backgroundWidth = viewport[2];
 		backgroundHeight = viewport[3];
@@ -27,6 +53,12 @@ namespace Minigames {
 
 		createMouse();
 		menuInit(buildNinjaMenu());
+		attachMouseCallback();
+	}
+
+	MainMenu::~MainMenu()
+	{
+		detachMouseCallback();
 	}
 
 	void MainMenu::createMouse()
@@ -56,15 +88,15 @@ namespace Minigames {
 		AbstractSceneManager::scene->addGameObject(background);
 		for (MenuItem_t menuItem : currentMenu.menuItems) {
 			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
-			
+
 			std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(menuItem.sizeWidth, menuItem.sizeHeight);
 
 			button->addComponent(buttonPlane);
-			
-			
-			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx,menuItem.positiony,1));
+
+
+			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx, menuItem.positiony, 1));
 			button->addComponent(buttonTransform);
-			AbstractSceneManager::scene->addGameObject(button);			
+			AbstractSceneManager::scene->addGameObject(button);
 		}
 	}
 
