@@ -58,7 +58,7 @@ class testClas : public Minigames::IPointerExecuter {
 	void execute() override {
 		std::cout << "Hello" << std::endl;
 	}
-}; 
+};
 
 int main(void)
 {
@@ -78,53 +78,75 @@ int main(void)
 
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 	std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems;
-    
-    std::shared_ptr<Scene::GameObject> handCursor;
-    handCursor = std::make_shared<Scene::GameObject>();
-    int width = 20, height = 20;
-    handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
-    std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
-    std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
-    handCursor->addComponent(transform2);
-    handCursor->addComponent(moveTo);
+
+	std::shared_ptr<Scene::GameObject> handCursor;
+	handCursor = std::make_shared<Scene::GameObject>();
+	int width = 20, height = 20;
+	handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
+	std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(window, width, height, glm::vec3(xposition, yposition, 0));
+	std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
+	handCursor->addComponent(transform2);
+	handCursor->addComponent(moveTo);
 
 	Minigames::MenuItem_t schoolNinjaStartMenuItem{
-	   "Start",
-	   "C:/",
-	  new StartGame(),
-	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	   (mainMenu->backgroundHeight / 7) * 1,
-	   200 * (mainMenu->backgroundWidth / 640),
-	   50 * (mainMenu->backgroundHeight / 360)
+   "Start",
+   "C:/Users/imre/Documents/Designs proftaak 2.4/startbuttonflipped.png",
+   new StartGame(),
+   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+   (mainMenu->backgroundHeight / 7) * 1,
+   200 * (mainMenu->backgroundWidth / 640),
+   40 * (mainMenu->backgroundHeight / 360)
 
 	};
 	Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
 	   "How to Play",
-	   "C:/",
+	   "C:/Users/imre/Documents/Designs proftaak 2.4/howtoplaybuttonflipped.png",
 	   new testClas(),
 	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
 	   (mainMenu->backgroundHeight / 7) * 3,
 	   200 * (mainMenu->backgroundWidth / 640),
-	   50 * (mainMenu->backgroundHeight / 360)
+	   40 * (mainMenu->backgroundHeight / 360)
 
 	};
 	Minigames::MenuItem_t schoolNinjaHelpMenuItem{
 	  "Help",
-	  "C:/",
+	  "C:/Users/imre/Documents/Designs proftaak 2.4/creditsbuttonflipped.png",
 	  new testClas(),
 	  (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
 	  (mainMenu->backgroundHeight / 7) * 5,
 	  200 * (mainMenu->backgroundWidth / 640),
-	  50 * (mainMenu->backgroundHeight / 360)
+	  40 * (mainMenu->backgroundHeight / 360)
+	};
+
+	Minigames::MenuItem_t leftMenuItem{
+	   "Left",
+	   "C:/Users/imre/Documents/Designs proftaak 2.4/arrowbuttonflipped.png",
+	   new testClas(),
+	   70,
+	   (mainMenu->backgroundHeight / 7) * 3,
+	   70 * (mainMenu->backgroundWidth / 640),
+	   60 * (mainMenu->backgroundHeight / 360)
+
+	};
+	Minigames::MenuItem_t rightMenuItem{
+   "Right",
+   "C:/Users/imre/Documents/Designs proftaak 2.4/arrowbutton.png",
+   new testClas(),
+   mainMenu->backgroundWidth - 210,
+   (mainMenu->backgroundHeight / 7) * 3,
+   70 * (mainMenu->backgroundWidth / 640),
+   60 * (mainMenu->backgroundHeight / 360)
+
 	};
 
 	schoolNinjaMenuItems.push_back(schoolNinjaStartMenuItem);
 	schoolNinjaMenuItems.push_back(schoolNinjaHowToPlayMenuItem);
 	schoolNinjaMenuItems.push_back(schoolNinjaHelpMenuItem);
-
+	schoolNinjaMenuItems.push_back(leftMenuItem);
+	schoolNinjaMenuItems.push_back(rightMenuItem);
 	Minigames::Menu_t schoolNinjaMenu{
 		"School Ninja",
-		"C:/Users/imre/Pictures/one-piece-monkey-d-luffy.jpg",
+		"C:/Users/imre/Documents/Designs proftaak 2.4/backgroundimageflipped.png",
 		schoolNinjaMenuItems
 	};
 
@@ -136,21 +158,22 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window))
 	{
-        sceneManager->sceneUpdate();
-        moveTo->targetPosition.x = xposition;
-        moveTo->targetPosition.y = yposition;
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-        waitKey(1);
-    }
-        
-    glfwTerminate();
+		sceneManager->sceneUpdate();
+		moveTo->targetPosition.x = xposition;
+		moveTo->targetPosition.y = yposition;
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+		waitKey(1);
+	}
 
-    return 0;
+	glfwTerminate();
+
+	return 0;
 }
 
 void init()
 {
+	tigl::shader->enableTexture(true);
 	tigl::shader->enableColor(true);
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
@@ -168,7 +191,7 @@ void init()
 				if (mainMenu) {
 					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
 						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
-							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
+							(ypos > menuItem.positiony && ypos < menuItem.positiony + menuItem.sizeHeight)) {
 							menuItem.func->execute();
 						}
 					}

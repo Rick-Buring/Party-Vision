@@ -3,6 +3,7 @@
 #include "tigl.h"
 #include "AbstractDrawcomponent.hpp"
 #include <string>
+#include "Texture.hpp"
 
 namespace Scene {
 	/// <summary>
@@ -13,14 +14,14 @@ namespace Scene {
 		//variable to store plane vertesies
 		std::vector<tigl::Vertex> verts;
 		glm::mat4 projectionOrtho;
+		Texture* texture;
 	public:
 		/// <summary>
 		/// Constructor used to create the plane
 		/// </summary>
 		/// <param name="width">width of the plane</param>
 		/// <param name="height">height of the plane</param>
-		PlaneComponent(float width, float height); 
-		PlaneComponent(float width, float height, std::string textureFileName);
+		PlaneComponent(float width, float height, Texture* texture = nullptr);
 		virtual void draw() override;
 	};
 };
