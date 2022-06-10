@@ -26,8 +26,9 @@ static void attachMouseCallback() {
 				if (mainMenu) {
 					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
 						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
-							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
+							( ypos > menuItem.positiony && ypos < menuItem.positiony + menuItem.sizeHeight)) {
 							menuItem.func->execute();
+							break;
 						}
 					}
 				}
@@ -98,7 +99,7 @@ namespace Minigames {
 		//AbstractSceneManager::scene->addGameObject(test);
 		for (MenuItem_t menuItem : currentMenu.menuItems) {
 			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
-			
+
 			std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(menuItem.sizeWidth, menuItem.sizeHeight, new Scene::Texture(menuItem.imageFileName));
 
 			button->addComponent(buttonPlane);
@@ -115,43 +116,63 @@ namespace Minigames {
 		glfwGetWindowSize(window, &width, &height);
 		Minigames::MenuItem_t schoolNinjaStartMenuItem{
 		   "Start",
-		   "C:/",
-		  new StartGame(),
+		   "C:/Users/imre/Documents/Designs proftaak 2.4/startbuttonflipped.png",
+		   new StartGame(),
 		   (width / 2) - ((200 * (width / 640)) / 2),
 		   (height / 7) * 1,
 		   200 * (width / 640),
-		   50 * (height / 360)
+		   40 * (height / 360)
 
 		};
 		Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
 		   "How to Play",
-		   "C:/",
+		   "C:/Users/imre/Documents/Designs proftaak 2.4/howtoplaybuttonflipped.png",
 		   new testClas(),
 		   (width / 2) - ((200 * (width / 640)) / 2),
 		   (height / 7) * 3,
 		   200 * (width / 640),
-		   50 * (height / 360)
+		   40 * (height / 360)
 
 		};
 		Minigames::MenuItem_t schoolNinjaHelpMenuItem{
 		  "Help",
-		  "C:/",
+		  "C:/Users/imre/Documents/Designs proftaak 2.4/creditsbuttonflipped.png",
 		  new testClas(),
 		  (width / 2) - ((200 * (width / 640)) / 2),
 		  (height / 7) * 5,
 		  200 * (width / 640),
-		  50 * (height / 360)
+		  40 * (height / 360)
+		};
+		Minigames::MenuItem_t leftMenuItem{
+		  "Left",
+		  "C:/Users/imre/Documents/Designs proftaak 2.4/arrowbuttonflipped.png",
+		  new testClas(),
+		  70,
+		  (height / 7) * 3,
+		  70 * (width / 640),
+		  60 * (height / 360)
+		};
+		Minigames::MenuItem_t rightMenuItem{
+		  "Right",
+		  "C:/Users/imre/Documents/Designs proftaak 2.4/arrowbutton.png",
+		  new testClas(),
+		  width - 210,
+		  (height / 7) * 3,
+		  70 * (width / 640),
+		  60 * (height / 360)
 		};
 
 		std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems = {
 			schoolNinjaHelpMenuItem,
 			schoolNinjaHowToPlayMenuItem,
-			schoolNinjaStartMenuItem
+			schoolNinjaStartMenuItem,
+			leftMenuItem,
+			rightMenuItem
 		};
 
 		Minigames::Menu_t schoolNinjaMenu{
 			"School Ninja",
-			"C:/",
+			"C:/Users/imre/Documents/Designs proftaak 2.4/backgroundimageflipped.png",
 			schoolNinjaMenuItems
 		};
 
