@@ -21,7 +21,7 @@ namespace Vision {
 		double b;       // a fraction between 0 and 1
 	} rgb;
 
-	void HandDetection_run(Point& position);
+	void HandDetection_run(Point& position, Mat& frame);
 
 	hsv HandDetection_getSkinColor(Mat frame, vector<Rect>);
 

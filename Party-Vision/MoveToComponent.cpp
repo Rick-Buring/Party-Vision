@@ -5,6 +5,7 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include "HandDetection.hpp"
+#include "Convert.hpp"
 
 using namespace cv;
 
@@ -12,10 +13,15 @@ namespace Scene {
 	Point position;
 	glm::vec3 cursorPosition;
 	double middlePointWidth = 0, middlePointHeight = 0;
+	int width, height;
+	GLFWwindow* window;
 
-	MoveToComponent::MoveToComponent(GLFWwindow* window, int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
+	MoveToComponent::MoveToComponent(GLFWwindow* w, int wi, int h, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
 		//Divide the height and width by 2 so the item will be spawned to the middle
+		window = w;
+		width = wi;
+		height = h;
 		middlePointHeight = height / 2;
 		middlePointWidth = width / 2;
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
@@ -27,10 +33,15 @@ namespace Scene {
 	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
 	void MoveToComponent::update(float deltaTime)
 	{
-		Vision::HandDetection_run(position);
-
-		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();\
+		Mat frame;
+		Vision::HandDetection_run(position, frame);
+		static int w, h;
+		glfwGetWindowSize(window, &w, &h );
 		
+		convertCoordinates(frame, h, w, position, position);
+
+		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->getComponent<TransformComponent>();
+
 		targetPosition = glm::vec3(position.x, position.y, 0);
 		glm::vec3 move = targetPosition- comp->position;
 
@@ -42,6 +53,9 @@ namespace Scene {
 			move = glm::normalize(move);
 		}	
 
-		comp->position += move * 40.0f * deltaTime * mag;
-	};
+		mag /= sqrt(w*w + h*h);
+		mag *= 100;
+		mag = mag < 1 ? 1 : mag;
+		comp->position += move * 100.0f * deltaTime * mag;
+	}
 }
