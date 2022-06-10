@@ -16,6 +16,7 @@ namespace tigl
 		void setProjectionMatrix(const glm::mat4& matrix);
 		glm::mat4 getProjectionMatrix();
 		void setViewMatrix(const glm::mat4& matrix);
+		virtual glm::mat4 getViewMatrix();
 		void setModelMatrix(const glm::mat4& matrix);
 
 		void enableColor(bool enabled) { setUniform(Uniform::useColor, enabled); }
@@ -106,8 +107,9 @@ namespace tigl
 		glm::mat4 modelMatrix;
 		glm::mat4 projectionMatrix;
 		glm::mat4 viewMatrix;
+	
 
-	};
+};
 
 	std::unique_ptr<internal::Shader> shader;
 	int attributePosition = 0;
@@ -422,6 +424,11 @@ void main()
 		glm::vec4 cameraPosition = glm::inverse(matrix) * glm::vec4(0, 0, 0, 1);
 		setUniform(Uniform::cameraPosition, glm::vec3(cameraPosition));
 
+	}
+
+	glm::mat4 ShaderImpl::getViewMatrix()
+	{
+		return this->viewMatrix;
 	}
 
 	void ShaderImpl::setModelMatrix(const glm::mat4& matrix)

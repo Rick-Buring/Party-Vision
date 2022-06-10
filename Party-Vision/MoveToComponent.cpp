@@ -6,6 +6,7 @@
 #include <iostream>
 #include "HandDetection.hpp"
 #include "Convert.hpp"
+#include "WindowManager.hpp"
 
 using namespace cv;
 
@@ -14,16 +15,15 @@ namespace Scene {
 	glm::vec3 cursorPosition;
 	double middlePointWidth = 0, middlePointHeight = 0;
 	int width, height;
-	GLFWwindow* window;
 
-	MoveToComponent::MoveToComponent(GLFWwindow* w, int wi, int h, glm::vec3 targetPosition) : targetPosition(targetPosition)
+	MoveToComponent::MoveToComponent(int wi, int h, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
 		//Divide the height and width by 2 so the item will be spawned to the middle
-		window = w;
 		width = wi;
 		height = h;
 		middlePointHeight = height / 2;
 		middlePointWidth = width / 2;
+
 		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 			{
 				//position = Point(xpos, ypos);

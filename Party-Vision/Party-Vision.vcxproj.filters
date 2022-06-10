@@ -108,6 +108,9 @@
     <ClCompile Include="ModelLoaderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
     <ClCompile Include="SchoolNinjaComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -118,6 +121,9 @@
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
     <ClCompile Include="Convert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -205,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="Convert.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

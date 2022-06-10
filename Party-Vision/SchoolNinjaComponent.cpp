@@ -14,12 +14,12 @@ namespace Scene {
 	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene) {
 		std::shared_ptr<GameObject> gameObj = std::make_shared<GameObject>();
 
-		float xRand = (rand() % 20) - 10;
+		float xRand = rand() % 20 - 10;
 
 		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 50, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
 		gameObj->addComponent(std::make_shared<GravityComponent>());
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
-		gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, 1.0f));
+		gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, .5f));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene));
 		//TODO add collide component
 
