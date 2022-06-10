@@ -22,6 +22,19 @@ using tigl::Vertex;
 
 Minigames::AbstractSceneManager* sceneManager;
 
+
+#include "GameObject.hpp"
+#include "TransformComponent.hpp"
+#include "DrawObjectComponent.hpp"
+#include "PlaneComponent.hpp"
+#include <memory>
+#include "ObjectLoader.hpp"
+#include "GravityComponent.hpp"
+#include "ReplaceComponent.hpp"
+#include "IOnDeath.hpp"
+#include "MoveToComponent.hpp"
+#include "CollisionComponent.hpp"
+
 struct test {
 	void(*test)(Mat& first, Mat& second);
 };
@@ -36,14 +49,39 @@ int main(void)
 
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 
-	mainMenu->menuInit(Minigames::buildNinjaMenu());
+	std::shared_ptr<Scene::GameObject> block;
+	block = std::make_shared<Scene::GameObject>();
+	int width2 = 60, height2 = 60;
+	block->addComponent(std::make_shared<Scene::PlaneComponent>(width2, height2));
+	std::shared_ptr<Scene::TransformComponent> tf= std::make_shared<Scene::TransformComponent>(glm::vec3(100, 100, 1));
+	block->addComponent(tf);
+	std::shared_ptr<Scene::CollisionComponent> cc = std::make_shared<Scene::CollisionComponent>(handCursor);
+	block->addComponent(cc);
+	
+    
+
+	Minigames::MenuItem_t schoolNinjaStartMenuItem{
+	   "Start",
+	   "C:/",
+	  new StartGame(),
+	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
+	   (mainMenu->backgroundHeight / 7) * 1,
+	   200 * (mainMenu->backgroundWidth / 640),
+	   50 * (mainMenu->backgroundHeight / 360)
 
 	mainMenu->scene->setRunning(true);
 	sceneManager = mainMenu;
+	sceneManager->scene->addGameObject(handCursor);
+	sceneManager->scene->addGameObject(block);
 
 	while (!glfwWindowShouldClose(window))
 	{
         sceneManager->sceneUpdate();
+
+		//TODO check for collision with other game objects.
+		
+        moveTo->targetPosition.x = xposition;
+        moveTo->targetPosition.y = yposition;
         glfwSwapBuffers(window);
         glfwPollEvents();
         waitKey(1);
