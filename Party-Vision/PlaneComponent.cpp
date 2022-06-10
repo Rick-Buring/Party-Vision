@@ -1,8 +1,8 @@
 #include "PlaneComponent.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 namespace Scene {
-	
-	PlaneComponent::PlaneComponent(float width, float height)
+
+	PlaneComponent::PlaneComponent(float width, float height, bool ortho) : _ortho(ortho)
 	{
 		int viewport[4];
 		glGetIntegerv(GL_VIEWPORT, viewport);
@@ -20,8 +20,11 @@ namespace Scene {
 
 	void PlaneComponent::draw() {
 		glm::mat4 projectionMatrix = tigl::shader->getProjectionMatrix();
-		tigl::shader->setProjectionMatrix(PlaneComponent::projectionOrtho);
+		if (_ortho) {
+			tigl::shader->setProjectionMatrix(PlaneComponent::projectionOrtho);
+		}
 		tigl::drawVertices(GL_QUADS, verts);
+
 		tigl::shader->setProjectionMatrix(projectionMatrix);
 	}
 }

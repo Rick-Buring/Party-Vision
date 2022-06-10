@@ -9,9 +9,12 @@
 #include "tigl.h"
 #include "MoveToComponent.hpp"
 #include "WindowManager.hpp"
+#include "GravityComponent.hpp"
 
 #include "main.hpp"
-
+#include "CollisionComponent.hpp"
+#include "ObjectLoader.hpp"
+#include "DrawObjectComponent.hpp"
 static void attachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{
@@ -52,8 +55,20 @@ namespace Minigames {
 		backgroundy = 0;
 
 		createMouse();
-		menuInit(buildNinjaMenu());
+		//menuInit(buildNinjaMenu());s
 		attachMouseCallback();
+		std::vector<Scene::VBO_Textures_t> obj = Scene::loadObject("models/book/1984_book.obj");
+		std::shared_ptr<Scene::GameObject> collisionObject = std::make_shared<Scene::GameObject>();
+		collisionObject->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(-10, -5, -5)));
+		//collisionObject->addComponent(std::make_shared<Scene::GravityComponent>(10.0f));
+		collisionObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(obj));
+
+		std::shared_ptr<Scene::GameObject> mouse = *scene->getGameobjects()->begin();
+		collisionObject->addComponent(std::make_shared<Scene::CollisionComponent>(mouse));
+
+		scene->addGameObject(collisionObject);
+
+
 	}
 
 	MainMenu::~MainMenu()
@@ -63,8 +78,7 @@ namespace Minigames {
 
 	void MainMenu::createMouse()
 	{
-		std::shared_ptr<Scene::GameObject> handCursor;
-		handCursor = std::make_shared<Scene::GameObject>();
+		std::shared_ptr<Scene::GameObject> handCursor = std::make_shared<Scene::GameObject>();
 		int width = 20, height = 20;
 		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
 		std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(width, height, glm::vec3(0, 0, 0));
