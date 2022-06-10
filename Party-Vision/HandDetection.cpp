@@ -96,7 +96,7 @@ namespace Vision {
 		capture.read(frame);
 
 		//It returns the skincolor and put it in the faces variable.
-		faces = FaceRecognition_run(frame, faceCascade);		
+		faces = faceRecognitionRun(frame, faceCascade);		
 		
 		//if the face is detected than the if-statement will be triggerd.
 		if (!faces.empty()) {
