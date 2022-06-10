@@ -117,6 +117,9 @@
     <ClCompile Include="OutofBoundsComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Convert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -194,14 +197,14 @@
     <ClInclude Include="SchoolNinjaComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="DestroyObjectComponent.hpp">
-      <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
     <ClInclude Include="OutofBoundsComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="Texture.hpp">
       <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Convert.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,6 @@
 #include "MainMenu.hpp"
 #include "AbstractSceneManager.hpp"
 #include "SchoolNinja.hpp" 
-#include <iostream>
 
 using tigl::Vertex;
 

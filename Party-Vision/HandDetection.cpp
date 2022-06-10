@@ -18,7 +18,7 @@ int hmin = 0, smin = 110, vmin = 153;
 int hmax = 19, smax = 240, vmax = 255;
 
 vector<Rect> faces;
-vector<Point> positions;
+Point mass_center;
 CascadeClassifier faceCascade;
 Vision::hsv skinColor;
 
@@ -70,8 +70,7 @@ namespace Vision {
 		return out;
 	}
 
-	//test
-	void HandDetection_run(Point& position)
+	void HandDetection_run(Point& position, Mat& frame)
 	{
 		String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
 		faceCascade.load(faceCascadePath);
@@ -80,22 +79,40 @@ namespace Vision {
 
 		faces = FaceRecognition_run(frame, faceCascade);
 
+		
 		if (!faces.empty()) {
 			skinColor = HandDetection_getSkinColor(frame, faces);
 
 			cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
-			Scalar lower(skinColor.h, skinColor.s, skinColor.v);
-			Scalar upper(11, 255, 255);
+			skinColor.h /= 2;
+
+			int maxHue = 8;
+
+			Scalar lower, upper;
+
+			if (skinColor.h > maxHue) {
+				lower = Scalar(skinColor.h, skinColor.s, skinColor.v);
+				upper = Scalar(180, 255, 255);
+			}
+			else {
+				lower = Scalar(skinColor.h, skinColor.s, skinColor.v);
+				if (skinColor.h > maxHue) maxHue = skinColor.h;
+				upper = Scalar(maxHue, 255, 255);
+			}
+
+			/*lower = Scalar(skinColor.h, 20, 0);
+			upper = Scalar(maxHue, 255, 255);*/
 
 			inRange(imgHSV, lower, upper, mask);
 
-			kernel = getStructuringElement(MORPH_RECT, Size(20, 40));
+			kernel = getStructuringElement(MORPH_ELLIPSE, Size(21, 21));
 			dilate(mask, mask, kernel);
+			erode(mask, mask, kernel);
 
 			HandDetection_findHand(frame, mask);
 
-			if (!positions.empty()) position = positions[0];
+			position = mass_center;
 
 #ifdef DEBUGGING
 			imshow("Frame", frame);
@@ -163,33 +180,52 @@ namespace Vision {
 		vector<vector<Point>> contours;
 		vector<Vec4i> hierarchy;
 
-		positions.clear();
-
 		//Finds all the contours in the frame.
 		findContours(mask, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_NONE);
 
 		//Saves the largest contour index.
-		int largestAreaIndex = 0;
+		int largestAreaIndex = -1;
+		int largestArea = 0;
 
-		//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
-		for (int i = 0; i < contours.size(); i++) {
-			int area = contourArea(contours[i]);
+		if (!contours.empty()) {
+			//Loops through the contour vector<point> list and checks if the area is larger then 2000 it will we drawed on the frame MATRIX.
+			for (int i = 0; i < contours.size(); i++) {
+				int area = contourArea(contours[i]);
 
-			//Checks if area is bigger than 2000, if that's the case it will be drawed.
-			if (area > 2000) {
-				vector<Point> f = contours[i];
+				if (area > 2000) {
+					if (area > largestArea) largestAreaIndex = i;
+
+					drawContours(frame, contours, i, Scalar(255, 0, 255));
+				}
+				////Checks if area is bigger than 2000, if that's the case it will be drawed.
+				//if (area > 2000) {
+				//	vector<Point> f = contours[i];
+				//	Moments contour_moment = moments(f, false);
+				//	Point mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
+				//	positions.push_back(mass_center);
+
+				//	// Coordinates from the mass of the contour.
+				//	cout << "x = " << mass_center.x << "  y= " << mass_center.y << endl;
+				//	cout << "nieuwe regelelelele" << endl;
+
+				//	cv::rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
+
+				//	//draws the specific contour.
+				//	//drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
+				//}
+			}
+			//drawContours(frame, contours, -1, Scalar(255, 0, 255));
+
+			if (largestAreaIndex > -1) {
+				vector<Point> f = contours[largestAreaIndex];
 				Moments contour_moment = moments(f, false);
-				Point mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
-				positions.push_back(mass_center);
+				mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
 
 				// Coordinates from the mass of the contour.
 				cout << "x = " << mass_center.x << "  y= " << mass_center.y << endl;
 				cout << "nieuwe regelelelele" << endl;
 
 				cv::rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
-
-				//draws the specific contour.
-				//drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
 			}
 		}
 	}
