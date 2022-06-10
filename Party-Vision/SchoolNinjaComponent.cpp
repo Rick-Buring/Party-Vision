@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <memory>
+#include <iostream>
 
 #include "TransformComponent.hpp"
 #include "GravityComponent.hpp"
@@ -9,6 +10,7 @@
 #include "replaceComponent.hpp"
 #include "OutofBoundsComponent.hpp"
 #include "DestroyObjectComponent.hpp"
+#include "CollisionComponent.hpp"
 
 namespace Scene {
 	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene) {
@@ -16,11 +18,12 @@ namespace Scene {
 
 		float xRand = rand() % 20 - 10;
 
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 50, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
-		gameObj->addComponent(std::make_shared<GravityComponent>());
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 30, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
+		gameObj->addComponent(std::make_shared<GravityComponent>(40.0f));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
-		gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, .5f));
+		//gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, .5f));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene));
+		gameObj->addComponent(std::make_shared<CollisionComponent>());
 		//TODO add collide component
 
 		//creating split component
@@ -77,9 +80,10 @@ namespace Scene {
 		_durationSeconds -= deltaTime;
 		if (_durationSeconds < 0 || SchoolNinja::_lifes <= 0) {
 			//todo end game
+			std::cout << "End game \n";
 			return;
 		}
-		if ((rand() / (float)RAND_MAX) * deltaTime < 0.000005f) {
+		if ((rand() / (float)RAND_MAX) * deltaTime < 0.005f) {
 			SchoolNinja::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinja::_scene));
 		}
 

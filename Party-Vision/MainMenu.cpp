@@ -15,6 +15,8 @@
 #include "CollisionComponent.hpp"
 #include "ObjectLoader.hpp"
 #include "DrawObjectComponent.hpp"
+#include "CursorPosition.hpp"
+
 static void attachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{
@@ -34,9 +36,18 @@ static void attachMouseCallback() {
 				}
 			}
 		});
+
+	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
+		{
+			cursorPosition = glm::vec2(xpos, ypos);
+		});
 }
 static void detachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		{}
+	);
+
+	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
 		{}
 	);
 }
@@ -54,8 +65,9 @@ namespace Minigames {
 		backgroundx = 0;
 		backgroundy = 0;
 
-		createMouse();
-		//menuInit(buildNinjaMenu());s
+		double mouseWidth = 20, mouseHeight = 20;
+		MainMenu::createMouse(mouseWidth, mouseHeight);
+		menuInit(buildNinjaMenu());
 		attachMouseCallback();
 		std::vector<Scene::VBO_Textures_t> obj = Scene::loadObject("models/book/1984_book.obj");
 		std::shared_ptr<Scene::GameObject> collisionObject = std::make_shared<Scene::GameObject>();
@@ -64,7 +76,7 @@ namespace Minigames {
 		collisionObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(obj));
 
 		std::shared_ptr<Scene::GameObject> mouse = *scene->getGameobjects()->begin();
-		collisionObject->addComponent(std::make_shared<Scene::CollisionComponent>(mouse));
+		collisionObject->addComponent(std::make_shared<Scene::CollisionComponent>());
 
 		scene->addGameObject(collisionObject);
 
@@ -74,19 +86,6 @@ namespace Minigames {
 	MainMenu::~MainMenu()
 	{
 		detachMouseCallback();
-	}
-
-	void MainMenu::createMouse()
-	{
-		std::shared_ptr<Scene::GameObject> handCursor = std::make_shared<Scene::GameObject>();
-		int width = 20, height = 20;
-		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
-		std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(width, height, glm::vec3(0, 0, 0));
-		std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
-		handCursor->addComponent(transform2);
-		handCursor->addComponent(moveTo);
-
-		scene->addGameObject(handCursor);
 	}
 
 	void MainMenu::menuInit(Menu_t current) {

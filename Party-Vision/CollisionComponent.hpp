@@ -6,7 +6,7 @@
 namespace Scene {
 	class CollisionComponent : public AbstractComponent {
 	public:
-		CollisionComponent(std::shared_ptr<GameObject> mouse);
+		CollisionComponent();
 
 		void update(float deltaTime) override;
 		

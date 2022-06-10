@@ -13,5 +13,7 @@ namespace Scene {
 		void update(float deltaTime) override;
 
 	private:
+		bool _useMouse;
+		double _middlePointWidth, _middlePointHeight;
 	};
 }

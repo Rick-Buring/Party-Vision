@@ -43,8 +43,6 @@ namespace Minigames {
 		MainMenu();
 		~MainMenu();
 
-		void createMouse();
-
 	private:
 		
 		
