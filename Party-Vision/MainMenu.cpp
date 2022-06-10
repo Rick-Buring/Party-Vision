@@ -26,6 +26,7 @@ namespace Minigames {
 		backgroundy = 0;
 
 		createMouse();
+		menuInit(buildNinjaMenu());
 	}
 
 	void MainMenu::createMouse()

@@ -15,8 +15,8 @@ namespace Scene {
 
 	void Scene::CollisionComponent::update(float deltaTime)
 	{
-		positionCursor = Cursor->_transformComponent->position;
-		glm::vec3 currentPos = CollisionComponent::_gameObject->_transformComponent->position;
+		positionCursor = Cursor->Transform->position;
+		glm::vec3 currentPos = CollisionComponent::_gameObject->Transform->position;
 		if ((currentPos.x - positionCursor.x <= 10 && currentPos.x - positionCursor.x >= -10) &&
 			(currentPos.y - positionCursor.y <= 10 && currentPos.y - positionCursor.y >= -10)) {
 			std::cout << "Collision BOIIIII";

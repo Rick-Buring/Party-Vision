@@ -49,39 +49,23 @@ int main(void)
 
 	Minigames::MainMenu* mainMenu = new Minigames::MainMenu();
 
-	std::shared_ptr<Scene::GameObject> block;
+	/*std::shared_ptr<Scene::GameObject> block;
 	block = std::make_shared<Scene::GameObject>();
 	int width2 = 60, height2 = 60;
 	block->addComponent(std::make_shared<Scene::PlaneComponent>(width2, height2));
 	std::shared_ptr<Scene::TransformComponent> tf= std::make_shared<Scene::TransformComponent>(glm::vec3(100, 100, 1));
 	block->addComponent(tf);
 	std::shared_ptr<Scene::CollisionComponent> cc = std::make_shared<Scene::CollisionComponent>(handCursor);
-	block->addComponent(cc);
-	
-    
+	block->addComponent(cc);*/
 
-	Minigames::MenuItem_t schoolNinjaStartMenuItem{
-	   "Start",
-	   "C:/",
-	  new StartGame(),
-	   (mainMenu->backgroundWidth / 2) - ((200 * (mainMenu->backgroundWidth / 640)) / 2),
-	   (mainMenu->backgroundHeight / 7) * 1,
-	   200 * (mainMenu->backgroundWidth / 640),
-	   50 * (mainMenu->backgroundHeight / 360)
-
-	mainMenu->scene->setRunning(true);
 	sceneManager = mainMenu;
-	sceneManager->scene->addGameObject(handCursor);
-	sceneManager->scene->addGameObject(block);
+	sceneManager->scene->setRunning(true);
 
 	while (!glfwWindowShouldClose(window))
 	{
         sceneManager->sceneUpdate();
 
 		//TODO check for collision with other game objects.
-		
-        moveTo->targetPosition.x = xposition;
-        moveTo->targetPosition.y = yposition;
         glfwSwapBuffers(window);
         glfwPollEvents();
         waitKey(1);

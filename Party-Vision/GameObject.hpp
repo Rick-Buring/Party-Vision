@@ -26,7 +26,7 @@ namespace Scene {
 
 	public:
 		~GameObject();
-		std::shared_ptr<TransformComponent> _transformComponent;
+		std::shared_ptr<TransformComponent> Transform;
 		/// <summary>
 		/// adds component to GameObject
 		/// </summary>
