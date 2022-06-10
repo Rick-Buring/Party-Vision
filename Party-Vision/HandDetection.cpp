@@ -70,6 +70,7 @@ namespace Vision {
 		return out;
 	}
 
+	//test
 	void HandDetection_run(Point& position)
 	{
 		String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
