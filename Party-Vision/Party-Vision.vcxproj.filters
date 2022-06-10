@@ -108,9 +108,6 @@
     <ClCompile Include="ModelLoaderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextureComponent.cpp">
-      <Filter>Scene\SourceFiles\Component</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -199,9 +196,6 @@
     </ClInclude>
     <ClInclude Include="ModelLoaderComponent.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureComponent.hpp">
-      <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="SchoolNinjaComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>

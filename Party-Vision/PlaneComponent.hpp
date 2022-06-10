@@ -21,6 +21,7 @@ namespace Scene {
 		/// </summary>
 		/// <param name="width">width of the plane</param>
 		/// <param name="height">height of the plane</param>
+		/// <param name="texture">texture that needs to be drawn on the plane</param>
 		PlaneComponent(float width, float height, Texture* texture = nullptr);
 		virtual void draw() override;
 	};
