@@ -1,3 +1,5 @@
+#include <thread>
+
 #include "SchoolNinja.hpp"
 #include "SchoolNinjaComponent.hpp"
 #include "CursorPosition.hpp"
@@ -6,6 +8,23 @@
 #include "Convert.hpp"
 
 namespace Minigames {
+	thread visionT;
+	void updateVision()
+	{
+		while (true) {
+			Point position;
+			Mat frame;
+
+			Vision::HandDetection_run(position, frame);
+			static int width, height;
+			glfwGetWindowSize(window, &width, &height);
+			convertCoordinates(frame, height, width, position, position);
+
+			cursorPosition = glm::vec2(position.x, position.y);
+			//waitKey(1);
+		}
+	}
+
 	SchoolNinja::SchoolNinja()
 	{
 		//todo initialize game
@@ -14,13 +33,17 @@ namespace Minigames {
 
 		scene->addGameObject(schoolNinja);
 
+		
+		visionT = thread(updateVision);
+		//updateVision();
+
 		double mouseWidth = 20, mouseHeight = 20;
 		SchoolNinja::createMouse(mouseWidth, mouseHeight);
 		SchoolNinja::scene->setRunning(true);
 	}
 
 	void SchoolNinja::sceneUpdate() {
-		Point position;
+		/*Point position;
 		Mat frame;
 
 		Vision::HandDetection_run(position, frame);
@@ -28,7 +51,7 @@ namespace Minigames {
 		glfwGetWindowSize(window, &width, &height);
 		convertCoordinates(frame, height, width, position, position);
 
-		cursorPosition = glm::vec2(position.x, position.y);
+		cursorPosition = glm::vec2(position.x, position.y);*/
 		AbstractSceneManager::sceneUpdate();
 	}
 	 

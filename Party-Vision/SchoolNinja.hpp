@@ -8,8 +8,6 @@ namespace Minigames {
 		SchoolNinja();
 		void sceneUpdate() override;
 	private:
-
-
 	};
 
 
