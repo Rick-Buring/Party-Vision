@@ -21,9 +21,12 @@ namespace Vision {
 		double b;       // a fraction between 0 and 1
 	} rgb;
 
-	void HandDetection_run(Point& position, Mat& frame);
+	//The methode that will trigger everytime the methode retrieveSkinColor and the methode findHandInFrame.
+	void handDetection(Point& position, Mat& frame);
 
-	hsv HandDetection_getSkinColor(Mat frame, vector<Rect>);
+	//Calculates the skinCOlor and returns it.
+	hsv retrieveSkinColor(Mat frame, vector<Rect>);
 
-	void HandDetection_findHand(Mat frame, Mat mask);
+	//Finds the hand in the frame and calculates the position.
+	void findHandInFrame(Mat frame, Mat mask);
 }

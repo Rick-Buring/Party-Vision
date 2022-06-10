@@ -34,7 +34,7 @@ namespace Scene {
 	void MoveToComponent::update(float deltaTime)
 	{
 		Mat frame;
-		Vision::HandDetection_run(position, frame);
+		Vision::handDetection(position, frame);
 		static int w, h;
 		glfwGetWindowSize(window, &w, &h );
 		
