@@ -13,6 +13,7 @@
 #include "tigl.h"
 
 #include "WindowManager.hpp"
+#include "IOnDeath.hpp"
 
 
 namespace Scene {
@@ -46,19 +47,13 @@ namespace Scene {
 		glm::vec2 currentPos = glm::vec2((ndcSpacePos.x + 1.0) / 2.0 * width, (ndcSpacePos.y + 1.0) / 2.0 * height);
 
 		currentPos.y = height - currentPos.y;
-		static float timer = 0.5;
-		timer -= deltaTime;
-		if (timer < 0) {
-			timer = 0.2;
-
-			std::cout << "CPos " << currentPos.x << " " << currentPos.y << std::endl;
-			std::cout << "MPos " << positionCursor.x << " " << positionCursor.y << std::endl;
-
-		}
 
 		if ((currentPos.x - positionCursor.x <= 10 && currentPos.x - positionCursor.x >= -10) &&
 			(currentPos.y - positionCursor.y <= 10 && currentPos.y - positionCursor.y >= -10)) {
-			std::cout << "Collision BOIIIII";
+			auto deathBehaviors = _gameObject->getComponents<IOnDeath>();
+			for (auto behavior : deathBehaviors) {
+				behavior->OnDeath();
+			}
 		}
 	}
 }
