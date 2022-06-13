@@ -182,6 +182,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SchoolNinja.cpp" />
     <ClCompile Include="SchoolNinjaComponent.cpp" />
+    <ClCompile Include="SoundComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="AbstractSceneManager.hpp" />
     <ClInclude Include="SchoolNinja.hpp" />
     <ClInclude Include="SchoolNinjaComponent.hpp" />
+    <ClInclude Include="SoundComponent.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="tigl.h" />

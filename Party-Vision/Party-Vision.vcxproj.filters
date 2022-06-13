@@ -123,6 +123,9 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SoundComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -216,6 +219,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CollisionComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>

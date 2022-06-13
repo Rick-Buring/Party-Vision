@@ -202,7 +202,7 @@ namespace Scene {
 					{
 						Vertex vertex;
 						std::vector<std::string> indices = split(params[i == (ii - 3) ? 1 : i], "/");
-						if (indices.size() >= 1)	//er is een positie
+						if (indices.size() >= 1)		//er is een positie
 							vertex.position = atoi(indices[0].c_str()) - 1;
 						if (indices.size() == 2)		//alleen texture
 							vertex.texcoord = atoi(indices[1].c_str()) - 1;

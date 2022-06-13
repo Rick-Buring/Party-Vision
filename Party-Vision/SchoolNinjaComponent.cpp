@@ -9,6 +9,7 @@
 #include "replaceComponent.hpp"
 #include "OutofBoundsComponent.hpp"
 #include "DestroyObjectComponent.hpp"
+#include "SoundComponent.hpp"
 
 namespace Scene {
 	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene) {
@@ -21,6 +22,7 @@ namespace Scene {
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
 		gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, .5f));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene));
+		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
 		//TODO add collide component
 
 		//creating split component
