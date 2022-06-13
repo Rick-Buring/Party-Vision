@@ -9,11 +9,12 @@
 
 namespace Minigames {
 	thread visionT;
+	Mat frame;
+
 	void updateVision()
 	{
 		while (true) {
 			Point position;
-			Mat frame;
 
 			Vision::HandDetection_run(position, frame);
 			static int width, height;
@@ -52,6 +53,8 @@ namespace Minigames {
 		convertCoordinates(frame, height, width, position, position);
 
 		cursorPosition = glm::vec2(position.x, position.y);*/
+	
+		if (!frame.empty()) cv::imshow("First frame", frame);
 		AbstractSceneManager::sceneUpdate();
 	}
 	 

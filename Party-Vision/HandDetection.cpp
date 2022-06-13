@@ -9,7 +9,6 @@ using namespace cv::ml;
 
 #define COLOR_ROWS 80
 #define COLOR_COLS 250
-#define DEBUGGING true
 
 Mat frame, imgHSV, mask, kernel;
 
@@ -75,11 +74,11 @@ namespace Vision {
 		String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
 		faceCascade.load(faceCascadePath);
 
-		capture.read(frame);
+		//capture.read(frame);
 
 		faces = FaceRecognition_run(frame, faceCascade);
 
-		
+
 		if (!faces.empty()) {
 			skinColor = HandDetection_getSkinColor(frame, faces);
 
@@ -113,11 +112,6 @@ namespace Vision {
 			HandDetection_findHand(frame, mask);
 
 			position = mass_center;
-
-#ifdef DEBUGGING
-			imshow("Frame", frame);
-			imshow("Image mask", mask);
-#endif // DEBUGGING
 		}
 	}
 

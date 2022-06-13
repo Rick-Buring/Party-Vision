@@ -83,7 +83,7 @@ namespace Scene {
 			std::cout << "End game \n";
 			return;
 		}
-		if ((rand() / (float)RAND_MAX) * deltaTime < 0.000005f) {
+		if ((rand() / (float)RAND_MAX) * deltaTime < 0.005f) {
 			SchoolNinja::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinja::_scene));
 		}
 
