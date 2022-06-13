@@ -2,6 +2,7 @@
 #pragma once
 #include "AbstractSceneManager.hpp"
 #include "SchoolNinja.hpp"
+#include "MainMenu.hpp"
 #include <iostream>
 
 extern Minigames::AbstractSceneManager* sceneManager;
