@@ -8,14 +8,16 @@
 #include "HandDetection.hpp"
 #include "WindowManager.hpp"
 #include "Convert.hpp"
+#include "main.hpp"
 
 namespace Minigames {
 	thread visionT;
+	bool threadIsRunning = false;
 	Mat frame;
 
 	void updateVision()
 	{
-		while (true) {
+		while (threadIsRunning) {
 			Point position;
 
 			Vision::HandDetection_run(position, frame);
@@ -43,11 +45,11 @@ namespace Minigames {
 		SchoolNinja::scene->addGameObject(background);
 		//todo initialize game
 		std::shared_ptr<Scene::GameObject> schoolNinja = std::make_shared<Scene::GameObject>();
-		schoolNinja->addComponent(std::make_shared<Scene::SchoolNinja>(scene.get()));
+		schoolNinja->addComponent(std::make_shared<Scene::SchoolNinjaComponent>(scene.get()));
 
 		scene->addGameObject(schoolNinja);
 
-		
+		threadIsRunning = true;
 		visionT = thread(updateVision);
 		//updateVision();
 
@@ -57,18 +59,20 @@ namespace Minigames {
 	}
 
 	void SchoolNinja::sceneUpdate() {
-		/*Point position;
-		Mat frame;
-
-		Vision::HandDetection_run(position, frame);
-		static int width, height;
-		glfwGetWindowSize(window, &width, &height);
-		convertCoordinates(frame, height, width, position, position);
-
-		cursorPosition = glm::vec2(position.x, position.y);*/
-	
 		if (!frame.empty()) cv::imshow("First frame", frame);
 		AbstractSceneManager::sceneUpdate();
+
+		if (endScene) {
+			AbstractSceneManager* manager = sceneManager;
+			sceneManager = new MainMenu();
+			delete manager;
+			sceneManager->scene->setRunning(true);
+		}
 	}
-	 
+
+
+	SchoolNinja::~SchoolNinja() {
+		threadIsRunning = false;
+		visionT.join();
+	}
 }

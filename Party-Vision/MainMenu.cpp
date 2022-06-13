@@ -69,8 +69,8 @@ namespace Minigames {
 		backgroundy = 0;
 
 		double mouseWidth = 20, mouseHeight = 20;
-		MainMenu::createMouse(mouseWidth, mouseHeight);
 		menuInit(buildNinjaMenu());
+		MainMenu::createMouse(mouseWidth, mouseHeight);
 		attachMouseCallback();
 		std::vector<Scene::VBO_Textures_t> obj = Scene::loadObject("models/book/1984_book.obj");
 		std::shared_ptr<Scene::GameObject> collisionObject = std::make_shared<Scene::GameObject>();
