@@ -1,17 +1,18 @@
 #include "PlaneComponent.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Texture.hpp"
+#include "WindowManager.hpp"
 
 namespace Scene {
 	
 	std::string fileName;
-	PlaneComponent::PlaneComponent(float width, float height, Texture* texture)
+	PlaneComponent::PlaneComponent(float width, float height, Texture* texture, bool ortho)
 	{
-		
+		int _width, _height;
+		_ortho = ortho;
 		PlaneComponent::texture = texture;
-		int viewport[4];
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)viewport[2], (float)viewport[3], 0.0f, 0.1f, 100.0f);
+		glfwGetWindowSize(window, &_width, &_height);
+		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)_width, (float)_height, 0.0f, 0.1f, 100.0f);
 
 		glm::vec3 s(width / 2, height / 2, 0);
 		glm::vec4 color(1, 1, 1, 1);
