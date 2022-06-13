@@ -219,4 +219,7 @@
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

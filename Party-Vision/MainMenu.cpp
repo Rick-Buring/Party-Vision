@@ -11,6 +11,7 @@
 #include "tigl.h"
 #include "MoveToComponent.hpp"
 #include "WindowManager.hpp"
+#include "bass.h"
 
 #include "main.hpp"
 
@@ -35,6 +36,7 @@ static void attachMouseCallback() {
 			}
 		});
 }
+
 static void detachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{}
