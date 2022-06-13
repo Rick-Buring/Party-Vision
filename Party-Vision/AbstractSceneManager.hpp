@@ -8,14 +8,14 @@ namespace Minigames {
 	{
 	public:
 		std::shared_ptr<Scene::Scene> scene;
+
 		/// <summary>
 		/// updates the current scene
 		/// </summary>
 		virtual void sceneUpdate();
+
 		AbstractSceneManager();
 		virtual ~AbstractSceneManager();
-	private:
-		
 		
 	};
 	

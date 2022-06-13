@@ -21,6 +21,9 @@ namespace Scene {
 
 
 	protected:
+		/// <summary>
+		/// The gameObject associated with this component
+		/// </summary>
 		GameObject* _gameObject = nullptr;
 		
 	};

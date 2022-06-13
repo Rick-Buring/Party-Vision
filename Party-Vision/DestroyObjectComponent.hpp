@@ -1,9 +1,9 @@
 #pragma once
-#include "AbstractComponent.hpp"
 #include "Scene.hpp"
+#include "AbstractComponent.hpp"
+#include "SchoolNinjaComponent.hpp"
 
 namespace Scene {
-	class SchoolNinja;
 	class DestroyObjectComponent : public AbstractComponent {
 	private:
 		float _timeToLive = 30.0f;
@@ -14,6 +14,8 @@ namespace Scene {
 		DestroyObjectComponent(Scene*, float);
 		DestroyObjectComponent(Scene*, SchoolNinja*);
 		DestroyObjectComponent(Scene*, float, SchoolNinja*);
+
+		//inherited function from abstract component
 		void update(float) override;
 
 		

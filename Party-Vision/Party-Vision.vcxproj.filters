@@ -188,9 +188,6 @@
     <ClInclude Include="SchoolNinja.hpp">
       <Filter>Minigames\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PointerExecuter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MoveToComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>

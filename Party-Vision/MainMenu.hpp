@@ -4,10 +4,14 @@
 #include <string>
 
 namespace Minigames {
+	/// <summary>	
+	/// execute interface for menu items
+	/// </summary>
 	class IPointerExecuter {
 	public:
 		virtual void execute() = 0;
 	};
+
 	typedef struct menuItem {
 		std::string text;
 		std::string imageFileName;
@@ -23,13 +27,13 @@ namespace Minigames {
 		std::string backgroundFileName;
 		std::vector<MenuItem_t> menuItems;
 	}Menu_t;
+
+	/// <summary>
+	/// Menu visualizer
+	/// </summary>
 	class MainMenu : public AbstractSceneManager
 	{
 	public:
-		float backgroundWidth;
-		float backgroundHeight;
-		float backgroundx;
-		float backgroundy;
 		Menu_t currentMenu;
 
 		/// <summary>
@@ -51,7 +55,7 @@ namespace Minigames {
 		void createMouse();
 
 	private:
-		
+		int _viewPort[4], _width, _height;
 		
 	};
 	/// <summary>
