@@ -11,8 +11,11 @@
 #include "tigl.h"
 #include "MoveToComponent.hpp"
 #include "WindowManager.hpp"
+#include "bass.h"
 
 #include "main.hpp"
+
+HSTREAM backgroundMusic; // Handle for open stream
 
 static void attachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
@@ -35,10 +38,21 @@ static void attachMouseCallback() {
 			}
 		});
 }
+
 static void detachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{}
 	);
+}
+
+//Starts music
+static void startMusic() {
+	int device = -1; // Default Sounddevice
+	int freq = 44100; // Sample rate (Hz)
+	BASS_Init(device, freq, 0, 0, NULL);
+
+	backgroundMusic = BASS_StreamCreateFile(FALSE, "ophelia.mp3", 0, 0, 0);
+	BASS_ChannelPlay(backgroundMusic, TRUE);
 }
 
 namespace Minigames {
@@ -94,6 +108,8 @@ namespace Minigames {
 		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, -70));
 
 		background->addComponent(backgroundTransform);
+
+		startMusic();
 
 		MainMenu::scene->addGameObject(background);
 		//AbstractSceneManager::scene->addGameObject(test);

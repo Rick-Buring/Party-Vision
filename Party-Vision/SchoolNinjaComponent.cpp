@@ -11,6 +11,7 @@
 #include "replaceComponent.hpp"
 #include "OutofBoundsComponent.hpp"
 #include "DestroyObjectComponent.hpp"
+#include "SoundComponent.hpp"
 
 namespace Scene {
 	static void endGame() {
@@ -26,6 +27,8 @@ namespace Scene {
 		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 20, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
 		gameObj->addComponent(std::make_shared<GravityComponent>(13));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
+		gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, .5f));
+		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
 
 		//creating split component
@@ -60,6 +63,10 @@ namespace Scene {
 		if (SchoolNinja::_lifes <= 0) {
 			endGame();
 		}
+
+		//Makes sound effect once you lose a life
+		HSTREAM loseLife = BASS_StreamCreateFile(FALSE, "mixkit-martial-arts-fast-punch-2047.wav", 0, 0, 0);
+		BASS_ChannelPlay(loseLife , TRUE);
 	}
 
 	void SchoolNinja::increaseScore(int score) {
