@@ -29,7 +29,6 @@
 #include "CollisionComponent.hpp"
 
 Minigames::AbstractSceneManager* sceneManager;
-HSTREAM backgroundMusic; // Handle for open stream
 
 using namespace cv;
 
@@ -74,13 +73,6 @@ void init()
 
 	tigl::shader->enableTexture(true);
 	tigl::shader->enableColor(true);
-
-	int device = -1; // Default Sounddevice
-	int freq = 44100; // Sample rate (Hz)
-	BASS_Init(device, freq, 0, 0, NULL);
-
-	backgroundMusic = BASS_StreamCreateFile(FALSE, "ophelia.mp3", 0, 0, 0);
-	BASS_ChannelPlay(backgroundMusic, TRUE);
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
