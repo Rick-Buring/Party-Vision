@@ -13,6 +13,7 @@
 #include "OutofBoundsComponent.hpp"
 #include "DestroyObjectComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "Scene.hpp"
 
 namespace Scene {
 	static void endGame() {
@@ -29,7 +30,6 @@ namespace Scene {
 		gameObj->addComponent(std::make_shared<GravityComponent>(13));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
-		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene));
 		gameObj->addComponent(std::make_shared<CollisionComponent>());
 
 		//creating split component
