@@ -41,13 +41,26 @@ namespace Minigames {
 		/// Constructor for MainMenu which initilizes the scene.
 		/// </summary>
 		MainMenu();
+
+
 		~MainMenu();
 
+<<<<<<< HEAD
+=======
+		/// <summary>
+		/// Create plane that follows mouse that is used for collision check.
+		/// </summary>
+		void createMouse();
+
+>>>>>>> development
 	private:
 		
 		
 	};
-
+	/// <summary>
+	/// Creates the struct for the school ninja menu and returns it.
+	/// </summary>
+	/// <returns>The struct for the school ninja menu</returns>
 	Menu_t buildNinjaMenu();
 }
 

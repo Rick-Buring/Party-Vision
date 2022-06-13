@@ -77,6 +77,7 @@ void init()
 {
 	tigl::init();
 
+	tigl::shader->enableTexture(true);
 	tigl::shader->enableColor(true);
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)

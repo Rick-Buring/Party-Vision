@@ -191,7 +191,7 @@ namespace Scene {
 			else if (params[0] == "vn")
 				normals.push_back(glm::vec3((float)atof(params[1].c_str()), (float)atof(params[2].c_str()), (float)atof(params[3].c_str())));
 			else if (params[0] == "vt")
-				texcoords.push_back(glm::vec2((float)atof(params[1].c_str()), 1 - (float)atof(params[2].c_str())));
+				texcoords.push_back(glm::vec2((float)atof(params[1].c_str()), (float)atof(params[2].c_str())));
 			else if (params[0] == "f")
 			{
 				for (size_t ii = 4; ii <= params.size(); ii++)
