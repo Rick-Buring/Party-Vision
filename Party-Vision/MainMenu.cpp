@@ -11,7 +11,7 @@
 #include "tigl.h"
 #include "MoveToComponent.hpp"
 #include "WindowManager.hpp"
-
+#include <iostream>
 #include "main.hpp"
 
 static void attachMouseCallback() {
@@ -54,8 +54,9 @@ namespace Minigames {
 		backgroundx = 0;
 		backgroundy = 0;
 
-		createMouse();
+		
 		menuInit(buildNinjaMenu());
+		createMouse();
 		attachMouseCallback();
 	}
 
@@ -68,14 +69,15 @@ namespace Minigames {
 	{
 		std::shared_ptr<Scene::GameObject> handCursor;
 		handCursor = std::make_shared<Scene::GameObject>();
-		int width = 20, height = 20;
-		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height));
+		int width = 30, height = 30;
+		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height, new Scene::Texture("textures/handflipped.png")));
+		std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
 		std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(width, height, glm::vec3(0, 0, 0));
-		std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 1));
+
 		handCursor->addComponent(transform2);
 		handCursor->addComponent(moveTo);
 
-		scene->addGameObject(handCursor);
+		MainMenu::scene->addGameObject(handCursor);
 	}
 
 	void MainMenu::menuInit(Menu_t current) {
@@ -105,15 +107,19 @@ namespace Minigames {
 			button->addComponent(buttonPlane);
 
 
-			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx, menuItem.positiony, 1));
+			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx, menuItem.positiony,1));
 			button->addComponent(buttonTransform);
 			MainMenu::scene->addGameObject(button);
 		}
 	}
 
 	Minigames::Menu_t buildNinjaMenu() {
-		int width, height;
-		glfwGetWindowSize(window, &width, &height);
+		
+		double width, height;
+		/*glfwGetWindowSize(window, &width, &height);*/
+		width = viewport[2];
+		height = viewport[3];
+		std::cout << width << " " << height << " ";
 		Minigames::MenuItem_t schoolNinjaStartMenuItem{
 			"Start",
 			"textures/startbuttonflipped.png",
@@ -156,7 +162,7 @@ namespace Minigames {
 			"Right",
 			"textures/arrowbutton.png",
 			new NextMenu(),
-			width - 210,
+			width - (70 * (width / 640)) - 70,
 			(height / 7) * 3,
 			70 * (width / 640),
 			60 * (height / 360)
@@ -178,4 +184,71 @@ namespace Minigames {
 
 		return schoolNinjaMenu;
 	}
+	/*Minigames::Menu_t buildNinjaMenu() {
+		int width, height;
+		glfwGetWindowSize(window, &width, &height);
+		Minigames::MenuItem_t schoolNinjaStartMenuItem{
+			"Start",
+			"textures/startbuttonflipped.png",
+			new StartGame(),
+			(width / 2) - ((200 * (width / 640)) / 2),
+			(height / 7) * 1,
+			200 * (width / 640),
+			40 * (height / 360)
+
+		};
+		Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
+			"How to Play",
+			"textures/howtoplaybuttonflipped.png",
+			new OpenHowToPlay(),
+			(width / 2) - ((200 * (width / 640)) / 2),
+			(height / 7) * 3,
+			200 * (width / 640),
+			40 * (height / 360)
+
+		};
+		Minigames::MenuItem_t schoolNinjaHelpMenuItem{
+			"Help",
+			"textures/creditsbuttonflipped.png",
+			new OpenCredits(),
+			((200 * (width / 640)) / 2),
+			(height / 7) * 5,
+			200 * (width / 640),
+			40 * (height / 360)
+		};
+		Minigames::MenuItem_t leftMenuItem{
+			"Left",
+			"textures/arrowbuttonflipped.png",
+			new PreviousMenu(),
+			70,
+			(height / 7) * 3,
+			70 * (width / 640),
+			60 * (height / 360)
+		};
+		Minigames::MenuItem_t rightMenuItem{
+			"Right",
+			"textures/arrowbutton.png",
+			new NextMenu(),
+			width - 210,
+			(height / 7) * 3,
+			70 * (width / 640),
+			60 * (height / 360)
+		};
+
+		std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems = {
+			schoolNinjaHelpMenuItem,
+			schoolNinjaHowToPlayMenuItem,
+			schoolNinjaStartMenuItem,
+			leftMenuItem,
+			rightMenuItem
+		};
+
+		Minigames::Menu_t schoolNinjaMenu{
+			"School Ninja",
+			"textures/backgroundimageflipped.png",
+			schoolNinjaMenuItems
+		};
+
+		return schoolNinjaMenu;
+	}*/
 }

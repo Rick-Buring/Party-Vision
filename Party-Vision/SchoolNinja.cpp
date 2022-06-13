@@ -2,6 +2,7 @@
 #include "SchoolNinjaComponent.hpp"
 #include "PlaneComponent.hpp"
 #include "TransformComponent.hpp"
+#include "MainMenu.hpp"
 namespace Minigames {
 	SchoolNinja::SchoolNinja()
 	{
@@ -16,6 +17,7 @@ namespace Minigames {
 		background->addComponent(backgroundTransform);
 
 		SchoolNinja::scene->addGameObject(background);
+		
 		//todo initialize game
 		std::shared_ptr<Scene::GameObject> schoolNinja = std::make_shared<Scene::GameObject>();
 		schoolNinja->addComponent(std::make_shared<Scene::SchoolNinja>(scene.get()));

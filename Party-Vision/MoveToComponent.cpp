@@ -42,5 +42,6 @@ namespace Scene {
 		}	
 
 		comp->position += move * 40.0f * deltaTime * mag;
+		comp->position.z = 1;
 	};
 }
