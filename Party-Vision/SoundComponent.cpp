@@ -10,6 +10,7 @@ namespace Scene {
 	}
 	void SoundComponent::PlayMusic()
 	{
+		//Code to use the sound
 		HSTREAM slice = BASS_StreamCreateFile(FALSE, file.c_str(), 0, 0, 0);
 		BASS_ChannelPlay(slice, TRUE);
 	}

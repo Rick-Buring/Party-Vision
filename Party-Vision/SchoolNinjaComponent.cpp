@@ -68,6 +68,10 @@ namespace Scene {
 		if (SchoolNinja::_lifes <= 0) {
 			//todo end game
 		}
+
+		//Makes sound effect once you lose a life
+		HSTREAM loseLife = BASS_StreamCreateFile(FALSE, "mixkit-martial-arts-fast-punch-2047.wav", 0, 0, 0);
+		BASS_ChannelPlay(loseLife , TRUE);
 	}
 
 	void SchoolNinja::increaseScore(int score) {
