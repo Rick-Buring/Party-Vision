@@ -8,11 +8,11 @@ namespace Scene {
 	}
 	void DrawObjectComponent::draw()
 	{
-		tigl::shader->enableTexture(true);
+
 		for (auto d : _object) {
 			d.texture->bind();
 			tigl::drawVertices(GL_TRIANGLES, d.vbo);
 		}
-		tigl::shader->enableTexture(false);
+		textureUnbind();
 	}
 }

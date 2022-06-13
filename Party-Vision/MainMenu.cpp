@@ -2,10 +2,12 @@
 #include "PlaneComponent.hpp"
 #include "AbstractComponent.hpp"
 #include "TransformComponent.hpp"
+#include "DrawObjectComponent.hpp"
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
-
+#include "Texture.hpp"
+#include "ObjectLoader.hpp"
 #include "tigl.h"
 #include "MoveToComponent.hpp"
 #include "WindowManager.hpp"
@@ -24,8 +26,9 @@ static void attachMouseCallback() {
 				if (mainMenu) {
 					for (Minigames::MenuItem_t menuItem : mainMenu->currentMenu.menuItems) {
 						if ((xpos > menuItem.positionx && xpos < menuItem.positionx + menuItem.sizeWidth) &&
-							(viewport[3] - ypos > menuItem.positiony && viewport[3] - ypos < menuItem.positiony + menuItem.sizeHeight)) {
+							(ypos > menuItem.positiony && ypos < menuItem.positiony + menuItem.sizeHeight)) {
 							menuItem.func->execute();
+							break;
 						}
 					}
 				}
@@ -76,27 +79,35 @@ namespace Minigames {
 	}
 
 	void MainMenu::menuInit(Menu_t current) {
+
 		currentMenu = current;
+		/*std::shared_ptr <Scene::GameObject> test = std::make_shared<Scene::GameObject>();
+		std::shared_ptr<Scene::DrawObjectComponent> testdraw = std::make_shared<Scene::DrawObjectComponent>(Scene::loadObject("models/steve/steve.obj"));
+		test->addComponent(testdraw);
+		std::shared_ptr<Scene::TransformComponent> testTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(-2, -4, 0));
+		test->addComponent(testTransform);*/
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(1, 1);
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight, new Scene::Texture(currentMenu.backgroundFileName));
 
 		background->addComponent(backgroundPlane);
 
-		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, 1));
+		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, -70));
 
 		background->addComponent(backgroundTransform);
-		AbstractSceneManager::scene->addGameObject(background);
+
+		MainMenu::scene->addGameObject(background);
+		//AbstractSceneManager::scene->addGameObject(test);
 		for (MenuItem_t menuItem : currentMenu.menuItems) {
 			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
 
-			std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(menuItem.sizeWidth, menuItem.sizeHeight);
+			std::shared_ptr<Scene::PlaneComponent> buttonPlane = std::make_shared<Scene::PlaneComponent>(menuItem.sizeWidth, menuItem.sizeHeight, new Scene::Texture(menuItem.imageFileName));
 
 			button->addComponent(buttonPlane);
 
 
 			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx, menuItem.positiony, 1));
 			button->addComponent(buttonTransform);
-			AbstractSceneManager::scene->addGameObject(button);
+			MainMenu::scene->addGameObject(button);
 		}
 	}
 
@@ -104,44 +115,64 @@ namespace Minigames {
 		int width, height;
 		glfwGetWindowSize(window, &width, &height);
 		Minigames::MenuItem_t schoolNinjaStartMenuItem{
-		   "Start",
-		   "C:/",
-		  new StartGame(),
-		   (width / 2) - ((200 * (width / 640)) / 2),
-		   (height / 7) * 1,
-		   200 * (width / 640),
-		   50 * (height / 360)
+			"Start",
+			"textures/startbuttonflipped.png",
+			new StartGame(),
+			(width / 2) - ((200 * (width / 640)) / 2),
+			(height / 7) * 1,
+			200 * (width / 640),
+			40 * (height / 360)
 
 		};
 		Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
-		   "How to Play",
-		   "C:/",
-		   new testClas(),
-		   (width / 2) - ((200 * (width / 640)) / 2),
-		   (height / 7) * 3,
-		   200 * (width / 640),
-		   50 * (height / 360)
+			"How to Play",
+			"textures/howtoplaybuttonflipped.png",
+			new OpenHowToPlay(),
+			(width / 2) - ((200 * (width / 640)) / 2),
+			(height / 7) * 3,
+			200 * (width / 640),
+			40 * (height / 360)
 
 		};
 		Minigames::MenuItem_t schoolNinjaHelpMenuItem{
-		  "Help",
-		  "C:/",
-		  new testClas(),
-		  (width / 2) - ((200 * (width / 640)) / 2),
-		  (height / 7) * 5,
-		  200 * (width / 640),
-		  50 * (height / 360)
+			"Help",
+			"textures/creditsbuttonflipped.png",
+			new OpenCredits(),
+			(width / 2) - ((200 * (width / 640)) / 2),
+			(height / 7) * 5,
+			200 * (width / 640),
+			40 * (height / 360)
+		};
+		Minigames::MenuItem_t leftMenuItem{
+			"Left",
+			"textures/arrowbuttonflipped.png",
+			new PreviousMenu(),
+			70,
+			(height / 7) * 3,
+			70 * (width / 640),
+			60 * (height / 360)
+		};
+		Minigames::MenuItem_t rightMenuItem{
+			"Right",
+			"textures/arrowbutton.png",
+			new NextMenu(),
+			width - 210,
+			(height / 7) * 3,
+			70 * (width / 640),
+			60 * (height / 360)
 		};
 
 		std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems = {
 			schoolNinjaHelpMenuItem,
 			schoolNinjaHowToPlayMenuItem,
-			schoolNinjaStartMenuItem
+			schoolNinjaStartMenuItem,
+			leftMenuItem,
+			rightMenuItem
 		};
 
 		Minigames::Menu_t schoolNinjaMenu{
 			"School Ninja",
-			"C:/",
+			"textures/backgroundimageflipped.png",
 			schoolNinjaMenuItems
 		};
 
