@@ -131,11 +131,6 @@ namespace Vision {
 			findObjectInFrame(frame, mask);
 
 			position = mass_center;
-
-#ifdef DEBUGGING
-			imshow("Frame", frame);
-			imshow("Image mask", mask);
-#endif 
 		}
 	}
 
