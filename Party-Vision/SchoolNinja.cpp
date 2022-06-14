@@ -34,7 +34,7 @@ namespace Minigames {
 
 		while (threadIsRunning) {
 			//get hand position
-			Vision::HandDetection_run(position, frame);
+			Vision::handDetection(position, frame);
 			//convert camera cooridinates to screen coordinates
 			convertCoordinates(frame, height, width, position, position);
 			//update the cursor position
