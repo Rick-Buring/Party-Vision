@@ -18,11 +18,11 @@
 
 
 namespace Scene {
-	CollisionComponent::CollisionComponent()
+	CollisionComponent::CollisionComponent(Scene* scene): _scene(scene)
 	{
 	}
 
-	void Scene::CollisionComponent::update(float deltaTime)
+	void CollisionComponent::update(float deltaTime)
 	{
 		glm::mat4 worldSpace = glm::mat4(1.0f);
 		worldSpace = glm::translate(worldSpace, _gameObject->Transform->position);
@@ -43,12 +43,14 @@ namespace Scene {
 
 		currentPos.y = height - currentPos.y;
 
-		if ((currentPos.x - compPosition.x <= 50 && currentPos.x - compPosition.x >= -50) &&
-			(currentPos.y - compPosition.y <= 50 && currentPos.y - compPosition.y >= -50)) {
+		if ((currentPos.x - compPosition.x <= 75 && currentPos.x - compPosition.x >= -75) &&
+			(currentPos.y - compPosition.y <= 75 && currentPos.y - compPosition.y >= -75)) {
 			auto deathBehaviors = _gameObject->getComponents<IOnDeath>();
 			for (auto behavior : deathBehaviors) {
 				behavior->OnDeath();
 			}
+
+			_scene->removeGameObject(_gameObject);
 		}
 	}
 }

@@ -72,18 +72,16 @@ namespace Minigames {
 		menuInit(buildNinjaMenu());
 		MainMenu::createMouse(mouseWidth, mouseHeight);
 		attachMouseCallback();
-		std::vector<Scene::VBO_Textures_t> obj = Scene::loadObject("models/book/1984_book.obj");
-		std::shared_ptr<Scene::GameObject> collisionObject = std::make_shared<Scene::GameObject>();
-		collisionObject->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(-10, -5, -5)));
+		//std::vector<Scene::VBO_Textures_t> obj = Scene::loadObject("models/book/1984_book.obj");
+		//std::shared_ptr<Scene::GameObject> collisionObject = std::make_shared<Scene::GameObject>();
+		//collisionObject->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(-10, -5, -5)));
 		//collisionObject->addComponent(std::make_shared<Scene::GravityComponent>(10.0f));
-		collisionObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(obj));
+		//collisionObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(obj));
 
 		std::shared_ptr<Scene::GameObject> mouse = *scene->getGameobjects()->begin();
-		collisionObject->addComponent(std::make_shared<Scene::CollisionComponent>());
+		//collisionObject->addComponent(std::make_shared<Scene::CollisionComponent>());
 
-		scene->addGameObject(collisionObject);
-
-
+		//scene->addGameObject(collisionObject);
 	}
 
 	MainMenu::~MainMenu()

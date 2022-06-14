@@ -25,11 +25,11 @@ namespace Scene {
 
 		float xRand = rand() % 20 - 10;
 
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 20, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
-		gameObj->addComponent(std::make_shared<GravityComponent>(13));
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand/2, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
+		gameObj->addComponent(std::make_shared<GravityComponent>(6));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
-		gameObj->addComponent(std::make_shared<CollisionComponent>());
+		gameObj->addComponent(std::make_shared<CollisionComponent>(scene));
 
 		//creating split component
 		std::vector<VBO_Textures_t> tempVect;
