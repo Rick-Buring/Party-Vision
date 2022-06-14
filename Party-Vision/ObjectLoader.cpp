@@ -191,7 +191,7 @@ namespace Scene {
 			else if (params[0] == "vn")
 				normals.push_back(glm::vec3((float)atof(params[1].c_str()), (float)atof(params[2].c_str()), (float)atof(params[3].c_str())));
 			else if (params[0] == "vt")
-				texcoords.push_back(glm::vec2((float)atof(params[1].c_str()), 1 - (float)atof(params[2].c_str())));
+				texcoords.push_back(glm::vec2((float)atof(params[1].c_str()), (float)atof(params[2].c_str())));
 			else if (params[0] == "f")
 			{
 				for (size_t ii = 4; ii <= params.size(); ii++)
@@ -202,7 +202,7 @@ namespace Scene {
 					{
 						Vertex vertex;
 						std::vector<std::string> indices = split(params[i == (ii - 3) ? 1 : i], "/");
-						if (indices.size() >= 1)	//er is een positie
+						if (indices.size() >= 1)		//er is een positie
 							vertex.position = atoi(indices[0].c_str()) - 1;
 						if (indices.size() == 2)		//alleen texture
 							vertex.texcoord = atoi(indices[1].c_str()) - 1;

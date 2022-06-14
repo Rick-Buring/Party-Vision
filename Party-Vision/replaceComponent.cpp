@@ -18,7 +18,7 @@ namespace Scene {
 		transform->rotation += transformGameObject->rotation;
 		transform->velocity += transformGameObject->velocity;
 		transform->angularMomentum += transformGameObject->angularMomentum;
-
+		
 		ReplaceComponent::_scene->addGameObject(ReplaceComponent::_obj);
 	}
 }

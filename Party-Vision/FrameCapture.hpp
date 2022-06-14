@@ -3,10 +3,10 @@
 #include <opencv2/opencv.hpp>
 
 using namespace std;
-using namespace cv;
-using namespace cv::ml;
+//using namespace cv;
+//using namespace cv::ml;
 
 namespace Vision {
-	void detectGrayMotion(Mat& thresholdImage, Mat& frame);
-	void collectSamples(Mat& thresholdImage, Mat& cameraFeed);
+	void detectGrayMotion(cv::Mat& thresholdImage, cv::Mat& frame);
+	void collectSamples(cv::Mat& thresholdImage, cv::Mat& cameraFeed);
 }

@@ -13,10 +13,9 @@ namespace Minigames {
 		/// </summary>
 		virtual void sceneUpdate();
 		AbstractSceneManager();
-		~AbstractSceneManager();
-	private:
-		
-		
+		virtual ~AbstractSceneManager();
+	protected:
+		void createMouse(int width, int height);
 	};
 	
 }

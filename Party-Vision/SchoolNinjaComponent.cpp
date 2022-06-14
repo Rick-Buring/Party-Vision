@@ -2,6 +2,10 @@
 
 #include <math.h>
 #include <memory>
+#include <iostream>
+#include <fstream>
+
+#include "main.hpp"
 
 #include "TransformComponent.hpp"
 #include "GravityComponent.hpp"
@@ -9,19 +13,38 @@
 #include "replaceComponent.hpp"
 #include "OutofBoundsComponent.hpp"
 #include "DestroyObjectComponent.hpp"
+#include "SchoolNinja.hpp"
+#include "HudComponent.hpp"
+#include "IncreaseScoreComponent.hpp"
+#include "CollisionComponent.hpp"
+#include "Scene.hpp"
+#include "SoundComponent.hpp"
+#include "bass.h"
 
 namespace Scene {
-	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene) {
+	void SchoolNinjaComponent::endGame() {
+		if (SchoolNinjaComponent::_score > SchoolNinjaComponent::_highScore) {
+			std::ofstream highScoreFile;
+			highScoreFile.open("highScore.txt");
+			highScoreFile << SchoolNinjaComponent::_score;
+			highScoreFile.close();
+		}
+		((Minigames::SchoolNinja*)sceneManager)->endScene = true;
+	}
+
+	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene, SchoolNinjaComponent* game) {
 		std::shared_ptr<GameObject> gameObj = std::make_shared<GameObject>();
 
-		float xRand = (rand() % 20) - 10;
+		float xRand = rand() % 20 - 10;
+		float direction = xRand != 0 ? (-(xRand / glm::abs(xRand))) * (rand() % 10) : xRand;
 
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 50, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
-		gameObj->addComponent(std::make_shared<GravityComponent>());
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(direction, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand / 2))));
+		gameObj->addComponent(std::make_shared<GravityComponent>(6));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
-		gameObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, 1.0f));
-		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene));
-		//TODO add collide component
+		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
+		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
+		gameObj->addComponent(std::make_shared<CollisionComponent>(scene));
+		gameObj->addComponent(std::make_shared<IncreaseScoreComponent>(game));
 
 		//creating split component
 		std::vector<VBO_Textures_t> tempVect;
@@ -36,6 +59,7 @@ namespace Scene {
 			subObj->addComponent(std::make_shared<GravityComponent>());
 			subObj->addComponent(std::make_shared<DrawObjectComponent>(tempVect));
 			subObj->addComponent(std::make_shared<DestroyObjectComponent>(scene, 30));
+			
 
 			gameObj->addComponent(std::make_shared<ReplaceComponent>(subObj, scene));
 			tempVect.clear();
@@ -44,43 +68,48 @@ namespace Scene {
 		return gameObj;
 	}
 
-	SchoolNinja::SchoolNinja(Scene* scene) : _scene(scene)
+	SchoolNinjaComponent::SchoolNinjaComponent(Scene* scene) : _scene(scene)
 	{
 		std::vector<VBO_Textures_t> obj = loadObject("models/book/1984_book.obj");
-		//Initialize textures
-		_textureList.push_back(std::make_shared<DrawObjectComponent>(loadObject("models/book/1984_book.obj")));
-		//_textureList.push_back(std::make_shared<DrawObjectComponent>(loadObject("models/paper/Papers.obj")));
-
-		std::shared_ptr<GameObject> book = std::make_shared<GameObject>();
-		book->addComponent(std::make_shared<TransformComponent>(glm::vec3(1, 0, 0), glm::vec3(-50, 100, 0)));
-
-		book->addComponent(_textureList[0]);
-
-		SchoolNinja::_scene->addGameObject(book);
-
 		_objects.push_back(obj);
+		
 	}
 
-	void SchoolNinja::removeLife() {
-		SchoolNinja::_lifes--;
-		if (SchoolNinja::_lifes <= 0) {
-			//todo end game
+	void SchoolNinjaComponent::removeLife() {
+		SchoolNinjaComponent::_lifes--;
+		_gameObject->getComponent<HudComponent>()->removeLife();
+		if (SchoolNinjaComponent::_lifes <= 0) {
+			endGame();
+			
 		}
+
+		//Makes sound effect once you lose a life
+		HSTREAM loseLife = BASS_StreamCreateFile(FALSE, "roblox-death-sound_1.mp3", 0, 0, 0);
+		BASS_ChannelPlay(loseLife, TRUE);
 	}
 
-	void SchoolNinja::increaseScore(int score) {
-		SchoolNinja::_score += score;
+	void SchoolNinjaComponent::increaseScore(int score) {
+		SchoolNinjaComponent::_score += score;
+		_gameObject->getComponent<HudComponent>()->setScore(_score);
 	}
 
-	void SchoolNinja::update(float deltaTime)
+	void SchoolNinjaComponent::update(float deltaTime)
 	{
+		
+
+		if ((int)_durationSeconds > (int)(_durationSeconds - deltaTime)) {
+			_gameObject->getComponent<HudComponent>()->setTime(_durationSeconds);
+		}
 		_durationSeconds -= deltaTime;
-		if (_durationSeconds < 0 || SchoolNinja::_lifes <= 0) {
-			//todo end game
+		if (_durationSeconds < 0 || SchoolNinjaComponent::_lifes <= 0) {
+			endGame();
 			return;
 		}
-		if ((rand() / (float)RAND_MAX) * deltaTime < 0.000005f) {
-			SchoolNinja::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinja::_scene));
+		_timeSinceLastSpawn += deltaTime;
+		_chanceMultiplier = (rand() % 100) / 200.0;
+		if (_spawnRate * _timeSinceLastSpawn * _chanceMultiplier > 1) {
+			_timeSinceLastSpawn = 0;
+			SchoolNinjaComponent::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinjaComponent::_scene, this));
 		}
 
 	}

@@ -1,6 +1,7 @@
 #include "DestroyObjectComponent.hpp"
 #include "SchoolNinjaComponent.hpp"
 #include "IOnDeath.hpp"
+#include "bass.h"
 
 namespace Scene {
 
@@ -19,6 +20,7 @@ namespace Scene {
 			if (DestroyObjectComponent::_game) {
 				//remove life
 				DestroyObjectComponent::_game->removeLife();
+				
 			};
 			return;
 		}
@@ -30,11 +32,11 @@ namespace Scene {
 		: _scene(scene), _timeToLive(timeToLive)
 	{}
 
-	DestroyObjectComponent::DestroyObjectComponent(Scene* scene, SchoolNinja* game)
+	DestroyObjectComponent::DestroyObjectComponent(Scene* scene, SchoolNinjaComponent* game)
 		:_scene(scene), _game(game)
 	{	}
 
-	DestroyObjectComponent::DestroyObjectComponent(Scene* scene, float timeToLive, SchoolNinja* game)
+	DestroyObjectComponent::DestroyObjectComponent(Scene* scene, float timeToLive, SchoolNinjaComponent* game)
 		: _scene(scene), _timeToLive(timeToLive), _game(game)
 	{	}
 }

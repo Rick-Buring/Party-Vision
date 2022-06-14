@@ -57,12 +57,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Minigames\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VisionPipelineBuilder.cpp">
-      <Filter>Vision\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VisionPipeline.cpp">
-      <Filter>Vision\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -108,6 +102,9 @@
     <ClCompile Include="ModelLoaderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
     <ClCompile Include="SchoolNinjaComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -119,6 +116,21 @@
     </ClCompile>
     <ClCompile Include="Convert.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HudComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseScoreComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorPosition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,12 +145,6 @@
     </ClInclude>
     <ClInclude Include="AbstractSceneManager.hpp">
       <Filter>Minigames\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VisionPipelineBuilder.hpp">
-      <Filter>Vision\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VisionPipeline.hpp">
-      <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.hpp">
       <Filter>Minigames\Header Files</Filter>
@@ -167,9 +173,6 @@
     <ClInclude Include="DrawObjectComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="IVisionHandler.hpp">
-      <Filter>Vision\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HandDetection.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
@@ -181,9 +184,6 @@
     </ClInclude>
     <ClInclude Include="replaceComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="SchoolNinja.hpp">
-      <Filter>Minigames\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointerExecuter.hpp">
       <Filter>Header Files</Filter>
@@ -206,10 +206,43 @@
     <ClInclude Include="Convert.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindowManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="HudComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SchoolNinja.hpp">
+      <Filter>Minigames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseScoreComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyObjectComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorPosition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyObjectComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="molorcolor.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

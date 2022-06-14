@@ -9,7 +9,6 @@ using namespace cv::ml;
 
 #define COLOR_ROWS 80
 #define COLOR_COLS 250
-#define DEBUGGING true
 
 Mat frame, imgHSV, mask, kernel;
 
@@ -92,13 +91,12 @@ namespace Vision {
 		String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
 		faceCascade.load(faceCascadePath);
 
-		//Captures the current frame from the camera.
-		capture.read(frame);
+		//capture.read(frame);
 
 		//It returns the skincolor and put it in the faces variable.
 		faces = faceRecognition(frame, faceCascade);
 
-		//if the face is detected than the if-statement will be triggerd.
+
 		if (!faces.empty()) {
 			
 			//It returns the skincolor and put it in the faces variable.

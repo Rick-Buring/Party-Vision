@@ -22,6 +22,9 @@ namespace tigl
 
 			// Sets the view (camera) matrix
 			virtual void setViewMatrix(const glm::mat4& matrix) = 0;
+			
+			// Gets the view matrix
+			virtual glm::mat4 getViewMatrix() = 0;
 
 			// Sets the model matrix
 			virtual void setModelMatrix(const glm::mat4& matrix) = 0;

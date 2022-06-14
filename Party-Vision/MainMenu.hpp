@@ -26,10 +26,6 @@ namespace Minigames {
 	class MainMenu : public AbstractSceneManager
 	{
 	public:
-		float backgroundWidth;
-		float backgroundHeight;
-		float backgroundx;
-		float backgroundy;
 		Menu_t currentMenu;
 
 		/// <summary>
@@ -42,10 +38,17 @@ namespace Minigames {
 		/// </summary>
 		MainMenu();
 
+
+		~MainMenu();
 	private:
 		
 		
 	};
+	/// <summary>
+	/// Creates the struct for the school ninja menu and returns it.
+	/// </summary>
+	/// <returns>The struct for the school ninja menu</returns>
+	Menu_t buildNinjaMenu();
 }
 
 
