@@ -26,8 +26,9 @@ namespace Scene {
 		std::shared_ptr<GameObject> gameObj = std::make_shared<GameObject>();
 
 		float xRand = rand() % 20 - 10;
+		float direction = xRand != 0 ? (-(xRand / glm::abs(xRand))) * (rand() % 10) : xRand;
 
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand/2, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(direction, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand / 2))));
 		gameObj->addComponent(std::make_shared<GravityComponent>(6));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
 		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
@@ -69,7 +70,7 @@ namespace Scene {
 
 		//Makes sound effect once you lose a life
 		HSTREAM loseLife = BASS_StreamCreateFile(FALSE, "roblox-death-sound_1.mp3", 0, 0, 0);
-		BASS_ChannelPlay(loseLife , TRUE);
+		BASS_ChannelPlay(loseLife, TRUE);
 	}
 
 	void SchoolNinjaComponent::increaseScore(int score) {
@@ -84,7 +85,7 @@ namespace Scene {
 			return;
 		}
 		_timeSinceLastSpawn += deltaTime;
-		_chanceMultiplier = (rand() % 100)/200.0;
+		_chanceMultiplier = (rand() % 100) / 200.0;
 		if (_spawnRate * _timeSinceLastSpawn * _chanceMultiplier > 1) {
 			_timeSinceLastSpawn = 0;
 			SchoolNinjaComponent::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinjaComponent::_scene, this));

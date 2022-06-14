@@ -64,7 +64,7 @@ static void startMusic() {
 	int freq = 44100; // Sample rate (Hz)
 	BASS_Init(device, freq, 0, 0, NULL);
 
-	backgroundMusic = BASS_StreamCreateFile(FALSE, "ophelia.mp3", 0, 0, 0);
+	backgroundMusic = BASS_StreamCreateFile(FALSE, "Buurman Mol (RDuke remix).mp3", 0, 0, 0);
 	BASS_ChannelPlay(backgroundMusic, TRUE);
 }
 
