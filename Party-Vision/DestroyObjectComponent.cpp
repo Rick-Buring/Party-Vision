@@ -20,6 +20,7 @@ namespace Scene {
 			if (DestroyObjectComponent::_game) {
 				//remove life
 				DestroyObjectComponent::_game->removeLife();
+				
 			};
 			return;
 		}

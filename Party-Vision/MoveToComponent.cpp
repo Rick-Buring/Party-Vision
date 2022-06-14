@@ -16,8 +16,8 @@ namespace Scene {
 	MoveToComponent::MoveToComponent(int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
 		//Divide the height and width by 2 so the item will be spawned to the middle
-		_middlePointHeight = height / 2;
-		_middlePointWidth = width / 2;
+		_middlePointHeight = height / 2.0;
+		_middlePointWidth = width / 2.0;
 	}
 
 	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
@@ -34,15 +34,19 @@ namespace Scene {
 		move.x -= _middlePointWidth;
 		move.y -= _middlePointHeight;
 		move.z = 0;
-		float mag = sqrt(move.x * move.x + move.y * move.y) / 2;
-		if (mag > 0) {
+		move.x = std::isnan(move.x) ? 0 : move.x;
+		move.y = std::isnan(move.y) ? 0 : move.y;
+		float mag = sqrt(move.x * move.x + move.y * move.y);
+		if (mag < 0.001) {
+			return;
+		}
+		if(mag > 1){
 			move = glm::normalize(move);
-		}	
-
-		mag /= sqrt(w*w + h*h);
+		}
+		mag /= sqrt(w * w + h * h);
 		mag *= 100;
-		mag = mag < 1 ? 1 : mag;
-		comp->position += move * 100.0f * deltaTime * mag;
+		//mag = mag < 1 ? 1 : mag;
+		comp->position += move * 200.0f * deltaTime * mag;
 		compPosition = comp->position;
 	}
 }

@@ -176,6 +176,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HandDetection.cpp" />
     <ClCompile Include="GravityComponent.cpp" />
+    <ClCompile Include="HudComponent.cpp" />
+    <ClCompile Include="IncreaseScoreComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoaderComponent.cpp" />
     <ClCompile Include="MoveToComponent.cpp" />
@@ -204,6 +206,8 @@
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="DrawObjectComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="HudComponent.hpp" />
+    <ClInclude Include="IncreaseScoreComponent.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="MainMenu.hpp" />
     <ClInclude Include="HandDetection.hpp" />

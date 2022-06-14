@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractSceneManager.hpp"
+#include <vector>
 namespace Minigames {
 
 	class SchoolNinja : public AbstractSceneManager

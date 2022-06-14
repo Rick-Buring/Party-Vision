@@ -25,8 +25,6 @@ static void attachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			double xpos, ypos;
-			int viewport[4];
-			glGetIntegerv(GL_VIEWPORT, viewport);
 			glfwGetCursorPos(window, &xpos, &ypos);
 			if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 				Minigames::MainMenu* mainMenu = dynamic_cast<Minigames::MainMenu*>(sceneManager);
@@ -70,18 +68,9 @@ static void startMusic() {
 
 namespace Minigames {
 	Menu_t currentMenu;
-	int viewport[4];
 
 	MainMenu::MainMenu() {
-		//create cursor
-
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		backgroundWidth = viewport[2];
-		backgroundHeight = viewport[3];
-		backgroundx = 0;
-		backgroundy = 0;
-
-		double mouseWidth = 20, mouseHeight = 20;
+		double mouseWidth = 12.5 * scalex, mouseHeight = 15 * scaley;
 		menuInit(buildNinjaMenu());
 		MainMenu::createMouse(mouseWidth, mouseHeight);
 		attachMouseCallback();
@@ -98,11 +87,11 @@ namespace Minigames {
 
 		currentMenu = current;
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight, new Scene::Texture(currentMenu.backgroundFileName));
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(windowWidth, windowHeight, new Scene::Texture(currentMenu.backgroundFileName));
 
 		background->addComponent(backgroundPlane);
 
-		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, -70));
+		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -70));
 
 		background->addComponent(backgroundTransform);
 
@@ -118,13 +107,82 @@ namespace Minigames {
 			button->addComponent(buttonPlane);
 
 
-			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx, menuItem.positiony, 1));
+			std::shared_ptr<Scene::TransformComponent> buttonTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(menuItem.positionx, menuItem.positiony,1));
 			button->addComponent(buttonTransform);
 			MainMenu::scene->addGameObject(button);
 		}
 	}
 
 	Minigames::Menu_t buildNinjaMenu() {
+		int menuButtonWidth = 200;
+		int menuButtonHeight = 40;
+		int arrowButtonWidth = 70;
+		int arrowButtonHeight = 60;
+		Minigames::MenuItem_t schoolNinjaStartMenuItem{
+			"Start",
+			"textures/startbuttonflipped.png",
+			new StartGame(),
+			(windowWidth / 2.0) - ((menuButtonWidth * scalex) / 2),
+			(windowHeight / 7.0) * 1,
+			menuButtonWidth * scalex,
+			menuButtonHeight* scaley
+
+		};
+		Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
+			"How to Play",
+			"textures/howtoplaybuttonflipped.png",
+			new OpenHowToPlay(),
+			(windowWidth / 2.0) - ((menuButtonWidth * scalex) / 2),
+			(windowHeight / 7.0) * 3,
+			menuButtonWidth * scalex,
+			menuButtonHeight * scaley
+
+		};
+		Minigames::MenuItem_t schoolNinjaHelpMenuItem{
+			"Help",
+			"textures/creditsbuttonflipped.png",
+			new OpenCredits(),
+			(windowWidth / 2.0) - ((menuButtonWidth * scalex) / 2),
+			(windowHeight / 7.0) * 5,
+			menuButtonWidth * scalex,
+			menuButtonHeight * scaley
+		};
+		Minigames::MenuItem_t leftMenuItem{
+			"Left",
+			"textures/arrowbuttonflipped.png",
+			new PreviousMenu(),
+			arrowButtonWidth,
+			(windowHeight / 7.0) * 3,
+			arrowButtonWidth * scalex,
+			arrowButtonHeight* scaley
+		};
+		Minigames::MenuItem_t rightMenuItem{
+			"Right",
+			"textures/arrowbutton.png",
+			new NextMenu(),
+			windowWidth - (arrowButtonWidth * scalex) - arrowButtonWidth,
+			(windowHeight / 7.0) * 3,
+			arrowButtonWidth * scalex,
+			arrowButtonHeight * scaley
+		};
+
+		std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems = {
+			schoolNinjaHelpMenuItem,
+			schoolNinjaHowToPlayMenuItem,
+			schoolNinjaStartMenuItem,
+			leftMenuItem,
+			rightMenuItem
+		};
+
+		Minigames::Menu_t schoolNinjaMenu{
+			"School Ninja",
+			"textures/backgroundimageflipped.png",
+			schoolNinjaMenuItems
+		};
+
+		return schoolNinjaMenu;
+	}
+	/*Minigames::Menu_t buildNinjaMenu() {
 		int width, height;
 		glfwGetWindowSize(window, &width, &height);
 		Minigames::MenuItem_t schoolNinjaStartMenuItem{
@@ -151,7 +209,7 @@ namespace Minigames {
 			"Help",
 			"textures/creditsbuttonflipped.png",
 			new OpenCredits(),
-			(width / 2) - ((200 * (width / 640)) / 2),
+			((200 * (width / 640)) / 2),
 			(height / 7) * 5,
 			200 * (width / 640),
 			40 * (height / 360)
@@ -190,5 +248,5 @@ namespace Minigames {
 		};
 
 		return schoolNinjaMenu;
-	}
+	}*/
 }
