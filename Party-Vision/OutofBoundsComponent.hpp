@@ -11,12 +11,12 @@ namespace Scene {
 		glm::vec3 _min = glm::vec3(-15, -15, -15);
 		glm::vec3 _max = glm::vec3(15, 15, 15);
 		Scene* _scene;
-		SchoolNinja* _game;
+		SchoolNinjaComponent* _game;
 
 
 	public:
-		OutOfBoundsComponent(Scene* scene, SchoolNinja* game);
-		OutOfBoundsComponent(Scene* scene, SchoolNinja* game, glm::vec3 min, glm::vec3 max);
+		OutOfBoundsComponent(Scene* scene, SchoolNinjaComponent* game);
+		OutOfBoundsComponent(Scene* scene, SchoolNinjaComponent* game, glm::vec3 min, glm::vec3 max);
 
 		void update(float) override;
 

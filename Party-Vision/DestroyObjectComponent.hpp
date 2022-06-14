@@ -3,17 +3,17 @@
 #include "Scene.hpp"
 
 namespace Scene {
-	class SchoolNinja;
+	class SchoolNinjaComponent;
 	class DestroyObjectComponent : public AbstractComponent {
 	private:
 		float _timeToLive = 30.0f;
-		SchoolNinja* _game = nullptr;
+		SchoolNinjaComponent* _game = nullptr;
 		Scene* _scene;
 
 	public:
 		DestroyObjectComponent(Scene*, float);
-		DestroyObjectComponent(Scene*, SchoolNinja*);
-		DestroyObjectComponent(Scene*, float, SchoolNinja*);
+		DestroyObjectComponent(Scene*, SchoolNinjaComponent*);
+		DestroyObjectComponent(Scene*, float, SchoolNinjaComponent*);
 		void update(float) override;
 
 		

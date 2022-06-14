@@ -1,6 +1,7 @@
 #include "PlaneComponent.hpp"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Texture.hpp"
+#include "WindowManager.hpp"
 
 namespace Scene {
 	
@@ -9,9 +10,8 @@ namespace Scene {
 	{
 		
 		PlaneComponent::texture = texture;
-		int viewport[4];
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)viewport[2], (float)viewport[3], 0.0f, 1.0f, 100.0f);
+		
+		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)windowWidth, (float)windowHeight, 0.0f, 1.0f, 100.0f);
 
 		glm::vec3 s(width / 2, height / 2, 0);
 		glm::vec4 color(1, 1, 1, 1);

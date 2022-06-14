@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "WindowManager.hpp"
+#include <iostream>
 
 
 namespace Scene {
@@ -30,7 +31,6 @@ namespace Scene {
 	{
 		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->Transform;
 		glfwGetCursorPos(window, &xposition, &yposition);
-
 		targetPosition = glm::vec3(xposition, yposition, 0);
 		glm::vec3 move = targetPosition- _gameObject->Transform->position;
 		move.x -= middlePointWidth;

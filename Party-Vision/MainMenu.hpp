@@ -26,10 +26,6 @@ namespace Minigames {
 	class MainMenu : public AbstractSceneManager
 	{
 	public:
-		float backgroundWidth;
-		float backgroundHeight;
-		float backgroundx;
-		float backgroundy;
 		Menu_t currentMenu;
 
 		/// <summary>

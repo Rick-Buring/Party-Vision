@@ -3,12 +3,16 @@
 #include "PlaneComponent.hpp"
 #include "TransformComponent.hpp"
 #include "MainMenu.hpp"
+#include "WindowManager.hpp"
+#include "HudComponent.hpp"
+#include <iostream>
+#include <fstream>
 namespace Minigames {
 	SchoolNinja::SchoolNinja()
 	{
-		glGetIntegerv(GL_VIEWPORT, viewport);
+		
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(viewport[2], viewport[3], new Scene::Texture("textures/backgroundimageflipped.png"));
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(windowWidth, windowHeight, new Scene::Texture("textures/backgroundimageflipped.png"));
 
 		background->addComponent(backgroundPlane);
 
@@ -20,10 +24,22 @@ namespace Minigames {
 		
 		//todo initialize game
 		std::shared_ptr<Scene::GameObject> schoolNinja = std::make_shared<Scene::GameObject>();
-		schoolNinja->addComponent(std::make_shared<Scene::SchoolNinja>(scene.get()));
+		std::shared_ptr<Scene::SchoolNinjaComponent> schoolNinjaComponent = std::make_shared<Scene::SchoolNinjaComponent>(scene.get());
+		schoolNinja->addComponent(schoolNinjaComponent);
+		std::shared_ptr<Scene::HudComponent> schoolNinjaHud = std::make_shared<Scene::HudComponent>();
+		schoolNinja->addComponent(schoolNinjaHud);
+		
+		std::ifstream highScoreFile("highScore.txt");
+		std::string highScoreString;
+		std::getline(highScoreFile, highScoreString);
+		highScoreFile.close();
+		schoolNinjaComponent->_highScore = std::stoi(highScoreString);
+		schoolNinjaHud->setHighScore(schoolNinjaComponent->_highScore);
 
+		schoolNinja->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(0)));
 		scene->addGameObject(schoolNinja);
-
 		SchoolNinja::scene->setRunning(true);
 	}
+
+
 }

@@ -18,8 +18,6 @@ static void attachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{
 			double xpos, ypos;
-			int viewport[4];
-			glGetIntegerv(GL_VIEWPORT, viewport);
 			glfwGetCursorPos(window, &xpos, &ypos);
 			if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
 				Minigames::MainMenu* mainMenu = dynamic_cast<Minigames::MainMenu*>(sceneManager);
@@ -43,19 +41,11 @@ static void detachMouseCallback() {
 
 namespace Minigames {
 	Menu_t currentMenu;
-	int viewport[4];
 
 	MainMenu::MainMenu() {
-		//create cursor
-
-		glGetIntegerv(GL_VIEWPORT, viewport);
-		backgroundWidth = viewport[2];
-		backgroundHeight = viewport[3];
-		backgroundx = 0;
-		backgroundy = 0;
-
 		
 		menuInit(buildNinjaMenu());
+		//create cursor	
 		createMouse();
 		attachMouseCallback();
 	}
@@ -69,10 +59,10 @@ namespace Minigames {
 	{
 		std::shared_ptr<Scene::GameObject> handCursor;
 		handCursor = std::make_shared<Scene::GameObject>();
-		int width = 30, height = 30;
-		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(width, height, new Scene::Texture("textures/handflipped.png")));
+		int curserWidth = 12.5 * scalex , curserHeight = 15 * scaley;
+		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(curserWidth, curserHeight, new Scene::Texture("textures/handflipped.png")));
 		std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
-		std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(width, height, glm::vec3(0, 0, 0));
+		std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(curserWidth, curserHeight, glm::vec3(0, 0, 0));
 
 		handCursor->addComponent(transform2);
 		handCursor->addComponent(moveTo);
@@ -89,11 +79,11 @@ namespace Minigames {
 		std::shared_ptr<Scene::TransformComponent> testTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(-2, -4, 0));
 		test->addComponent(testTransform);*/
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight, new Scene::Texture(currentMenu.backgroundFileName));
+		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(windowWidth, windowHeight, new Scene::Texture(currentMenu.backgroundFileName));
 
 		background->addComponent(backgroundPlane);
 
-		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, -70));
+		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -70));
 
 		background->addComponent(backgroundTransform);
 
@@ -114,58 +104,56 @@ namespace Minigames {
 	}
 
 	Minigames::Menu_t buildNinjaMenu() {
-		
-		double width, height;
-		/*glfwGetWindowSize(window, &width, &height);*/
-		width = viewport[2];
-		height = viewport[3];
-		std::cout << width << " " << height << " ";
+		int menuButtonWidth = 200;
+		int menuButtonHeight = 40;
+		int arrowButtonWidth = 70;
+		int arrowButtonHeight = 60;
 		Minigames::MenuItem_t schoolNinjaStartMenuItem{
 			"Start",
 			"textures/startbuttonflipped.png",
 			new StartGame(),
-			(width / 2) - ((200 * (width / 640)) / 2),
-			(height / 7) * 1,
-			200 * (width / 640),
-			40 * (height / 360)
+			(windowWidth / 2.0) - ((menuButtonWidth * scalex) / 2),
+			(windowHeight / 7.0) * 1,
+			menuButtonWidth * scalex,
+			menuButtonHeight* scaley
 
 		};
 		Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
 			"How to Play",
 			"textures/howtoplaybuttonflipped.png",
 			new OpenHowToPlay(),
-			(width / 2) - ((200 * (width / 640)) / 2),
-			(height / 7) * 3,
-			200 * (width / 640),
-			40 * (height / 360)
+			(windowWidth / 2.0) - ((menuButtonWidth * scalex) / 2),
+			(windowHeight / 7.0) * 3,
+			menuButtonWidth * scalex,
+			menuButtonHeight * scaley
 
 		};
 		Minigames::MenuItem_t schoolNinjaHelpMenuItem{
 			"Help",
 			"textures/creditsbuttonflipped.png",
 			new OpenCredits(),
-			(width / 2) - ((200 * (width / 640)) / 2),
-			(height / 7) * 5,
-			200 * (width / 640),
-			40 * (height / 360)
+			(windowWidth / 2.0) - ((menuButtonWidth * scalex) / 2),
+			(windowHeight / 7.0) * 5,
+			menuButtonWidth * scalex,
+			menuButtonHeight * scaley
 		};
 		Minigames::MenuItem_t leftMenuItem{
 			"Left",
 			"textures/arrowbuttonflipped.png",
 			new PreviousMenu(),
-			70,
-			(height / 7) * 3,
-			70 * (width / 640),
-			60 * (height / 360)
+			arrowButtonWidth,
+			(windowHeight / 7.0) * 3,
+			arrowButtonWidth * scalex,
+			arrowButtonHeight* scaley
 		};
 		Minigames::MenuItem_t rightMenuItem{
 			"Right",
 			"textures/arrowbutton.png",
 			new NextMenu(),
-			width - (70 * (width / 640)) - 70,
-			(height / 7) * 3,
-			70 * (width / 640),
-			60 * (height / 360)
+			windowWidth - (arrowButtonWidth * scalex) - arrowButtonWidth,
+			(windowHeight / 7.0) * 3,
+			arrowButtonWidth * scalex,
+			arrowButtonHeight * scaley
 		};
 
 		std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems = {

@@ -123,6 +123,12 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HudComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="IncreaseScoreComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -215,7 +221,13 @@
     <ClInclude Include="CollisionComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="HudComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
     <ClInclude Include="SchoolNinja.hpp">
+      <Filter>Minigames\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IncreaseScoreComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
