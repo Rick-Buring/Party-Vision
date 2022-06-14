@@ -77,4 +77,6 @@ void init()
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
 		});
+
+	Minigames::startMusic();
 }

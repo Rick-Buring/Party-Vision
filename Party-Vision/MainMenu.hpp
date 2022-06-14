@@ -38,7 +38,6 @@ namespace Minigames {
 		/// </summary>
 		MainMenu();
 
-
 		~MainMenu();
 	private:
 		
@@ -49,6 +48,11 @@ namespace Minigames {
 	/// </summary>
 	/// <returns>The struct for the school ninja menu</returns>
 	Menu_t buildNinjaMenu();
+
+	/// <summary>
+	/// Start the music.
+	/// </summary>
+	void startMusic();
 }
 
 
