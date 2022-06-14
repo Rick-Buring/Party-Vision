@@ -56,16 +56,6 @@ static void detachMouseCallback() {
 	);
 }
 
-//Starts music
-static void startMusic() {
-	int device = -1; // Default Sounddevice
-	int freq = 44100; // Sample rate (Hz)
-	BASS_Init(device, freq, 0, 0, NULL);
-
-	backgroundMusic = BASS_StreamCreateFile(FALSE, "Buurman Mol (RDuke remix).mp3", 0, 0, 0);
-	BASS_ChannelPlay(backgroundMusic, TRUE);
-}
-
 namespace Minigames {
 	Menu_t currentMenu;
 
@@ -94,8 +84,6 @@ namespace Minigames {
 		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, -70));
 
 		background->addComponent(backgroundTransform);
-
-		startMusic();
 
 		MainMenu::scene->addGameObject(background);
 
@@ -182,71 +170,16 @@ namespace Minigames {
 
 		return schoolNinjaMenu;
 	}
-	/*Minigames::Menu_t buildNinjaMenu() {
-		int width, height;
-		glfwGetWindowSize(window, &width, &height);
-		Minigames::MenuItem_t schoolNinjaStartMenuItem{
-			"Start",
-			"textures/startbuttonflipped.png",
-			new StartGame(),
-			(width / 2) - ((200 * (width / 640)) / 2),
-			(height / 7) * 1,
-			200 * (width / 640),
-			40 * (height / 360)
 
-		};
-		Minigames::MenuItem_t schoolNinjaHowToPlayMenuItem{
-			"How to Play",
-			"textures/howtoplaybuttonflipped.png",
-			new OpenHowToPlay(),
-			(width / 2) - ((200 * (width / 640)) / 2),
-			(height / 7) * 3,
-			200 * (width / 640),
-			40 * (height / 360)
+	void startMusic()
+	{
+		int device = -1; // Default Sounddevice
+		int freq = 44100; // Sample rate (Hz)
 
-		};
-		Minigames::MenuItem_t schoolNinjaHelpMenuItem{
-			"Help",
-			"textures/creditsbuttonflipped.png",
-			new OpenCredits(),
-			((200 * (width / 640)) / 2),
-			(height / 7) * 5,
-			200 * (width / 640),
-			40 * (height / 360)
-		};
-		Minigames::MenuItem_t leftMenuItem{
-			"Left",
-			"textures/arrowbuttonflipped.png",
-			new PreviousMenu(),
-			70,
-			(height / 7) * 3,
-			70 * (width / 640),
-			60 * (height / 360)
-		};
-		Minigames::MenuItem_t rightMenuItem{
-			"Right",
-			"textures/arrowbutton.png",
-			new NextMenu(),
-			width - 210,
-			(height / 7) * 3,
-			70 * (width / 640),
-			60 * (height / 360)
-		};
+		BASS_Init(device, freq, 0, 0, NULL);
 
-		std::vector<Minigames::MenuItem_t> schoolNinjaMenuItems = {
-			schoolNinjaHelpMenuItem,
-			schoolNinjaHowToPlayMenuItem,
-			schoolNinjaStartMenuItem,
-			leftMenuItem,
-			rightMenuItem
-		};
-
-		Minigames::Menu_t schoolNinjaMenu{
-			"School Ninja",
-			"textures/backgroundimageflipped.png",
-			schoolNinjaMenuItems
-		};
-
-		return schoolNinjaMenu;
-	}*/
+		backgroundMusic = BASS_StreamCreateFile(FALSE, "Buurman Mol (RDuke remix).mp3", 0, 0, 0);
+		BASS_ChannelPlay(backgroundMusic, TRUE);
+	}
+	
 }
