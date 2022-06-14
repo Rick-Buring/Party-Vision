@@ -8,16 +8,16 @@
 namespace Scene {
 	HudComponent::HudComponent()
 	{
-		lives = std::vector<GameObject>();
-		time = std::vector<GameObject>();
-		score = std::vector<GameObject>();
-		highScore = std::vector<GameObject>();
-		numbers = std::vector<Texture*>();
+		_lives = std::vector<GameObject>();
+		_time = std::vector<GameObject>();
+		_score = std::vector<GameObject>();
+		_highScore = std::vector<GameObject>();
+		_numbers = std::vector<Texture*>();
 		for (int i = 0; i < 10; i++)
 		{
 			char file[30];
 			sprintf_s(file, "textures/%d.png", i);
-			numbers.push_back(new Texture(file));
+			_numbers.push_back(new Texture(file));
 		}
 		initLives();
 		initScore();
@@ -26,16 +26,16 @@ namespace Scene {
 
 	void HudComponent::draw()
 	{
-		for (auto life : lives) {
+		for (auto life : _lives) {
 			life.draw();
 		}
-		for (auto number : time) {
+		for (auto number : _time) {
 			number.draw();
 		}
-		for (auto number : score) {
+		for (auto number : _score) {
 			number.draw();
 		}
-		for (auto number : highScore) {
+		for (auto number : _highScore) {
 			number.draw();
 		}
 	}
@@ -53,22 +53,22 @@ namespace Scene {
 
 			life.addComponent(lifeTransform);
 
-			lives.push_back(life);
+			_lives.push_back(life);
 		}
 	}
 
 	void HudComponent::removeLife() {
-		GameObject life = *(lives.end() - 1);
-		lives.pop_back();
+		GameObject life = *(_lives.end() - 1);
+		_lives.pop_back();
 	}
 
 	void HudComponent::initScore() {
-		double scoreHeight = 15;
-		double scoreWidth = 10;
-		double scoreTextHeight = 15;
-		double scoreTextWidth = 60;
-		double scoreTextx = 25;
-		double scoreTexty = 25;
+		constexpr double scoreHeight = 15;
+		constexpr double scoreWidth = 10;
+		constexpr double scoreTextHeight = 15;
+		constexpr double scoreTextWidth = 60;
+		constexpr double scoreTextx = 25;
+		constexpr double scoreTexty = 25;
 		GameObject scoreText = GameObject();
 		std::shared_ptr<PlaneComponent> scoreTextPlane = std::make_shared<PlaneComponent>(scoreTextWidth * scalex, scoreTextHeight * scaley, new Texture("textures/score.png"));
 
@@ -77,10 +77,10 @@ namespace Scene {
 		std::shared_ptr <TransformComponent> scoreTextTransform = std::make_shared <TransformComponent>(glm::vec3(scoreTextx * scalex, scoreTexty * scaley, -69));
 
 		scoreText.addComponent(scoreTextTransform);
-		this->score.push_back(scoreText);
+		this->_score.push_back(scoreText);
 		for (int i = 0; i < 5; i++) {
 			GameObject score = GameObject();
-			std::shared_ptr<PlaneComponent> scorePlane = std::make_shared<PlaneComponent>(scoreWidth * scalex, scoreHeight * scaley, numbers[0]);
+			std::shared_ptr<PlaneComponent> scorePlane = std::make_shared<PlaneComponent>(scoreWidth * scalex, scoreHeight * scaley, _numbers[0]);
 
 			score.addComponent(scorePlane);
 
@@ -88,7 +88,7 @@ namespace Scene {
 
 			score.addComponent(scoreTransform);
 
-			this->score.push_back(score);
+			this->_score.push_back(score);
 		}
 	}
 
@@ -98,20 +98,20 @@ namespace Scene {
 		{
 			int digit = score % 10;
 
-			this->score[i].getComponent<PlaneComponent>()->texture = numbers[digit];
+			this->_score[i].getComponent<PlaneComponent>()->texture = _numbers[digit];
 
 			score /= 10;
 		}
 	}
 
 	void HudComponent::initHighScore() {
-		double highScoreHeight = 15;
-		double highScoreWidth = 10;
-		double highScoreTextHeight = 25;
-		double highScoreTextWidth = 90;
-		double highScoreTextx = 30;
-		double highScoreTexty = 25;
-		double highScoreTextxCalc = windowWidth - ((highScoreTextx * scaley) + ((highScoreWidth * scalex) * 5) + (highScoreTextWidth * scalex));
+		constexpr double highScoreHeight = 15;
+		constexpr double highScoreWidth = 10;
+		constexpr double highScoreTextHeight = 25;
+		constexpr double highScoreTextWidth = 90;
+		constexpr double highScoreTextx = 30;
+		constexpr double highScoreTexty = 25;
+		const double highScoreTextxCalc = windowWidth - ((highScoreTextx * scaley) + ((highScoreWidth * scalex) * 5) + (highScoreTextWidth * scalex));
 		GameObject highScoreText = GameObject();
 		std::shared_ptr<PlaneComponent> highScoreTextPlane = std::make_shared<PlaneComponent>(highScoreTextWidth * scalex, highScoreTextHeight * scaley, new Texture("textures/highscore.png"));
 
@@ -120,10 +120,10 @@ namespace Scene {
 		std::shared_ptr <TransformComponent> highScoreTextTransform = std::make_shared <TransformComponent>(glm::vec3(highScoreTextxCalc, highScoreTexty * scaley, -69));
 
 		highScoreText.addComponent(highScoreTextTransform);
-		this->highScore.push_back(highScoreText);
+		this->_highScore.push_back(highScoreText);
 		for (int i = 0; i < 5; i++) {
 			GameObject highScore = GameObject();
-			std::shared_ptr<PlaneComponent> highScorePlane = std::make_shared<PlaneComponent>(highScoreWidth * scalex, highScoreHeight * scaley, numbers[0]);
+			std::shared_ptr<PlaneComponent> highScorePlane = std::make_shared<PlaneComponent>(highScoreWidth * scalex, highScoreHeight * scaley, _numbers[0]);
 
 			highScore.addComponent(highScorePlane);
 
@@ -131,7 +131,7 @@ namespace Scene {
 
 			highScore.addComponent(highScoreTransform);
 
-			this->highScore.push_back(highScore);
+			this->_highScore.push_back(highScore);
 		}
 	}
 
@@ -141,7 +141,7 @@ namespace Scene {
 		{
 			int digit = score % 10;
 
-			this->highScore[i].getComponent<PlaneComponent>()->texture = numbers[digit];
+			this->_highScore[i].getComponent<PlaneComponent>()->texture = _numbers[digit];
 
 			score /= 10;
 		}
@@ -149,9 +149,9 @@ namespace Scene {
 
 
 	void HudComponent::setTime(int timeInSeconds) {
-		time.clear();
-		double timeHeight = 25;
-		double timeWidth = 20;
+		_time.clear();
+		constexpr double timeHeight = 25;
+		constexpr double timeWidth = 20;
 		int i = 0;
 		int j = 0;
 		float digits;
@@ -166,7 +166,7 @@ namespace Scene {
 
 			int currentDigit = timeInSeconds % 10;
 			GameObject digit = GameObject();
-			std::shared_ptr<PlaneComponent> timePlane = std::make_shared<PlaneComponent>(timeWidth * scalex, timeHeight * scaley, numbers[currentDigit]);
+			std::shared_ptr<PlaneComponent> timePlane = std::make_shared<PlaneComponent>(timeWidth * scalex, timeHeight * scaley, _numbers[currentDigit]);
 
 			digit.addComponent(timePlane);
 
@@ -174,7 +174,7 @@ namespace Scene {
 
 			digit.addComponent(timeTransform);
 
-			time.push_back(digit);
+			_time.push_back(digit);
 			timeInSeconds /= 10;
 			i++;
 		}

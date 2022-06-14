@@ -9,12 +9,12 @@
 namespace Scene {
 	GameObject::~GameObject()
 	{
-		GameObject::components.clear();
+		GameObject::_components.clear();
 	}
 	void GameObject::addComponent(std::shared_ptr<AbstractComponent> component)
 	{
 		component->setGameObject(this);
-		GameObject::components.push_back(component);
+		GameObject::_components.push_back(component);
 
 
 		if (GameObject::_drawComponent == nullptr)
@@ -26,12 +26,12 @@ namespace Scene {
 
 	std::list<std::shared_ptr<AbstractComponent>> GameObject::getComponents()
 	{
-		return components;
+		return _components;
 	}
 
 	void GameObject::update(float elapsedTime)
 	{
-		for (auto& c : components)
+		for (auto& c : _components)
 			c->update(elapsedTime);
 	}
 
