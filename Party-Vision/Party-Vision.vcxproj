@@ -219,6 +219,7 @@
     <ClInclude Include="OutofBoundsComponent.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
     <ClInclude Include="PointerExecuter.hpp" />
+    <ClInclude Include="preprocessorCommands.hpp" />
     <ClInclude Include="replaceComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="AbstractSceneManager.hpp" />
