@@ -14,6 +14,7 @@
 #include "DestroyObjectComponent.hpp"
 #include "CollisionComponent.hpp"
 #include "Scene.hpp"
+#include "SoundComponent.hpp"
 
 namespace Scene {
 	static void endGame() {
@@ -28,6 +29,7 @@ namespace Scene {
 		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand/2, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
 		gameObj->addComponent(std::make_shared<GravityComponent>(6));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
+		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
 		gameObj->addComponent(std::make_shared<CollisionComponent>(scene));
 
@@ -63,6 +65,10 @@ namespace Scene {
 		if (SchoolNinjaComponent::_lifes <= 0) {
 			endGame();
 		}
+
+		//Makes sound effect once you lose a life
+		HSTREAM loseLife = BASS_StreamCreateFile(FALSE, "roblox-death-sound_1.mp3", 0, 0, 0);
+		BASS_ChannelPlay(loseLife , TRUE);
 	}
 
 	void SchoolNinjaComponent::increaseScore(int score) {

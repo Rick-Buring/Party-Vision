@@ -1,6 +1,7 @@
 #include "DestroyObjectComponent.hpp"
 #include "SchoolNinjaComponent.hpp"
 #include "IOnDeath.hpp"
+#include "bass.h"
 
 namespace Scene {
 

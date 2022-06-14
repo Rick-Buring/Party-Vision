@@ -129,6 +129,9 @@
     <ClCompile Include="CursorPosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SoundComponent.cpp">
+      <Filter>Scene\SourceFiles\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -230,10 +233,16 @@
     <ClInclude Include="CursorPosition.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="molorcolor.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
