@@ -21,7 +21,7 @@ namespace Scene {
 		void PlayMusic();
 
 		/// <summary>
-		/// Will use PlayMusic on the death of the object.
+		/// Will use PlayMusic on the death of the object. Is called from IOnDeath interface
 		/// </summary>
 		void OnDeath() override;
 
