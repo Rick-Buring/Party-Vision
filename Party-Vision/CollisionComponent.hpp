@@ -9,6 +9,12 @@ namespace Scene {
 	public:
 		CollisionComponent(Scene*);
 
+		/// <summary>
+		/// Checks every update if there is any collision detected.
+		/// </summary>
+		/// <param name="deltaTime">
+		/// Time
+		/// </param>
 		void update(float deltaTime) override;
 		
 	private:
