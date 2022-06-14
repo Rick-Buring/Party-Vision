@@ -12,16 +12,29 @@ using namespace cv::ml;
 
 Mat frame, imgHSV, mask, kernel;
 
+//Activates the camera in the laptop. To use the webcam set the 0 to 1.
 VideoCapture capture(0);
+
 int hmin = 0, smin = 110, vmin = 153;
 int hmax = 19, smax = 240, vmax = 255;
+int maxHue = 8;
 
+//Scalar for the lower hue and the higher hue.
+Scalar lower, upper;
+
+//Vector to save the rectangle from the face.
 vector<Rect> faces;
+
+//Point to dave the center of the hand.
 Point mass_center;
+
+//Possible to use the CascadeClassifier.
 CascadeClassifier faceCascade;
+
+//Saves the hsv color in the skinColor.
 Vision::hsv skinColor;
 
-namespace Vision {
+namespace Vision {	
 	hsv rgb2hsv(rgb in)
 	{
 		hsv         out;
@@ -69,27 +82,32 @@ namespace Vision {
 		return out;
 	}
 
-	void HandDetection_run(Point& position, Mat& frame)
+	//this method will trigger 2 important methodes,
+	//the first method is to retrieve the skincolor.
+	//the second is to detect de hand in a single fram.
+	void handDetection(Point& position, Mat& frame)
 	{
+		//Gets the casacade from the opencv libary
 		String faceCascadePath = "lib/opencv/sources/data/haarcascades/haarcascade_frontalface_default.xml";
 		faceCascade.load(faceCascadePath);
 
 		//capture.read(frame);
 
-		faces = FaceRecognition_run(frame, faceCascade);
+		//It returns the skincolor and put it in the faces variable.
+		faces = faceRecognition(frame, faceCascade);
 
 
 		if (!faces.empty()) {
-			skinColor = HandDetection_getSkinColor(frame, faces);
+			
+			//It returns the skincolor and put it in the faces variable.
+			skinColor = retrieveSkinColor(frame, faces);
 
+			//Convert frame to HSV.
 			cvtColor(frame, imgHSV, COLOR_BGR2HSV);
 
 			skinColor.h /= 2;
 
-			int maxHue = 8;
-
-			Scalar lower, upper;
-
+			//checks if the hue from the skincolor is larger than maxHue.
 			if (skinColor.h > maxHue) {
 				lower = Scalar(skinColor.h, skinColor.s, skinColor.v);
 				upper = Scalar(180, 255, 255);
@@ -100,31 +118,30 @@ namespace Vision {
 				upper = Scalar(maxHue, 255, 255);
 			}
 
-			/*lower = Scalar(skinColor.h, 20, 0);
-			upper = Scalar(maxHue, 255, 255);*/
-
 			inRange(imgHSV, lower, upper, mask);
 
+			//Creating kernel from the dilate and erode.
 			kernel = getStructuringElement(MORPH_ELLIPSE, Size(21, 21));
 			dilate(mask, mask, kernel);
 			erode(mask, mask, kernel);
 
-			HandDetection_findHand(frame, mask);
+			//this methode will search the hand in de frame.
+			findObjectInFrame(frame, mask);
 
 			position = mass_center;
 		}
 	}
 
-	hsv HandDetection_getSkinColor(Mat frame, vector<Rect> faces)
+	//Determine the skinColor from the face.
+	hsv retrieveSkinColor(Mat frame, vector<Rect> faces)
 	{
-		//Stuk rectangle uit het frame halen
+		//Cuts the face from the frame.
 		Mat imgCrop = frame(faces[0]);
 
-		//Huidskleur bepalen
 		int width = imgCrop.size().width;
 		int height = imgCrop.size().height;
 
-		//vijf locatie som kleur op te halen opgeslagen.
+		//Saves the points from the 5 place on the color.
 		vector<Point> locations = {
 			Point(width / 2, height / 2),
 			Point(width * 0.25, height * 0.75),
@@ -137,40 +154,46 @@ namespace Vision {
 		int g = 0;
 		int r = 0;
 
-		//loopt door de 5 opegehaalde locaties en telt ze op bij B, G, R
-		for (auto l : locations) {
-			rectangle(imgCrop, Rect(l.x - 13, l.y - 13, 26, 26), Scalar(0, 255, 0));
-			Vec3b color = imgCrop.at<Vec3b>(l);
+		//Loops through the 5 lacations en adds all the B, G and R together.
+		for (auto singleLocation : locations) {
+			rectangle(imgCrop, Rect(singleLocation.x - 13, singleLocation.y - 13, 26, 26), Scalar(0, 255, 0));
+			Vec3b color = imgCrop.at<Vec3b>(singleLocation);
 			cout << "Color: " << color << "\n";
 			b += color[0];
 			g += color[1];
 			r += color[2];
 		}
 
-		//Aantal locaties
+		//Total locations.
 		int points = locations.size();
 
-		//struct om de R G B op te slaan
+		//struct to save the R G B.
 		rgb skinColor = { r / points, g / points, b / points };
+		
+		//Convert the RGB to HSV through.
 		hsv skinColorHSV = rgb2hsv(skinColor);
 
+		//Prints the Hue, Saturation and Value.
 		cout << "hue: handetetcion " << round(skinColorHSV.h) << "\n";
 		cout << "sat: handetetcion " << round(skinColorHSV.s) << "\n";
 		cout << "val: handetetcion " << round(skinColorHSV.v) << "\n";
+
 
 		faces[0].height *= 2;
 		faces[0].y -= faces[0].height / 4;
 		faces[0].width *= 1.5;
 		faces[0].x -= faces[0].width / 5.5;
 
+		//Draws a black rectangle on the face.
 		rectangle(frame, faces[0], Scalar(0, 0, 0), -1);
 
+		//Returns the skinColor.
 		return skinColorHSV;
 	}
 
 
-	//Get a single frame, filters all the legit contours and cuts the head.
-	void HandDetection_findHand(Mat frame, Mat mask) {
+	//Get a single frame, filters all the legit contours and select the hand.
+	void findObjectInFrame(Mat frame, Mat mask) {
 		vector<vector<Point>> contours;
 		vector<Vec4i> hierarchy;
 
@@ -190,36 +213,16 @@ namespace Vision {
 					if (area > largestArea) largestAreaIndex = i;
 
 					drawContours(frame, contours, i, Scalar(255, 0, 255));
-				}
-				////Checks if area is bigger than 2000, if that's the case it will be drawed.
-				//if (area > 2000) {
-				//	vector<Point> f = contours[i];
-				//	Moments contour_moment = moments(f, false);
-				//	Point mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
-				//	positions.push_back(mass_center);
-
-				//	// Coordinates from the mass of the contour.
-				//	cout << "x = " << mass_center.x << "  y= " << mass_center.y << endl;
-				//	cout << "nieuwe regelelelele" << endl;
-
-				//	cv::rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
-
-				//	//draws the specific contour.
-				//	//drawContours(frame, contours, i, Scalar(255, 0, 255), 5);
-				//}
+				}			
 			}
-			//drawContours(frame, contours, -1, Scalar(255, 0, 255));
 
+			//If the largest contour is found then on the place of the contour will be a rectangle drawed.
 			if (largestAreaIndex > -1) {
 				vector<Point> f = contours[largestAreaIndex];
 				Moments contour_moment = moments(f, false);
 				mass_center = Point(contour_moment.m10 / contour_moment.m00, contour_moment.m01 / contour_moment.m00);
-
-				// Coordinates from the mass of the contour.
-				cout << "x = " << mass_center.x << "  y= " << mass_center.y << endl;
-				cout << "nieuwe regelelelele" << endl;
-
-				cv::rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
+				//draws the recantgle on the frame
+				rectangle(frame, Rect(mass_center.x - 25, mass_center.y - 25, 50, 50), Scalar(0, 255, 0));
 			}
 		}
 	}
