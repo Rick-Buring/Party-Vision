@@ -10,7 +10,7 @@ void windowManagerInit()
 	
 	if (!glfwInit())
 		throw "Could not initialize glwf";
-	window = glfwCreateWindow(1920, 1080, "School Ninja", glfwGetPrimaryMonitor(), NULL);
+	window = glfwCreateWindow(1920, 1080, "School Ninja", NULL, NULL);
 	
 	if (!window)
 	{
