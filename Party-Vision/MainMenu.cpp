@@ -72,16 +72,8 @@ namespace Minigames {
 		menuInit(buildNinjaMenu());
 		MainMenu::createMouse(mouseWidth, mouseHeight);
 		attachMouseCallback();
-		//std::vector<Scene::VBO_Textures_t> obj = Scene::loadObject("models/book/1984_book.obj");
-		//std::shared_ptr<Scene::GameObject> collisionObject = std::make_shared<Scene::GameObject>();
-		//collisionObject->addComponent(std::make_shared<Scene::TransformComponent>(glm::vec3(-10, -5, -5)));
-		//collisionObject->addComponent(std::make_shared<Scene::GravityComponent>(10.0f));
-		//collisionObject->addComponent(std::make_shared<Scene::DrawObjectComponent>(obj));
 
 		std::shared_ptr<Scene::GameObject> mouse = *scene->getGameobjects()->begin();
-		//collisionObject->addComponent(std::make_shared<Scene::CollisionComponent>());
-
-		//scene->addGameObject(collisionObject);
 	}
 
 	MainMenu::~MainMenu()
@@ -92,11 +84,6 @@ namespace Minigames {
 	void MainMenu::menuInit(Menu_t current) {
 
 		currentMenu = current;
-		/*std::shared_ptr <Scene::GameObject> test = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::DrawObjectComponent> testdraw = std::make_shared<Scene::DrawObjectComponent>(Scene::loadObject("models/steve/steve.obj"));
-		test->addComponent(testdraw);
-		std::shared_ptr<Scene::TransformComponent> testTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(-2, -4, 0));
-		test->addComponent(testTransform);*/
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
 		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(backgroundWidth, backgroundHeight, new Scene::Texture(currentMenu.backgroundFileName));
 
@@ -105,9 +92,8 @@ namespace Minigames {
 		std::shared_ptr<Scene::TransformComponent> backgroundTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(backgroundx, backgroundy, -70));
 
 		background->addComponent(backgroundTransform);
-
 		MainMenu::scene->addGameObject(background);
-		//AbstractSceneManager::scene->addGameObject(test);
+
 		for (MenuItem_t menuItem : currentMenu.menuItems) {
 			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
 
