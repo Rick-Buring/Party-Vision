@@ -32,8 +32,9 @@ namespace Minigames {
 		Menu_t currentMenu;
 
 		/// <summary>
-		/// creates and add game object of the main menu to the scene.
+		/// creates and adds game object of the main menu to the scene.
 		/// </summary>
+		/// <param name="">The current menu that needs to be initialized</param>
 		void menuInit(Menu_t);
 
 		/// <summary>

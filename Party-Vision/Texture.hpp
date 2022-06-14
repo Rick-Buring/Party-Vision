@@ -8,9 +8,20 @@ namespace Scene {
 	{
 		GLuint id;
 	public:
+		/// <summary>
+		/// Creates a texture.
+		/// </summary>
+		/// <param name="fileName">File name of the texture</param>
 		Texture(const std::string& fileName);
-		void bind();
 		
+		/// <summary>
+		/// Binds the texture.
+		/// </summary>
+		void bind();
 	};
+
+	/// <summary>
+	/// Unbinds the texture.
+	/// </summary>
 	void textureUnbind();
 }
