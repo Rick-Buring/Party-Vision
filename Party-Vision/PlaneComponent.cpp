@@ -12,16 +12,16 @@ namespace Scene {
 		_ortho = ortho;
 		PlaneComponent::texture = texture;
 		
-		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)windowWidth, (float)windowHeight, 0.0f, 1.0f, 100.0f);
+		PlaneComponent::_projectionOrtho = glm::ortho(0.0f, (float)windowWidth, (float)windowHeight, 0.0f, 1.0f, 100.0f);
 
 		glm::vec3 s(width / 2, height / 2, 0);
 		glm::vec4 color(1, 1, 1, 1);
 		glm::vec3 p((width / 2), (height / 2), 0);
 
-		PlaneComponent::verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(s.x, s.y, s.z), color, glm::vec2(0, 0), glm::vec3(0, 0, 1)));
-		PlaneComponent::verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(-s.x, s.y, s.z), color, glm::vec2(1, 0), glm::vec3(0, 0, 1)));
-		PlaneComponent::verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(-s.x, -s.y, s.z), color, glm::vec2(1, 1), glm::vec3(0, 0, 1)));
-		PlaneComponent::verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(s.x, -s.y, s.z), color, glm::vec2(0, 1), glm::vec3(0, 0, 1)));
+		PlaneComponent::_verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(s.x, s.y, s.z), color, glm::vec2(0, 0), glm::vec3(0, 0, 1)));
+		PlaneComponent::_verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(-s.x, s.y, s.z), color, glm::vec2(1, 0), glm::vec3(0, 0, 1)));
+		PlaneComponent::_verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(-s.x, -s.y, s.z), color, glm::vec2(1, 1), glm::vec3(0, 0, 1)));
+		PlaneComponent::_verts.push_back(tigl::Vertex::PCTN(p + glm::vec3(s.x, -s.y, s.z), color, glm::vec2(0, 1), glm::vec3(0, 0, 1)));
 	}
 
 
@@ -34,9 +34,9 @@ namespace Scene {
 		glDisable(GL_DEPTH_TEST);
 		glm::mat4 projectionMatrix = tigl::shader->getProjectionMatrix();
 		if (_ortho) {
-			tigl::shader->setProjectionMatrix(PlaneComponent::projectionOrtho);
+			tigl::shader->setProjectionMatrix(PlaneComponent::_projectionOrtho);
 		}
-		tigl::drawVertices(GL_QUADS, verts);
+		tigl::drawVertices(GL_QUADS, _verts);
 
 		tigl::shader->setProjectionMatrix(projectionMatrix);
 		textureUnbind();

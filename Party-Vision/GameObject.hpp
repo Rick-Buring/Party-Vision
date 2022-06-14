@@ -19,7 +19,7 @@ namespace Scene {
 	{
 	private:
 		std::shared_ptr<AbstractDrawComponent>_drawComponent;
-		std::list<std::shared_ptr<AbstractComponent>> components;
+		std::list<std::shared_ptr<AbstractComponent>> _components;
 		
 
 
@@ -56,7 +56,7 @@ namespace Scene {
 		template<class T>
 		std::shared_ptr<T> getComponent()
 		{
-			for (auto c : components)
+			for (auto c : _components)
 			{
 				std::shared_ptr<T> t = std::dynamic_pointer_cast<T>(c);
 				if (t)
@@ -74,7 +74,7 @@ namespace Scene {
 		std::vector<std::shared_ptr<T>> getComponents()
 		{
 			std::vector<std::shared_ptr<T>> foundComponents;
-			for (auto c : components)
+			for (auto c : _components)
 			{
 				std::shared_ptr<T> t = std::dynamic_pointer_cast<T>(c);
 				if (t)
@@ -90,7 +90,7 @@ namespace Scene {
 		template<class T>
 		void removeComponent()
 		{
-			components.remove_if([](AbstractComponent* c)
+			_components.remove_if([](AbstractComponent* c)
 				{
 					T* t = dynamic_cast<T*>(c);
 					return t != nullptr;

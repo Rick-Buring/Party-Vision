@@ -6,12 +6,12 @@
 namespace Scene {
 	class HudComponent : public AbstractDrawComponent {
 	private:
-		std::vector<GameObject> lives;
-		std::vector<GameObject> time;
-		std::vector<GameObject> score;
-		std::vector<GameObject> highScore;
-		std::vector<Texture*> numbers;
-		Scene* scene;
+		std::vector<GameObject> _lives;
+		std::vector<GameObject> _time;
+		std::vector<GameObject> _score;
+		std::vector<GameObject> _highScore;
+		std::vector<Texture*> _numbers;
+		Scene* _scene;
 		void initLives();
 		void initScore();
 		void initHighScore();

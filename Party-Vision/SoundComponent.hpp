@@ -26,6 +26,6 @@ namespace Scene {
 		void OnDeath() override;
 
 	private:
-		std::string file;
+		std::string _file;
 	};
 }

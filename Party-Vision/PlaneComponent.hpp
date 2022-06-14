@@ -13,8 +13,8 @@ namespace Scene {
 	private:
 		bool _ortho;
 		//variable to store plane vertesies
-		std::vector<tigl::Vertex> verts;
-		glm::mat4 projectionOrtho;
+		std::vector<tigl::Vertex> _verts;
+		glm::mat4 _projectionOrtho;
 	public:
 		Texture* texture;
 		/// <summary>
