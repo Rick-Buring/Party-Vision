@@ -8,7 +8,7 @@
 namespace Scene {
 	HudComponent::HudComponent()
 	{
-		lifes = std::vector<GameObject>();
+		lives = std::vector<GameObject>();
 		time = std::vector<GameObject>();
 		score = std::vector<GameObject>();
 		highScore = std::vector<GameObject>();
@@ -19,14 +19,14 @@ namespace Scene {
 			sprintf_s(file, "textures/%d.png", i);
 			numbers.push_back(new Texture(file));
 		}
-		initLifes();
+		initLives();
 		initScore();
 		initHighScore();
 	}
 
 	void HudComponent::draw()
 	{
-		for (auto life : lifes) {
+		for (auto life : lives) {
 			life.draw();
 		}
 		for (auto number : time) {
@@ -40,26 +40,26 @@ namespace Scene {
 		}
 	}
 
-	void HudComponent::initLifes() {
-		double lifesHeight = 25;
-		double lifesWidth = 30;
+	void HudComponent::initLives() {
+		double livesHeight = 25;
+		double livesWidth = 30;
 		for (int i = 0; i < 3; i++) {
 			GameObject life = GameObject();
-			std::shared_ptr<PlaneComponent> lifePlane = std::make_shared<PlaneComponent>(lifesWidth * scalex, lifesHeight * scaley, new Texture("textures/heart.png"));
+			std::shared_ptr<PlaneComponent> lifePlane = std::make_shared<PlaneComponent>(livesWidth * scalex, livesHeight * scaley, new Texture("textures/heart.png"));
 
 			life.addComponent(lifePlane);
 
-			std::shared_ptr <TransformComponent> lifeTransform = std::make_shared <TransformComponent>(glm::vec3(((windowWidth / 2) - (lifesWidth * 1.5) * scalex) + ((lifesWidth * i) * scalex), (lifesHeight * scaley) * 2, -69));
+			std::shared_ptr <TransformComponent> lifeTransform = std::make_shared <TransformComponent>(glm::vec3(((windowWidth / 2) - (livesWidth * 1.5) * scalex) + ((livesWidth * i) * scalex), (livesHeight * scaley) * 2, -69));
 
 			life.addComponent(lifeTransform);
 
-			lifes.push_back(life);
+			lives.push_back(life);
 		}
 	}
 
 	void HudComponent::removeLife() {
-		GameObject life = *(lifes.end() - 1);
-		lifes.pop_back();
+		GameObject life = *(lives.end() - 1);
+		lives.pop_back();
 	}
 
 	void HudComponent::initScore() {
