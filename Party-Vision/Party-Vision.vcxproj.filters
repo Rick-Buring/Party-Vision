@@ -233,6 +233,9 @@
     <ClInclude Include="SoundComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="DestroyObjectComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="molorcolor.png">

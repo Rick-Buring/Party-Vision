@@ -11,8 +11,26 @@ namespace Scene {
 		Scene* _scene;
 
 	public:
+		/// <summary>
+		/// Constructor for destroy object component.
+		/// </summary>
+		/// <param name="Scene">The scene to remove this object from</param>
+		/// <param name="float">The time to live</param>
 		DestroyObjectComponent(Scene*, float);
+
+		/// <summary>
+		/// Constructor for destroy object component.
+		/// </summary>
+		/// <param name="Scene">The scene to remove this object from</param>
+		/// <param name="SchoolNinjaComponent">Will update score and other statisticst for the game upon destruction</param>
 		DestroyObjectComponent(Scene*, SchoolNinjaComponent*);
+
+		/// <summary>
+		/// Constructor for destroy object component.
+		/// </summary>
+		/// <param name="Scene">The scene to remove this object from</param>
+		/// <param name="float">The time to live</param>
+		/// <param name="SchoolNinjaComponent">Will update score and other statisticst for the game upon destruction</param>
 		DestroyObjectComponent(Scene*, float, SchoolNinjaComponent*);
 		void update(float) override;
 
