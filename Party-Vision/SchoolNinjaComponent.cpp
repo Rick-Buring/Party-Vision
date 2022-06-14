@@ -15,6 +15,7 @@
 #include "CollisionComponent.hpp"
 #include "Scene.hpp"
 #include "SoundComponent.hpp"
+#include "bass.h"
 
 namespace Scene {
 	static void endGame() {

@@ -86,7 +86,7 @@
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <IncludePath>$(SolutionDir)Party-Vision\lib\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Party-Vision\lib\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Party-Vision\lib\opencv\build\x64\vc15\lib;C:\opencv\build\x64\vc15\lib;$(SolutionDir)Party-Vision\lib\bass\c\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -155,14 +155,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Party-Vision\lib\glm;$(SolutionDir)Party-Vision\lib\glew-2.1.0\include;$(SolutionDir)Party-Vision\lib\glfw-3.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Party-Vision\lib\glm;$(SolutionDir)Party-Vision\lib\glew-2.1.0\include;$(SolutionDir)Party-Vision\lib\glfw-3.3.2\include;$(SolutionDir)Party-Vision\lib\bass\c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Party-Vision\lib\glfw-3.3.2\$(PlatformTarget);$(SolutionDir)Party-Vision\lib\glew-2.1.0\lib\Release\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Party-Vision\lib\glfw-3.3.2\$(PlatformTarget);$(SolutionDir)Party-Vision\lib\glew-2.1.0\lib\Release\$(PlatformTarget);$(SolutionDir)Party-Vision\lib\bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opencv_world455.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
