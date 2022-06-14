@@ -12,8 +12,8 @@ void convertCoordinates(Mat inputFrame, Mat outputFrame, Point inputCoordinates,
 	int inputHeight = inputFrame.size().height, outputHeight = outputFrame.size().height;
 	int inputWidth = inputFrame.size().width, outputWidth = outputFrame.size().width;
 
-	double heightM = outputHeight / inputHeight;
-	double widthM = outputWidth / inputWidth;
+	int heightM = outputHeight / inputHeight;
+	int widthM = outputWidth / inputWidth;
 
 	outputCoordinates = Point(inputCoordinates.x * widthM, inputCoordinates.y * heightM);
 }
@@ -23,8 +23,8 @@ void convertCoordinates(Mat inputFrame, int height, int width, Point inputCoordi
 	int inputHeight = inputFrame.size().height;
 	int inputWidth = inputFrame.size().width;
 
-	double heightM = height /(double) inputHeight;
-	double widthM = width /(double) inputWidth;
+	int heightM = height / inputHeight;
+	int widthM = width / inputWidth;
 
 	outputCoordinates = Point(inputCoordinates.x * widthM, inputCoordinates.y * heightM);
 }

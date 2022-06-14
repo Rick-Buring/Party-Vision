@@ -163,7 +163,7 @@ namespace Vision {
 		}
 
 		//Total locations.
-		int points = locations.size();
+		double points = static_cast<double>(locations.size());
 
 		//struct to save the R G B.
 		rgb skinColor = { r / points, g / points, b / points };
