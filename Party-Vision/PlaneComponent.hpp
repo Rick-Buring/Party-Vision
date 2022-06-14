@@ -23,7 +23,12 @@ namespace Scene {
 		/// <param name="width">width of the plane</param>
 		/// <param name="height">height of the plane</param>
 		/// <param name="texture">texture that needs to be drawn on the plane</param>
+		/// <param name="ortho">draw the plane in ortho graphic view</param>
 		PlaneComponent(float width, float height, Texture* texture = nullptr, bool ortho = true);
+
+		/// <summary>
+		/// draws the plane in ortho mode or projection mode based on the boolean
+		/// </summary>
 		virtual void draw() override;
 	};
 };

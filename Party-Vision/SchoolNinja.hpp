@@ -8,8 +8,12 @@ namespace Minigames {
 	public:
 		bool endScene = false;
 		SchoolNinja();
-		void sceneUpdate() override;
 		~SchoolNinja();
+
+		/// <summary>
+		/// updates the scene inherided from Absract SceneManager
+		/// </summary>
+		void sceneUpdate() override;
 	private:
 	};
 
