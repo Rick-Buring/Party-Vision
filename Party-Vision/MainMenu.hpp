@@ -4,6 +4,9 @@
 #include <string>
 
 namespace Minigames {
+	/// <summary>
+	/// Interface to execute a function and store it in a menu
+	/// </summary>
 	class IPointerExecuter {
 	public:
 		virtual void execute() = 0;

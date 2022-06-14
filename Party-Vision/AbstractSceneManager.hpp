@@ -8,6 +8,7 @@ namespace Minigames {
 	{
 	public:
 		std::shared_ptr<Scene::Scene> scene;
+
 		/// <summary>
 		/// updates the current scene
 		/// </summary>
@@ -15,6 +16,12 @@ namespace Minigames {
 		AbstractSceneManager();
 		virtual ~AbstractSceneManager();
 	protected:
+
+		/// <summary>
+		/// creates mouse gameobject and adds it to the scene
+		/// </summary>
+		/// <param name="width">widht of the mouse in pixels</param>
+		/// <param name="height">height of the mouse in pixels</param>
 		void createMouse(int width, int height);
 	};
 	

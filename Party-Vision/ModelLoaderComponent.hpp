@@ -13,6 +13,10 @@ namespace Scene {
 		/// </summary>
 		/// <param name="filePath">path to model file</param>
 		ModelLoaderComponent(std::string filePath);		
+
+		/// <summary>
+		/// draws the model
+		/// </summary>
 		virtual void draw() override;
 
 	private:

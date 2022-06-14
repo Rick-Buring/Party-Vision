@@ -185,14 +185,8 @@
     <ClInclude Include="replaceComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="PointerExecuter.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MoveToComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelLoaderComponent.hpp">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SchoolNinjaComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
@@ -238,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="preprocessorCommands.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoaderComponent.hpp">
+      <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
