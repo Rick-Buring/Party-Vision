@@ -8,7 +8,7 @@ using namespace cv::ml;
 
 namespace Vision {
 
-	VideoCapture cap(0);
+	VideoCapture cap(1);
 
 	vector<Rect> FaceRecognition_run(Mat& frame, CascadeClassifier faceCascade)
 	{

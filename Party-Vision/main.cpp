@@ -55,24 +55,20 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
         sceneManager->sceneUpdate();
-
-		//TODO check for collision with other game objects.
         glfwSwapBuffers(window);
         glfwPollEvents();
-        waitKey(1);
+        /*waitKey(1);*/
     }
+
+	delete sceneManager;
         
     glfwTerminate();
-
-	glfwTerminate();
-
 	return 0;
 }
 
 void init()
 {
 	tigl::init();
-
 	tigl::shader->enableTexture(true);
 	tigl::shader->enableColor(true);
 
