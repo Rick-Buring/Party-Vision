@@ -15,6 +15,12 @@ namespace Scene {
 
 
 	public:
+
+		/// <summary>
+		/// Checks if the component is within the given bounds.
+		/// </summary>
+		/// <param name="scene">De scene the object resides within</param>
+		/// <param name="game">Component to be used to handle gamerules upon leaving bounds</param>
 		OutOfBoundsComponent(Scene* scene, SchoolNinjaComponent* game);
 		OutOfBoundsComponent(Scene* scene, SchoolNinjaComponent* game, glm::vec3 min, glm::vec3 max);
 
