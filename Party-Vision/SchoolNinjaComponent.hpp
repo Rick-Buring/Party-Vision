@@ -8,9 +8,9 @@ class DrawObjectComponent;
 
 namespace Scene {
 
-	class SchoolNinja : public AbstractComponent {
+	class SchoolNinjaComponent : public AbstractComponent {
 	public:
-		SchoolNinja(Scene* scene);
+		SchoolNinjaComponent(Scene* scene);
 
 		void update(float deltaTime) override;
 		

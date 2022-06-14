@@ -2,6 +2,7 @@
 
 #include <math.h>
 #include <memory>
+#include <iostream>
 
 #include "main.hpp"
 
@@ -11,24 +12,27 @@
 #include "replaceComponent.hpp"
 #include "OutofBoundsComponent.hpp"
 #include "DestroyObjectComponent.hpp"
+#include "CollisionComponent.hpp"
+#include "Scene.hpp"
 #include "SoundComponent.hpp"
+#include "bass.h"
 
 namespace Scene {
 	static void endGame() {
-		sceneManager = new Minigames::MainMenu();
-		sceneManager->scene->setRunning(true);
+		((Minigames::SchoolNinja*)sceneManager)->endScene = true;
 	}
 
-	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene, SchoolNinja* game) {
+	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene, SchoolNinjaComponent* game) {
 		std::shared_ptr<GameObject> gameObj = std::make_shared<GameObject>();
 
 		float xRand = rand() % 20 - 10;
 
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 20, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
-		gameObj->addComponent(std::make_shared<GravityComponent>(13));
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand/2, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
+		gameObj->addComponent(std::make_shared<GravityComponent>(6));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
 		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
+		gameObj->addComponent(std::make_shared<CollisionComponent>(scene));
 
 		//creating split component
 		std::vector<VBO_Textures_t> tempVect;
@@ -51,15 +55,15 @@ namespace Scene {
 		return gameObj;
 	}
 
-	SchoolNinja::SchoolNinja(Scene* scene) : _scene(scene)
+	SchoolNinjaComponent::SchoolNinjaComponent(Scene* scene) : _scene(scene)
 	{
 		std::vector<VBO_Textures_t> obj = loadObject("models/book/1984_book.obj");
 		_objects.push_back(obj);
 	}
 
-	void SchoolNinja::removeLife() {
-		SchoolNinja::_lifes--;
-		if (SchoolNinja::_lifes <= 0) {
+	void SchoolNinjaComponent::removeLife() {
+		SchoolNinjaComponent::_lifes--;
+		if (SchoolNinjaComponent::_lifes <= 0) {
 			endGame();
 		}
 
@@ -68,14 +72,14 @@ namespace Scene {
 		BASS_ChannelPlay(loseLife , TRUE);
 	}
 
-	void SchoolNinja::increaseScore(int score) {
-		SchoolNinja::_score += score;
+	void SchoolNinjaComponent::increaseScore(int score) {
+		SchoolNinjaComponent::_score += score;
 	}
 
-	void SchoolNinja::update(float deltaTime)
+	void SchoolNinjaComponent::update(float deltaTime)
 	{
 		_durationSeconds -= deltaTime;
-		if (_durationSeconds < 0 || SchoolNinja::_lifes <= 0) {
+		if (_durationSeconds < 0 || SchoolNinjaComponent::_lifes <= 0) {
 			endGame();
 			return;
 		}
@@ -83,7 +87,7 @@ namespace Scene {
 		_chanceMultiplier = (rand() % 100)/200.0;
 		if (_spawnRate * _timeSinceLastSpawn * _chanceMultiplier > 1) {
 			_timeSinceLastSpawn = 0;
-			SchoolNinja::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinja::_scene, this));
+			SchoolNinjaComponent::_scene->addGameObject(generateGameObject(_objects[0], SchoolNinjaComponent::_scene, this));
 		}
 
 	}

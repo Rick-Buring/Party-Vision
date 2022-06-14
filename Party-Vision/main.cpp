@@ -2,7 +2,9 @@
 #include "tigl.h"
 #include <iostream>
 #include "WindowManager.hpp"
-//#include "FrameCapture.hpp"
+
+#include "FrameCapture.hpp"
+
 #include "AbstractSceneManager.hpp"
 #include "MainMenu.hpp"
 #include "SchoolNinja.hpp" 

@@ -63,9 +63,6 @@
     <ClCompile Include="VisionPipeline.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FrameCapture.cpp">
-      <Filter>Vision\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -91,6 +88,9 @@
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
     <ClCompile Include="HandDetection.cpp">
+      <Filter>Vision\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceRecognition.cpp">
       <Filter>Vision\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MoveToComponent.cpp">
@@ -120,7 +120,13 @@
     <ClCompile Include="OutofBoundsComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Convert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CursorPosition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SoundComponent.cpp">
@@ -176,10 +182,10 @@
     <ClInclude Include="IVisionHandler.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FrameCapture.hpp">
+    <ClInclude Include="HandDetection.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HandDetection.hpp">
+    <ClInclude Include="FaceRecognition.hpp">
       <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IOnDeath.hpp">
@@ -203,14 +209,14 @@
     <ClInclude Include="SchoolNinjaComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
-    <ClInclude Include="DestroyObjectComponent.hpp">
-      <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
     <ClInclude Include="OutofBoundsComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
     <ClInclude Include="Texture.hpp">
       <Filter>Scene\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Convert.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.hpp">
       <Filter>Header Files</Filter>
@@ -221,9 +227,20 @@
     <ClInclude Include="CollisionComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="DestroyObjectComponent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CursorPosition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="SoundComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="molorcolor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

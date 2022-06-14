@@ -90,15 +90,18 @@ namespace Vision {
 			for (auto mass_center : mass_centers) {
 				xpos += mass_center.x;
 				ypos += mass_center.y;
+
+				Rect checkRect = Rect(mass_center.x - 25, mass_center.y - 25, 50, 50);
+
 				if (rectangles.empty()) { 
-					rectangles.push_back(Rect(mass_center.x - 25, mass_center.y - 25, 50, 50)); 
+					rectangles.push_back(checkRect); 
 					continue;
 				}
 				bool isRecognized = false;
 
 				for (auto r : rectangles) {
 					//TODO Rectengles moeten bij elkaar toegevoegd worden. Als ze elkaar overlappen. Momenteel gebeurt dit alleen als het midden in het vierkant valt.
-					if (r.contains(Point2i(mass_center.x , mass_center.y))) {
+					if (r.contains(Point2i(checkRect.x)) && r.contains(Point2i(checkRect.y))) {
 						int dX = r.x + mass_center.x;
 						int dY = r.y + mass_center.y;
 

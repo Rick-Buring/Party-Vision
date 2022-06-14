@@ -1,46 +1,48 @@
 #include "MoveToComponent.hpp"
 #include "GameObject.hpp"
 #include "TransformComponent.hpp"
-
+#include <GLFW/glfw3.h>
+#include <opencv2/opencv.hpp>
 #include <iostream>
-
+#include "HandDetection.hpp"
+#include "Convert.hpp"
 #include "WindowManager.hpp"
+#include "CursorPosition.hpp"
 
+using namespace cv;
 
 namespace Scene {
-	double xposition, yposition;
-	glm::vec3 cursorPosition;
-	double middlePointWidth = 0, middlePointHeight = 0;
-
+	
 	MoveToComponent::MoveToComponent(int width, int height, glm::vec3 targetPosition) : targetPosition(targetPosition)
 	{
 		//Divide the height and width by 2 so the item will be spawned to the middle
-		middlePointHeight = height / 2;
-		middlePointWidth = width / 2;
-
-		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
-			{
-				xposition = xpos;
-				yposition = ypos;
-			});
+		_middlePointHeight = height / 2;
+		_middlePointWidth = width / 2;
 	}
 
 	//Update methods gets the current position and moves the item to that current position in a dynamic way. 
 	void MoveToComponent::update(float deltaTime)
 	{
+		static int w, h;
+		
 		std::shared_ptr<TransformComponent> comp = AbstractComponent::_gameObject->Transform;
-		glfwGetCursorPos(window, &xposition, &yposition);
+		glfwGetWindowSize(window, &w, &h);
 
-		targetPosition = glm::vec3(xposition, yposition, 0);
-		glm::vec3 move = targetPosition- _gameObject->Transform->position;
-		move.x -= middlePointWidth;
-		move.y -= middlePointHeight;
+		targetPosition = glm::vec3(cursorPosition.x, cursorPosition.y, 0);
+		glm::vec3 move = targetPosition- comp->position;
+
+		move.x -= _middlePointWidth;
+		move.y -= _middlePointHeight;
 		move.z = 0;
 		float mag = sqrt(move.x * move.x + move.y * move.y) / 2;
 		if (mag > 0) {
 			move = glm::normalize(move);
 		}	
 
-		comp->position += move * 40.0f * deltaTime * mag;
-	};
+		mag /= sqrt(w*w + h*h);
+		mag *= 100;
+		mag = mag < 1 ? 1 : mag;
+		comp->position += move * 100.0f * deltaTime * mag;
+		compPosition = comp->position;
+	}
 }

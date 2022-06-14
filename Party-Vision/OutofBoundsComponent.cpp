@@ -4,11 +4,11 @@
 
 namespace Scene {
 
-	OutOfBoundsComponent::OutOfBoundsComponent(Scene* scene, SchoolNinja* game) : _scene(scene), _game(game)
+	OutOfBoundsComponent::OutOfBoundsComponent(Scene* scene, SchoolNinjaComponent* game) : _scene(scene), _game(game)
 	{
 	}
 
-	OutOfBoundsComponent::OutOfBoundsComponent(Scene* scene,SchoolNinja* game, glm::vec3 min, glm::vec3 max) : _scene(scene), _game(game)
+	OutOfBoundsComponent::OutOfBoundsComponent(Scene* scene,SchoolNinjaComponent* game, glm::vec3 min, glm::vec3 max) : _scene(scene), _game(game)
 	{
 		if (min.x < max.x && min.y < max.y && min.z < max.z) {
 			_min = min;

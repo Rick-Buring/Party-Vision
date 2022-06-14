@@ -84,6 +84,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <IncludePath>$(SolutionDir)Party-Vision\lib\opencv\build\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Party-Vision\lib\opencv\build\x64\vc15\lib;C:\opencv\build\x64\vc15\lib;$(SolutionDir)Party-Vision\lib\bass\c\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -152,20 +155,23 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\glm;$(SolutionDir)lib\glew-2.1.0\include;$(SolutionDir)lib\glfw-3.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Party-Vision\lib\glm;$(SolutionDir)Party-Vision\lib\glew-2.1.0\include;$(SolutionDir)Party-Vision\lib\glfw-3.3.2\include;$(SolutionDir)Party-Vision\lib\bass\c;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\glfw-3.3.2\$(Platform);$(SolutionDir)lib\glew-2.1.0\lib\Release\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Party-Vision\lib\glfw-3.3.2\$(PlatformTarget);$(SolutionDir)Party-Vision\lib\glew-2.1.0\lib\Release\$(PlatformTarget);$(SolutionDir)Party-Vision\lib\bass\c\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world455.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Convert.cpp" />
+    <ClCompile Include="CursorPosition.cpp" />
+    <ClCompile Include="FaceRecognition.cpp" />
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="DestroyObjectComponent.cpp" />
-    <ClCompile Include="FrameCapture.cpp" />
     <ClCompile Include="DrawObjectComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="HandDetection.cpp" />
@@ -192,9 +198,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractComponent.hpp" />
+    <ClInclude Include="Convert.hpp" />
+    <ClInclude Include="CursorPosition.hpp" />
+    <ClInclude Include="FaceRecognition.hpp" />
     <ClInclude Include="DestroyObjectComponent.hpp" />
     <ClInclude Include="CollisionComponent.hpp" />
-    <ClInclude Include="FrameCapture.hpp" />
     <ClInclude Include="AbstractDrawcomponent.hpp" />
     <ClInclude Include="DrawObjectComponent.hpp" />
     <ClInclude Include="GameObject.hpp" />
@@ -223,6 +231,9 @@
     <ClInclude Include="VisionPipeline.hpp" />
     <ClInclude Include="VisionPipelineBuilder.hpp" />
     <ClInclude Include="WindowManager.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="molorcolor.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
