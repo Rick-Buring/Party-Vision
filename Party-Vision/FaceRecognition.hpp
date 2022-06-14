@@ -7,9 +7,7 @@ using namespace cv;
 using namespace cv::ml;
 
 namespace Vision {
-	//Summary
-	//Gets the face from the matrix and returns it.
-
+	
 	/// <summary>
 	/// Gets the face from the matrix and returns it.
 	/// </summary>
