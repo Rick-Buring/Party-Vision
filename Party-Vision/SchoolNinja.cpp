@@ -23,7 +23,7 @@ namespace Minigames {
 		while (threadIsRunning) {
 			Point position;
 
-			Vision::HandDetection_run(position, frame);
+			Vision::handDetection(position, frame);
 			static int width, height;
 			glfwGetWindowSize(window, &width, &height);
 			convertCoordinates(frame, height, width, position, position);
