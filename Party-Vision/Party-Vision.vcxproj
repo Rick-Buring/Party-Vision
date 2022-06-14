@@ -192,8 +192,6 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="VisionPipeline.cpp" />
-    <ClCompile Include="VisionPipelineBuilder.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +214,6 @@
     <ClInclude Include="ObjectLoader.hpp" />
     <ClInclude Include="OutofBoundsComponent.hpp" />
     <ClInclude Include="PlaneComponent.hpp" />
-    <ClInclude Include="IVisionHandler.hpp" />
     <ClInclude Include="PointerExecuter.hpp" />
     <ClInclude Include="replaceComponent.hpp" />
     <ClInclude Include="Scene.hpp" />
@@ -228,8 +225,6 @@
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="tigl.h" />
     <ClInclude Include="TransformComponent.hpp" />
-    <ClInclude Include="VisionPipeline.hpp" />
-    <ClInclude Include="VisionPipelineBuilder.hpp" />
     <ClInclude Include="WindowManager.hpp" />
   </ItemGroup>
   <ItemGroup>

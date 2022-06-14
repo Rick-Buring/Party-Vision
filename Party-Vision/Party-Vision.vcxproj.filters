@@ -57,12 +57,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Minigames\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VisionPipelineBuilder.cpp">
-      <Filter>Vision\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VisionPipeline.cpp">
-      <Filter>Vision\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlaneComponent.cpp">
       <Filter>Scene\SourceFiles\Component</Filter>
     </ClCompile>
@@ -146,12 +140,6 @@
     <ClInclude Include="AbstractSceneManager.hpp">
       <Filter>Minigames\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VisionPipelineBuilder.hpp">
-      <Filter>Vision\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VisionPipeline.hpp">
-      <Filter>Vision\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainMenu.hpp">
       <Filter>Minigames\Header Files</Filter>
     </ClInclude>
@@ -178,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="DrawObjectComponent.hpp">
       <Filter>Scene\Header Files\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="IVisionHandler.hpp">
-      <Filter>Vision\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HandDetection.hpp">
       <Filter>Vision\Header Files</Filter>
