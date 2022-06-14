@@ -12,6 +12,7 @@
 #include "HudComponent.hpp"
 #include <iostream>
 #include <fstream>
+#include "main.hpp"
 namespace Minigames {
 	thread visionT;
 	bool threadIsRunning = false;
@@ -67,7 +68,7 @@ namespace Minigames {
 		visionT = thread(updateVision);
 		//updateVision();
 
-		double mouseWidth = 20, mouseHeight = 20;
+		double mouseWidth = 12.5 * scalex, mouseHeight = 15 * scaley;
 		SchoolNinja::createMouse(mouseWidth, mouseHeight);
 		SchoolNinja::scene->setRunning(true);
 	}

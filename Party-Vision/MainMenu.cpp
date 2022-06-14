@@ -70,7 +70,7 @@ namespace Minigames {
 	Menu_t currentMenu;
 
 	MainMenu::MainMenu() {
-		double mouseWidth = 20, mouseHeight = 20;
+		double mouseWidth = 12.5 * scalex, mouseHeight = 15 * scaley;
 		menuInit(buildNinjaMenu());
 		MainMenu::createMouse(mouseWidth, mouseHeight);
 		attachMouseCallback();
