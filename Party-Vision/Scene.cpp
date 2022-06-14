@@ -61,7 +61,7 @@ namespace Scene {
 		glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		int viewport[4];
+		int viewport[4] = {0,0,0,0};
 		glGetIntegerv(GL_VIEWPORT, viewport);
 		glm::mat4 projection = glm::perspective(glm::radians(75.0f), viewport[2] / (float)viewport[3], 0.01f, 1000.0f);
 		tigl::shader->setProjectionMatrix(projection);

@@ -6,9 +6,10 @@
 namespace Scene {
 	
 	std::string fileName;
-	PlaneComponent::PlaneComponent(float width, float height, Texture* texture)
+	PlaneComponent::PlaneComponent(float width, float height, Texture* texture, bool ortho)
 	{
-		
+		int _width, _height;
+		_ortho = ortho;
 		PlaneComponent::texture = texture;
 		
 		PlaneComponent::projectionOrtho = glm::ortho(0.0f, (float)windowWidth, (float)windowHeight, 0.0f, 1.0f, 100.0f);
@@ -32,8 +33,11 @@ namespace Scene {
 		glEnable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
 		glm::mat4 projectionMatrix = tigl::shader->getProjectionMatrix();
-		tigl::shader->setProjectionMatrix(PlaneComponent::projectionOrtho);
+		if (_ortho) {
+			tigl::shader->setProjectionMatrix(PlaneComponent::projectionOrtho);
+		}
 		tigl::drawVertices(GL_QUADS, verts);
+
 		tigl::shader->setProjectionMatrix(projectionMatrix);
 		textureUnbind();
 		glEnable(GL_DEPTH_TEST);

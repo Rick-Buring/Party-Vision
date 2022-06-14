@@ -40,12 +40,6 @@ namespace Minigames {
 
 
 		~MainMenu();
-
-		/// <summary>
-		/// Create plane that follows mouse that is used for collision check.
-		/// </summary>
-		void createMouse();
-
 	private:
 		
 		

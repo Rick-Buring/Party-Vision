@@ -11,8 +11,15 @@
 #include "tigl.h"
 #include "MoveToComponent.hpp"
 #include "WindowManager.hpp"
-#include <iostream>
+#include "bass.h"
+
 #include "main.hpp"
+#include "CollisionComponent.hpp"
+#include "ObjectLoader.hpp"
+#include "DrawObjectComponent.hpp"
+#include "CursorPosition.hpp"
+
+HSTREAM backgroundMusic; // Handle for open stream
 
 static void attachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
@@ -32,22 +39,43 @@ static void attachMouseCallback() {
 				}
 			}
 		});
+
+	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
+		{
+			cursorPosition = glm::vec2(xpos, ypos);
+		});
 }
+
 static void detachMouseCallback() {
 	glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
 		{}
 	);
+
+	glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
+		{}
+	);
+}
+
+//Starts music
+static void startMusic() {
+	int device = -1; // Default Sounddevice
+	int freq = 44100; // Sample rate (Hz)
+	BASS_Init(device, freq, 0, 0, NULL);
+
+	backgroundMusic = BASS_StreamCreateFile(FALSE, "ophelia.mp3", 0, 0, 0);
+	BASS_ChannelPlay(backgroundMusic, TRUE);
 }
 
 namespace Minigames {
 	Menu_t currentMenu;
 
 	MainMenu::MainMenu() {
-		
+		double mouseWidth = 20, mouseHeight = 20;
 		menuInit(buildNinjaMenu());
-		//create cursor	
-		createMouse();
+		MainMenu::createMouse(mouseWidth, mouseHeight);
 		attachMouseCallback();
+
+		std::shared_ptr<Scene::GameObject> mouse = *scene->getGameobjects()->begin();
 	}
 
 	MainMenu::~MainMenu()
@@ -55,29 +83,9 @@ namespace Minigames {
 		detachMouseCallback();
 	}
 
-	void MainMenu::createMouse()
-	{
-		std::shared_ptr<Scene::GameObject> handCursor;
-		handCursor = std::make_shared<Scene::GameObject>();
-		int curserWidth = 12.5 * scalex , curserHeight = 15 * scaley;
-		handCursor->addComponent(std::make_shared<Scene::PlaneComponent>(curserWidth, curserHeight, new Scene::Texture("textures/handflipped.png")));
-		std::shared_ptr<Scene::TransformComponent> transform2 = std::make_shared<Scene::TransformComponent>(glm::vec3(0, 0, 0));
-		std::shared_ptr<Scene::MoveToComponent> moveTo = std::make_shared<Scene::MoveToComponent>(curserWidth, curserHeight, glm::vec3(0, 0, 0));
-
-		handCursor->addComponent(transform2);
-		handCursor->addComponent(moveTo);
-
-		MainMenu::scene->addGameObject(handCursor);
-	}
-
 	void MainMenu::menuInit(Menu_t current) {
 
 		currentMenu = current;
-		/*std::shared_ptr <Scene::GameObject> test = std::make_shared<Scene::GameObject>();
-		std::shared_ptr<Scene::DrawObjectComponent> testdraw = std::make_shared<Scene::DrawObjectComponent>(Scene::loadObject("models/steve/steve.obj"));
-		test->addComponent(testdraw);
-		std::shared_ptr<Scene::TransformComponent> testTransform = std::make_shared<Scene::TransformComponent>(glm::vec3(-2, -4, 0));
-		test->addComponent(testTransform);*/
 		std::shared_ptr <Scene::GameObject> background = std::make_shared<Scene::GameObject>();
 		std::shared_ptr<Scene::PlaneComponent> backgroundPlane = std::make_shared<Scene::PlaneComponent>(windowWidth, windowHeight, new Scene::Texture(currentMenu.backgroundFileName));
 
@@ -87,8 +95,10 @@ namespace Minigames {
 
 		background->addComponent(backgroundTransform);
 
+		startMusic();
+
 		MainMenu::scene->addGameObject(background);
-		//AbstractSceneManager::scene->addGameObject(test);
+
 		for (MenuItem_t menuItem : currentMenu.menuItems) {
 			std::shared_ptr <Scene::GameObject> button = std::make_shared<Scene::GameObject>();
 

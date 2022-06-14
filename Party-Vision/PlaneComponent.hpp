@@ -11,6 +11,7 @@ namespace Scene {
 	/// </summary>
 	class PlaneComponent : public AbstractDrawComponent {
 	private:
+		bool _ortho;
 		//variable to store plane vertesies
 		std::vector<tigl::Vertex> verts;
 		glm::mat4 projectionOrtho;
@@ -22,7 +23,7 @@ namespace Scene {
 		/// <param name="width">width of the plane</param>
 		/// <param name="height">height of the plane</param>
 		/// <param name="texture">texture that needs to be drawn on the plane</param>
-		PlaneComponent(float width, float height, Texture* texture = nullptr);
+		PlaneComponent(float width, float height, Texture* texture = nullptr, bool ortho = true);
 		virtual void draw() override;
 	};
 };

@@ -16,6 +16,10 @@
 #include "SchoolNinja.hpp"
 #include "HudComponent.hpp"
 #include "IncreaseScoreComponent.hpp"
+#include "CollisionComponent.hpp"
+#include "Scene.hpp"
+#include "SoundComponent.hpp"
+#include "bass.h"
 
 namespace Scene {
 	void SchoolNinjaComponent::endGame() {
@@ -25,8 +29,7 @@ namespace Scene {
 			highScoreFile << SchoolNinjaComponent::_score;
 			highScoreFile.close();
 		}
-		sceneManager = new Minigames::MainMenu();
-		sceneManager->scene->setRunning(true);
+		((Minigames::SchoolNinja*)sceneManager)->endScene = true;
 	}
 
 	std::shared_ptr<GameObject> generateGameObject(std::vector<VBO_Textures_t> obj, Scene* scene, SchoolNinjaComponent* game) {
@@ -34,10 +37,12 @@ namespace Scene {
 
 		float xRand = rand() % 20 - 10;
 
-		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand, 20, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
-		gameObj->addComponent(std::make_shared<GravityComponent>(13));
+		gameObj->addComponent(std::make_shared<TransformComponent>(glm::vec3(xRand, -10, 0), glm::vec3(-xRand/2, 13, 0), glm::vec3(glm::radians(90.0f), 0, 0), glm::normalize(glm::vec3(xRand, -xRand, xRand/2))));
+		gameObj->addComponent(std::make_shared<GravityComponent>(6));
 		gameObj->addComponent(std::make_shared<DrawObjectComponent>(obj));
+		gameObj->addComponent(std::make_shared<SoundComponent>("slicingSound.wav"));
 		gameObj->addComponent(std::make_shared<OutOfBoundsComponent>(scene, game));
+		gameObj->addComponent(std::make_shared<CollisionComponent>(scene));
 		gameObj->addComponent(std::make_shared<IncreaseScoreComponent>(game));
 
 		//creating split component
@@ -76,6 +81,10 @@ namespace Scene {
 			endGame();
 			
 		}
+
+		//Makes sound effect once you lose a life
+		HSTREAM loseLife = BASS_StreamCreateFile(FALSE, "roblox-death-sound_1.mp3", 0, 0, 0);
+		BASS_ChannelPlay(loseLife , TRUE);
 	}
 
 	void SchoolNinjaComponent::increaseScore(int score) {
@@ -92,7 +101,6 @@ namespace Scene {
 		}
 		_durationSeconds -= deltaTime;
 		if (_durationSeconds < 0 || SchoolNinjaComponent::_lifes <= 0) {
-			
 			endGame();
 			return;
 		}

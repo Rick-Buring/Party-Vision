@@ -7,13 +7,11 @@ namespace Minigames {
 	{
 	public:
 		int viewport[4];
-		std::vector<std::shared_ptr<Scene::GameObject>> lifes;
+		bool endScene = false;
 		SchoolNinja();
-		void initLifes();
-		void removeLife();
+		void sceneUpdate() override;
+		~SchoolNinja();
 	private:
-
-
 	};
 
 
