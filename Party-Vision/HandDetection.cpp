@@ -96,7 +96,7 @@ namespace Vision {
 		capture.read(frame);
 
 		//It returns the skincolor and put it in the faces variable.
-		faces = faceRecognitionRun(frame, faceCascade);
+		faces = faceRecognition(frame, faceCascade);
 
 		//if the face is detected than the if-statement will be triggerd.
 		if (!faces.empty()) {
@@ -128,7 +128,7 @@ namespace Vision {
 			erode(mask, mask, kernel);
 
 			//this methode will search the hand in de frame.
-			findHandInFrame(frame, mask);
+			findObjectInFrame(frame, mask);
 
 			position = mass_center;
 
@@ -200,7 +200,7 @@ namespace Vision {
 
 
 	//Get a single frame, filters all the legit contours and select the hand.
-	void findHandInFrame(Mat frame, Mat mask) {
+	void findObjectInFrame(Mat frame, Mat mask) {
 		vector<vector<Point>> contours;
 		vector<Vec4i> hierarchy;
 

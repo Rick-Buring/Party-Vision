@@ -21,12 +21,25 @@ namespace Vision {
 		double b;       // a fraction between 0 and 1
 	} rgb;
 
-	//The methode that will trigger everytime the methode retrieveSkinColor and the methode findHandInFrame.
+	/// <summary>
+	/// The methode that will trigger everytime the methode retrieveSkinColor and the methode findHandInFrame.
+	/// </summary>
+	/// <param name="position">This is the position of the middle from the hand</param>
+	/// <param name="frame"> The frame that has been read in the function. For debugging it can be visualized with cv::imshow()</param>
 	void handDetection(Point& position, Mat& frame);
 
-	//Calculates the skinCOlor and returns it.
-	hsv retrieveSkinColor(Mat frame, vector<Rect>);
+	/// <summary>
+	/// Calculates the skinCOlor and returns it. The skincolor has been colculated with a hsv average of the face
+	/// </summary>
+	/// <param name="frame">The frame where to find the skinColor in the rectangles</param>
+	/// <param name="faces"> A vector with the faces</param>
+	/// <returns>The average of the hsv from the first face</returns>
+	hsv retrieveSkinColor(Mat frame, vector<Rect> faces);
 
-	//Finds the hand in the frame and calculates the position.
-	void findHandInFrame(Mat frame, Mat mask);
+	/// <summary>
+	/// Finds the hand in the frame and calculates the position.
+	/// </summary>
+	/// <param name="frame">The frame where you would like to recognize a hand</param>
+	/// <param name="mask">The mask for recogniting the right color</param>
+	void findObjectInFrame(Mat frame, Mat mask);
 }

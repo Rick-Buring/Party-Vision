@@ -12,7 +12,7 @@ namespace Vision {
 	VideoCapture cap(0);
 
 	//The method finds the face on the matrix and returns it.
-	vector<Rect> faceRecognitionRun(Mat& frame, CascadeClassifier faceCascade)
+	vector<Rect> faceRecognition(Mat& frame, CascadeClassifier faceCascade)
 	{
 		std::vector<Rect> faces;
 		Mat grayframe;
